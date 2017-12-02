@@ -55,7 +55,7 @@ const titles = {
 /**
  * Check if a given app is installed
  *
- * @param {MapsApp} app
+ * @param {string} app
  * @returns boolean
  */
 export function isAppInstalled (app) {
@@ -103,7 +103,12 @@ export function askAppChoice (title = 'Open in Maps', message = 'What app would 
 /**
  * Open a maps app, or let the user choose what app to open, with the given location.
  *
- * @param {OpenMapsOptions} options
+ * @param {{
+ *     latitude: number | string,
+ *     longitude: number | string,
+ *     title: string | undefined | null,
+ *     app: string | undefined | null
+ * }} options
  */
 export async function showLocation (options) {
   if (!options || typeof options !== 'object') {
