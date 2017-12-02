@@ -20,7 +20,7 @@ Currently supported apps:
 ## Installation
 
 ```
-npm i -S react-native-map-link  # or yarn add react-native-map-link
+npm i -S react-native-map-link         # or yarn add react-native-map-link
 ```
 
 ### A note about iOS 9+

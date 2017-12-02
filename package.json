@@ -6,7 +6,7 @@
   "types": "./types.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tschoffelen/react-native-map-link.git"
+    "url": "git+https://github.com/includable/react-native-map-link.git"
   },
   "keywords": [
     "react-native",
@@ -21,9 +21,9 @@
   "author": "Thomas Schoffelen <thomas@includable.com> (https://includable.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tschoffelen/react-native-map-link/issues"
+    "url": "https://github.com/includable/react-native-map-link/issues"
   },
-  "homepage": "https://github.com/tschoffelen/react-native-map-link#readme",
+  "homepage": "https://github.com/includable/react-native-map-link#readme",
   "devDependencies": {
     "react": "^15.4.2",
     "react-native": "^0.40.0"
