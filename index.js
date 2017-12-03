@@ -112,16 +112,16 @@ export function askAppChoice (title = 'Open in Maps', message = 'What app would 
  */
 export async function showLocation (options) {
   if (!options || typeof options !== 'object') {
-    throw MapsException('First parameter of `showLocation` should contain object with options.')
+    throw new MapsException('First parameter of `showLocation` should contain object with options.')
   }
   if (!('latitude' in options) || !('longitude' in options)) {
-    throw MapsException('First parameter of `showLocation` should contain object with at least keys `latitude` and `longitude`.')
+    throw new MapsException('First parameter of `showLocation` should contain object with at least keys `latitude` and `longitude`.')
   }
   if ('title' in options && options.title && typeof options.title !== 'string') {
-    throw MapsException('Option `title` should be of type `string`.')
+    throw new MapsException('Option `title` should be of type `string`.')
   }
   if ('app' in options && options.app && !apps.find(options.app)) {
-    throw MapsException('Option `app` should be undefined, null, or one of the following: "' + apps.join('", "') + '".')
+    throw new MapsException('Option `app` should be undefined, null, or one of the following: "' + apps.join('", "') + '".')
   }
 
   let lat = parseFloat(options.latitude)
