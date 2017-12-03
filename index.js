@@ -28,7 +28,7 @@ const apps = [
 
 const prefixes = {
   'apple-maps': 'http://maps.apple.com/',
-  'google-maps': 'comgooglemaps://',
+  'google-maps': 'comgooglemaps-x-callback://',
   'citymapper': 'citymapper://',
   'uber': 'uber://',
   'lyft': 'lyft://',
@@ -53,22 +53,30 @@ const titles = {
 }
 
 /**
- * Check if a given app is installed
+ * Check if a given map app is installed.
  *
  * @param {string} app
- * @returns boolean
+ * @returns {Promise<boolean>}
  */
-export function isAppInstalled (app) {
+export async function isAppInstalled (app) {
   if (!(app in prefixes)) {
     return false
   }
 
-  return Linking.canOpenURL(prefixes[app])
+  return await Linking.canOpenURL(prefixes[app])
 }
 
+/**
+ * Ask the user to choose one of the available map apps.
+ * @param title
+ * @param message
+ * @returns {Promise<any>}
+ */
 export function askAppChoice (title = 'Open in Maps', message = 'What app would you like to use?') {
   return new Promise((resolve) => {
-    let availableApps = Object.keys(prefixes).filter(isAppInstalled)
+    let availableApps = Object.keys(prefixes).filter(async (app) => {
+      return (await isAppInstalled(app))
+    })
     if (availableApps.length < 2) {
       return resolve(availableApps[0] || null)
     }
@@ -140,7 +148,7 @@ export async function showLocation (options) {
         '&q=' + encodeURIComponent(title || 'Location')
       break
     case 'google-maps':
-      url = 'https://www.google.com/maps/search/?api=1&query=' + lat + ',' + lng
+      url = 'comgooglemaps-x-callback://maps.google.com/search/?api=1&query=' + lat + ',' + lng
       break
     case 'citymapper':
       url = prefixes['citymapper'] + 'directions?endcoord=' + lat + ',' + lng
