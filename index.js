@@ -58,12 +58,16 @@ const titles = {
  * @param {string} app
  * @returns {Promise<boolean>}
  */
-export async function isAppInstalled (app) {
-  if (!(app in prefixes)) {
-    return false
-  }
+export function isAppInstalled (app) {
+  return new Promise((resolve) => {
+    if (!(app in prefixes)) {
+      return resolve(false)
+    }
 
-  return await Linking.canOpenURL(prefixes[app])
+    Linking.canOpenURL(prefixes[app])
+      .then((result) => resolve(!!result))
+      .catch(() => resolve(false))
+  })
 }
 
 /**
