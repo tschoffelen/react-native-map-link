@@ -13,6 +13,8 @@ class MapsException {
   }
 }
 
+const isIOS = Platform.OS === 'ios'
+
 const apps = [
   'apple-maps',
   'google-maps',
@@ -27,8 +29,8 @@ const apps = [
 ]
 
 const prefixes = {
-  'apple-maps': 'http://maps.apple.com/',
-  'google-maps': 'comgooglemaps-x-callback://',
+  'apple-maps': isIOS ? 'http://maps.apple.com/' : 'applemaps://',
+  'google-maps': isIOS ? 'comgooglemaps://' : 'https://maps.google.com/',
   'citymapper': 'citymapper://',
   'uber': 'uber://',
   'lyft': 'lyft://',
@@ -65,7 +67,9 @@ export function isAppInstalled (app) {
     }
 
     Linking.canOpenURL(prefixes[app])
-      .then((result) => resolve(!!result))
+      .then((result) => {
+        resolve(!!result)
+      })
       .catch(() => resolve(false))
   })
 }
@@ -77,38 +81,40 @@ export function isAppInstalled (app) {
  * @returns {Promise<any>}
  */
 export function askAppChoice (title = 'Open in Maps', message = 'What app would you like to use?') {
-  return new Promise((resolve) => {
-    let availableApps = Object.keys(prefixes).filter(async (app) => {
-      return (await isAppInstalled(app))
-    })
+  return new Promise(async (resolve) => {
+    let availableApps = []
+    for (let app in prefixes) {
+      let avail = await isAppInstalled(app)
+      if (avail) {
+        availableApps.push(app)
+      }
+    }
     if (availableApps.length < 2) {
       return resolve(availableApps[0] || null)
     }
 
-    if (Platform.os === 'ios') {
+    if (isIOS) {
       let options = availableApps.map((app) => titles[app])
       options.push('Cancel')
 
       ActionSheetIOS.showActionSheetWithOptions({
-          title: title,
-          message: message,
-          options: options,
-          cancelButtonIndex: options.length - 1
-        },
-        (buttonIndex) => {
-          if (buttonIndex === options.length - 1) {
-            return resolve(null)
-          }
-          return availableApps[buttonIndex]
+        title: title,
+        message: message,
+        options: options,
+        cancelButtonIndex: options.length - 1
+      }, (buttonIndex) => {
+        if (buttonIndex === options.length - 1) {
+          return resolve(null)
         }
-      )
+        return resolve(availableApps[buttonIndex])
+      })
 
       return
     }
 
-    let options = availableApps.map((app) => ({text: titles[app], onPress: () => {resolve(app)}}))
-    options.push({text: 'Cancel', onPress: () => {resolve(null)}, style: 'cancel'})
-    Alert.alert(title, message, options, {onDismiss: () => {resolve(null)}})
+    let options = availableApps.map((app) => ({text: titles[app], onPress: () => resolve(app)}))
+    options.push({text: 'Cancel', onPress: () => resolve(null), style: 'cancel'})
+    Alert.alert(title, message, options, {onDismiss: () => resolve(null)})
   })
 }
 
@@ -152,7 +158,8 @@ export async function showLocation (options) {
         '&q=' + encodeURIComponent(title || 'Location')
       break
     case 'google-maps':
-      url = 'comgooglemaps-x-callback://maps.google.com/search/?api=1&query=' + lat + ',' + lng
+      url = prefixes['google-maps'] + '?api=1&ll=' + lat + ',' + lng +
+        '&q=' + encodeURIComponent(title || 'Location')
       break
     case 'citymapper':
       url = prefixes['citymapper'] + 'directions?endcoord=' + lat + ',' + lng
