@@ -138,7 +138,7 @@ export async function showLocation (options) {
   if ('title' in options && options.title && typeof options.title !== 'string') {
     throw new MapsException('Option `title` should be of type `string`.')
   }
-  if ('app' in options && options.app && !apps.find(options.app)) {
+  if ('app' in options && options.app && apps.indexOf(options.app) < 0) {
     throw new MapsException('Option `app` should be undefined, null, or one of the following: "' + apps.join('", "') + '".')
   }
 
