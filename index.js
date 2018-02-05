@@ -158,7 +158,9 @@ export async function showLocation (options) {
         '&q=' + encodeURIComponent(title || 'Location')
       break
     case 'google-maps':
-      url = prefixes['google-maps'] + '?q=' + lat + ',' + lng
+      url = isIOS
+        ? `${prefixes['google-maps']}?api=1&ll=${lat},${lng}&q=${encodeURIComponent(title || 'Location')}`
+        : `${prefixes['google-maps']}?q=${lat},${lng}`
       break
     case 'citymapper':
       url = prefixes['citymapper'] + 'directions?endcoord=' + lat + ',' + lng
