@@ -158,9 +158,9 @@ export async function showLocation (options) {
         '&q=' + encodeURIComponent(title || 'Location')
       break
     case 'google-maps':
-      url = isIOS
-        ? `${prefixes['google-maps']}?api=1&ll=${lat},${lng}&q=${encodeURIComponent(title || 'Location')}`
-        : `${prefixes['google-maps']}?q=${lat},${lng}`
+      url = prefixes['google-maps'] + (isIOS
+        ? '?api=1&ll=' + lat + ',' + lng + '&q=' + encodeURIComponent(title || 'Location')
+        : '?q=' + lat + ',' + lng)
       break
     case 'citymapper':
       url = prefixes['citymapper'] + 'directions?endcoord=' + lat + ',' + lng
@@ -176,8 +176,8 @@ export async function showLocation (options) {
       }
       break
     case 'lyft':
-      url = prefixes['lyft'] + '?ridetype?id=lyft&destination[latitude]=' + lat +
-        '&destination[longitude]' + lng
+      url = prefixes['lyft'] + 'ridetype?id=lyft&destination[latitude]=' + lat +
+        '&destination[longitude]=' + lng
       break
     case 'transit':
       url = prefixes['transit'] + 'directions?to=' + lat + ',' + lng
