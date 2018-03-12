@@ -170,7 +170,7 @@ export async function showLocation (options) {
       break
     case 'uber':
       url = prefixes['uber'] + '?action=setPickup&pickup=my_location&dropoff[latitude]=' + lat +
-        '&dropoff[longitude]' + lng
+        '&dropoff[longitude]=' + lng
       if (title) {
         url += '&dropoff[nickname]=' + encodeURIComponent(title)
       }
