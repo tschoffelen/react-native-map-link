@@ -124,6 +124,8 @@ export function askAppChoice (title = 'Open in Maps', message = 'What app would 
  * @param {{
  *     latitude: number | string,
  *     longitude: number | string,
+ *     sourceLatitude: number | undefined | null,
+ *     sourceLongitude: number | undefined | null,
  *     title: string | undefined | null,
  *     app: string | undefined | null
  * }} options
@@ -142,28 +144,47 @@ export async function showLocation (options) {
     throw new MapsException('Option `app` should be undefined, null, or one of the following: "' + apps.join('", "') + '".')
   }
 
-  let lat = parseFloat(options.latitude)
-  let lng = parseFloat(options.longitude)
-  let title = options.title && options.title.length ? options.title : null
-  let app = options.app && options.app.length ? options.app : null
+  let useSourceDestiny = false
+
+  if (('sourceLatitude' in options) && ('sourceLongitude' in options)) {
+    useSourceDestiny = true
+
+    const sourceLat = parseFloat(options.sourceLatitude)
+    const sourceLng = parseFloat(options.sourceLongitude)
+    const sourceLatLng = `${sourceLat},${sourceLng}`
+  }
+
+  const lat = parseFloat(options.latitude)
+  const lng = parseFloat(options.longitude)
+  const latlng = lat + ',' + lng
+  const title = options.title && options.title.length ? options.title : null
+  const app = options.app && options.app.length ? options.app : null
 
   if (!app) {
     app = await askAppChoice()
   }
 
   let url = null
+
   switch (app) {
     case 'apple-maps':
-      url = prefixes['apple-maps'] + '?ll=' + lat + ',' + lng +
-        '&q=' + encodeURIComponent(title || 'Location')
+      url = prefixes['apple-maps']
+
+      // For apple maps, if you pass ?ll + saddr or daddr, no map will be rendered
+      url = (useSourceDestiny) ? `${url}?saddr=${sourceLatLng}&daddr=${latlng}` : `${url}?ll=${latlng}`
+      url = `${url}&q=${encodeURIComponent(title || 'Location')}`
       break
     case 'google-maps':
       url = prefixes['google-maps'] + (isIOS
-        ? '?api=1&ll=' + lat + ',' + lng + '&q=' + encodeURIComponent(title || 'Location')
-        : '?q=' + lat + ',' + lng)
+        ? '?api=1&ll=' + latlng + '&q=' + encodeURIComponent(title || 'Location')
+        : '?q=' + latlng)
+
+      if (useSourceDestiny) {
+        url = `${url}&saddr=${sourceLatLng}&daddr=${latlng}`
+      }
       break
     case 'citymapper':
-      url = prefixes['citymapper'] + 'directions?endcoord=' + lat + ',' + lng
+      url = prefixes['citymapper'] + 'directions?endcoord=' + latlng
       if (title) {
         url += '&endname=' + encodeURIComponent(title)
       }
@@ -180,18 +201,23 @@ export async function showLocation (options) {
         '&destination[longitude]=' + lng
       break
     case 'transit':
-      url = prefixes['transit'] + 'directions?to=' + lat + ',' + lng
+      url = prefixes['transit'] + 'directions?to=' + latlng
       break
     case 'waze':
-      url = prefixes['waze'] + '?ll=' + lat + ',' + lng + '&navigate=yes'
+      url = prefixes['waze'] + '?ll=' + latlng + '&navigate=yes'
       break
     case 'yandex':
       url = prefixes['yandex'] + 'build_route_on_map?lat_to=' + lat + '&lon_to=' + lng
       break
     case 'moovit':
       url = prefixes['moovit'] + 'directions?dest_lat=' + lat + '&dest_lon' + lng
+
       if (title) {
         url += '&dest_name=' + encodeURIComponent(title)
+      }
+
+      if (useSourceDestiny) {
+        url = `${url}&orig_lat=${sourceLatitude}&orig_lon=${sourceLongitude}`
       }
       break
   }
