@@ -53,11 +53,14 @@ import { showLocation } from 'react-native-map-link'
 showLocation({
     latitude: 38.8976763,
     longitude: -77.0387185,
+    sourceLatitude: -8.0870631,  // optional
+    sourceLongitude: -34.8941619,  // not optional if sourceLatitude is specified
     title: 'The White House'  // optional
     // app: 'uber'  // optionally specify specific app to use
 })
 ```
 
+* The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supporting all apps, except `Waze and Navigon`, if you want to specify the source lat/long instead of let the app choose your current location.
 
 ## Credits
 
