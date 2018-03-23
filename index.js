@@ -153,12 +153,12 @@ export async function showLocation(options) {
     useSourceDestiny = true
     sourceLat = parseFloat(options.sourceLatitude)
     sourceLng = parseFloat(options.sourceLongitude)
-    sourceLatLng = encodeURIComponent(`${sourceLat},${sourceLng}`)
+    sourceLatLng = `${sourceLat},${sourceLng}`
   }
 
   let lat = parseFloat(options.latitude)
   let lng = parseFloat(options.longitude)
-  let latlng = encodeURIComponent(`${lat},${lng}`)
+  let latlng = `${lat},${lng}`
   let title = options.title && options.title.length ? options.title : null
   let encodedTitle = encodeURIComponent(title)
   let app = options.app && options.app.length ? options.app : null
@@ -172,18 +172,14 @@ export async function showLocation(options) {
   switch (app) {
     case 'apple-maps':
       url = prefixes['apple-maps']
-
-      // For apple maps, if you pass ?ll + saddr + daddr, no route will be rendered
       url = (useSourceDestiny) ? `${url}?saddr=${sourceLatLng}&daddr=${latlng}` : `${url}?ll=${latlng}`
-      url += `&q=${encodeURIComponent(title || 'Location')}`
+      url += `&q=${encodedTitle || 'Location'}`
       break
     case 'google-maps':
-      url = prefixes['google-maps'] +
-        (isIOS ? `?api=1&ll=${latlng}&q=${encodeURIComponent(title || 'Location')}` : `?q=${latlng}`)
-
-      if (useSourceDestiny) {
-        url += `&saddr=${sourceLatLng}&daddr=${latlng}`
-      }
+      url = prefixes['google-maps']
+      url += `?q=${encodedTitle || 'Location'}`
+      url += (isIOS) ? '&api=1' : ''
+      url += (useSourceDestiny) ? `&saddr=${sourceLatLng}&daddr=${latlng}` : `&ll=${latlng}`
       break
     case 'citymapper':
       url = `${prefixes['citymapper']}directions?endcoord=${latlng}`
