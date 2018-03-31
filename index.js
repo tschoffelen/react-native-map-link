@@ -177,9 +177,7 @@ export async function showLocation(options) {
       break
     case 'google-maps':
       url = prefixes['google-maps']
-      url += `?q=${encodedTitle || 'Location'}`
-      url += (isIOS) ? '&api=1' : ''
-      url += (useSourceDestiny) ? `&saddr=${sourceLatLng}&daddr=${latlng}` : `&ll=${latlng}`
+      url += `maps/dir/${latlng}`
       break
     case 'citymapper':
       url = `${prefixes['citymapper']}directions?endcoord=${latlng}`
