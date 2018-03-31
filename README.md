@@ -56,6 +56,8 @@ showLocation({
     sourceLatitude: -8.0870631,  // optional
     sourceLongitude: -34.8941619,  // not optional if sourceLatitude is specified
     title: 'The White House'  // optional
+    askTitle: 'Open in Maps'  // optional
+    askMessage: 'What app would you like to use?'  // optional
     // app: 'uber'  // optionally specify specific app to use
 })
 ```
