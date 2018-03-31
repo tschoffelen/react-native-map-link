@@ -164,7 +164,7 @@ export async function showLocation(options) {
   let app = options.app && options.app.length ? options.app : null
 
   if (!app) {
-    app = await askAppChoice()
+    app = await askAppChoice(options.askTitle, options.askMessage)
   }
 
   let url = null
