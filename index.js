@@ -140,6 +140,12 @@ export async function showLocation(options) {
   if ('title' in options && options.title && typeof options.title !== 'string') {
     throw new MapsException('Option `title` should be of type `string`.')
   }
+  if ('googleForceLatLon' in options && options.googleForceLatLon && typeof options.googleForceLatLon !== 'boolean') {
+    throw new MapsException('Option `googleForceLatLon` should be of type `boolean`.')
+  }
+  if ('googlePlaceId' in options && options.googlePlaceId && typeof options.googlePlaceId !== 'number') {
+    throw new MapsException('Option `googlePlaceId` should be of type `number`.')
+  }
   if ('app' in options && options.app && apps.indexOf(options.app) < 0) {
     throw new MapsException('Option `app` should be undefined, null, or one of the following: "' + apps.join('", "') + '".')
   }
@@ -173,12 +179,16 @@ export async function showLocation(options) {
     case 'apple-maps':
       url = prefixes['apple-maps']
       url = (useSourceDestiny) ? `${url}?saddr=${sourceLatLng}&daddr=${latlng}` : `${url}?ll=${latlng}`
-      url += `&q=${encodedTitle || 'Location'}`
+      url += `&q=${title ? encodedTitle : 'Location'}`
       break
     case 'google-maps':
+      let useTitleForQuery = !options.googleForceLatLon && title
+      let googlePlaceId = options.googlePlaceId ? options.googlePlaceId : null
+
       url = prefixes['google-maps']
-      url += `?q=${encodedTitle || 'Location'}`
+      url += `?q=${useTitleForQuery ? encodedTitle : latlng}`
       url += (isIOS) ? '&api=1' : ''
+      url += (googlePlaceId) ? `&query_place_id=${googlePlaceId}` : '',
       url += (useSourceDestiny) ? `&saddr=${sourceLatLng}&daddr=${latlng}` : `&ll=${latlng}`
       break
     case 'citymapper':
