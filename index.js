@@ -126,6 +126,8 @@ export function askAppChoice(title = 'Open in Maps', message = 'What app would y
  *     longitude: number | string,
  *     sourceLatitude: number | undefined | null,
  *     sourceLongitude: number | undefined | null,
+ *     googleForceLatLon: boolean | undefined | null,
+ *     googlePlaceId: number | undefined | null,
  *     title: string | undefined | null,
  *     app: string | undefined | null
  * }} options
