@@ -74,13 +74,16 @@ export function isAppInstalled(app) {
   })
 }
 
-/**
+ /**
  * Ask the user to choose one of the available map apps.
- * @param title
- * @param message
+ * @param {{
+ *     title: string | undefined | null
+ *     message: string | undefined | null
+ *     cancelText: string | undefined | null
+ * }} options
  * @returns {Promise<any>}
  */
-export function askAppChoice(title = 'Open in Maps', message = 'What app would you like to use?') {
+export function askAppChoice({ dialogTitle, dialogMessage, cancelText }) {
   return new Promise(async (resolve) => {
     let availableApps = []
     for (let app in prefixes) {
@@ -95,11 +98,11 @@ export function askAppChoice(title = 'Open in Maps', message = 'What app would y
 
     if (isIOS) {
       let options = availableApps.map((app) => titles[app])
-      options.push('Cancel')
+      options.push(cancelText)
 
       ActionSheetIOS.showActionSheetWithOptions({
-        title: title,
-        message: message,
+        title: dialogTitle,
+        message: dialogMessage,
         options: options,
         cancelButtonIndex: options.length - 1
       }, (buttonIndex) => {
@@ -114,7 +117,7 @@ export function askAppChoice(title = 'Open in Maps', message = 'What app would y
 
     let options = availableApps.map((app) => ({ text: titles[app], onPress: () => resolve(app) }))
     options.push({ text: 'Cancel', onPress: () => resolve(null), style: 'cancel' })
-    Alert.alert(title, message, options, { onDismiss: () => resolve(null) })
+    Alert.alert(dialogTitle, dialogMessage, options, { onDismiss: () => resolve(null) })
   })
 }
 
@@ -130,6 +133,9 @@ export function askAppChoice(title = 'Open in Maps', message = 'What app would y
  *     googlePlaceId: number | undefined | null,
  *     title: string | undefined | null,
  *     app: string | undefined | null
+ *     dialogTitle: string | undefined | null
+ *     dialogMessage: string | undefined | null
+ *     cancelText: string | undefined | null
  * }} options
  */
 export async function showLocation(options) {
@@ -170,9 +176,12 @@ export async function showLocation(options) {
   let title = options.title && options.title.length ? options.title : null
   let encodedTitle = encodeURIComponent(title)
   let app = options.app && options.app.length ? options.app : null
+  let dialogTitle = options.dialogTitle && options.dialogTitle.length ? options.dialogTitle : 'Open in Maps'
+  let dialogMessage = options.dialogMessage && options.dialogMessage.length ? options.dialogMessage : 'What app would you like to use?'
+  let cancelText = options.cancelText && options.cancelText.length ? options.cancelText : 'Cancel'
 
   if (!app) {
-    app = await askAppChoice()
+    app = await askAppChoice({ dialogTitle, dialogMessage, cancelText })
   }
 
   let url = null
