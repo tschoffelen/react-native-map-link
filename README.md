@@ -58,6 +58,9 @@ showLocation({
     title: 'The White House',  // optional
     googleForceLatLon: false,  // optionally force GoogleMaps to use the latlon for the query instead of the title
     googlePlaceId: 'ChIJGVtI4by3t4kRr51d_Qm_x58',  // optionally specify the google-place-id
+    dialogTitle: 'This is the dialog Title', // optional (default: 'Open in Maps')
+    dialogMessage: 'This is the amazing dialog Message', // optional (default: 'What app would you like to use?')
+    cancelText: 'This is the cancel button text', // optional (default: 'Cancel')
     // app: 'uber'  // optionally specify specific app to use
 })
 ```
