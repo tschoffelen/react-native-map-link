@@ -23,9 +23,6 @@
       "url": "https://github.com/includable/react-native-map-link/issues"
    },
    "homepage": "https://github.com/includable/react-native-map-link#readme",
-   "devDependencies": {
-      "react-native": "^0.40"
-   },
    "peerDependencies": {
       "react-native": ">=0.40.0"
    }
