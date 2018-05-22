@@ -3,7 +3,7 @@ import { StyleSheet, View, Platform, Text, Image, TouchableOpacity, Dimensions, 
 import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
 
-class Modal extends Component {
+class Popup extends Component {
   static propTypes = {};
   static defaultProps = {};
 
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export { Modal };
+export { Popup };

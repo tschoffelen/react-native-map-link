@@ -5,6 +5,7 @@
  */
 
 import { Platform, Alert, ActionSheetIOS, Linking } from 'react-native'
+import { Popup } from './popup'
 
 class MapsException {
   constructor(message) {
