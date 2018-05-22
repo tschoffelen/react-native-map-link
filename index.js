@@ -5,54 +5,14 @@
  */
 
 import { Platform, Alert, ActionSheetIOS, Linking } from 'react-native'
-import { Popup } from './popup'
+export { Popup } from './components/Popup'
+import { apps, prefixes, titles, isIOS } from './constants';
 
 class MapsException {
   constructor(message) {
     this.message = message
     this.name = 'MapsException'
   }
-}
-
-const isIOS = Platform.OS === 'ios'
-
-const apps = [
-  'apple-maps',
-  'google-maps',
-  'citymapper',
-  'uber',
-  'lyft',
-  'navigon',
-  'transit',
-  'waze',
-  'yandex',
-  'moovit'
-]
-
-const prefixes = {
-  'apple-maps': isIOS ? 'http://maps.apple.com/' : 'applemaps://',
-  'google-maps': isIOS ? 'comgooglemaps://' : 'https://maps.google.com/',
-  'citymapper': 'citymapper://',
-  'uber': 'uber://',
-  'lyft': 'lyft://',
-  'navigon': 'navigon://',
-  'transit': 'transit://',
-  'waze': 'waze://',
-  'yandex': 'yandexnavi://',
-  'moovit': 'moovit://'
-}
-
-const titles = {
-  'apple-maps': 'Apple Maps',
-  'google-maps': 'Google Maps',
-  'citymapper': 'Citymapper',
-  'uber': 'Uber',
-  'lyft': 'Lyft',
-  'navigon': 'Navigon',
-  'transit': 'The Transit App',
-  'waze': 'Waze',
-  'yandex': 'Yandex.Navi',
-  'moovit': 'Moovit'
 }
 
 /**
@@ -121,6 +81,18 @@ export function askAppChoice({ dialogTitle, dialogMessage, cancelText }) {
     Alert.alert(dialogTitle, dialogMessage, options, { onDismiss: () => resolve(null) })
   })
 }
+
+export async function getAvailableApps() {
+  let availableApps = []
+  for (let app in prefixes) {
+    let avail = await isAppInstalled(app)
+    if (avail) {
+      availableApps.push(app)
+    }
+  }
+  debugger;
+  return availableApps;
+};
 
 /**
  * Open a maps app, or let the user choose what app to open, with the given location.
