@@ -28,5 +28,8 @@
    },
    "peerDependencies": {
       "react-native": ">=0.40.0"
+   },
+   "dependencies": {
+      "react-native-modal": "^6.0.0"
    }
 }
