@@ -3,7 +3,8 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions, FlatList, 
 import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
 
-import { getAvailableApps, showLocation } from '../index';
+import { getAvailableApps } from '../utils';
+import { showLocation } from '../index';
 import { titles, icons, apps, COLORS } from '../constants';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('screen'); 
@@ -12,18 +13,15 @@ class Popup extends Component {
   static propTypes = {
     isVisible: PropTypes.bool,
     showHeader: PropTypes.bool,
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
     onBackButtonPress: PropTypes.func,
     onAppPressed: PropTypes.func,
     style: PropTypes.object,
+    modalProps: PropTypes.object,
+    options: PropTypes.object.isRequired,
   };
   static defaultProps = {
     isVisible: false,
     showHeader: true,
-    title: 'Open with...',
-    subtitle: 'Lorem ipsum dolor sit amet consectetur adipiscing ex elit nam quo dolor sit amet.',
-    cancelText: 'Cancel',
     style: {
       container: {},
       itemContainer: {},
@@ -37,7 +35,14 @@ class Popup extends Component {
       separatorStyle: {},
       activityIndicatorContainer: {}
     },
-    onBackButtonPress: () => {},
+    modalProps: {},
+    options: {
+      dialogTitle: 'Open with...',
+      dialogMessage: '',
+      cancelText: 'Cancel',
+    },
+    onBackButtonPressed: () => { this.props.onCancelPressed() },
+    onCancelPressed: () => {},
     onAppPressed: () => {},
   };
 
@@ -48,12 +53,13 @@ class Popup extends Component {
   }
 
   _renderHeader = () => {
-    const { showHeader, title, subtitle } = this.props;
+    const { showHeader, options } = this.props;
+    const { dialogTitle, dialogMessage } = options;
 
     return showHeader ? (
-        <View style={styles.headerContainer}>
-          <Text style={[styles.titleText, this.props.style.titleText]}>{title}</Text>
-          {subtitle && subtitle.length ? <Text style={[styles.subtitleText, this.props.style.subtitleText]}>{subtitle}</Text> : null}
+        <View style={[styles.headerContainer, this.props.style.headerContainer]}>
+          <Text style={[styles.titleText, this.props.style.titleText]}>{dialogTitle}</Text>
+          {dialogMessage && dialogMessage.length ? <Text style={[styles.subtitleText, this.props.style.subtitleText]}>{dialogMessage}</Text> : null}
         </View>
       ) : null;
   }
@@ -72,6 +78,7 @@ class Popup extends Component {
         ItemSeparatorComponent={() => <View style={[styles.separatorStyle, this.props.style.separatorStyle]} />}
         data={this.apps}
         renderItem={this._renderAppItem}
+        keyExtractor={(item, index) => item}
       />
     );
   }
@@ -81,10 +88,11 @@ class Popup extends Component {
       <TouchableOpacity
         key={item}
         style={[styles.itemContainer, this.props.style.itemContainer]}
+        onPress={() => this._onAppPressed({ app: item })}
       >
         <View>
           <Image
-            style={styles.image}
+            style={[styles.image, this.props.style.image]}
             source={icons[item]}
           />
         </View>
@@ -94,10 +102,18 @@ class Popup extends Component {
   }
 
   _renderCancelButton = () => (
-    <TouchableOpacity style={[styles.cancelButtonContainer]}>
-      <Text style={[styles.cancelButtonText]}>{this.props.cancelText}</Text>
+    <TouchableOpacity
+      style={[styles.cancelButtonContainer, this.props.style.cancelButtonContainer]}
+      onPress={this.props.onCancelPressed}
+    >
+      <Text style={[styles.cancelButtonText]}>{this.props.options.cancelText}</Text>
     </TouchableOpacity> 
   )
+
+  _onAppPressed = ({ app }) => {
+    showLocation({ ...this.props.options, app });
+    this.props.onAppPressed();
+  }
 
   render() {
     return (
@@ -107,10 +123,10 @@ class Popup extends Component {
         animationIn="slideInUp"
         hideModalContentWhileAnimating={true}
         useNativeDriver={true}
-        onBackButtonPress={this.props.onBackButtonPress}
-        {...this.props}
+        onBackButtonPress={this.props.onBackButtonPressed}
+        {...this.props.modalProps}
       >
-        <View style={styles.container}>
+        <View style={[styles.container, this.props.style.container]}>
           {this._renderHeader()}
           {this._renderApps()}
           {this._renderCancelButton()}

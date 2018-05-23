@@ -8,7 +8,7 @@ export const apps = [
   'citymapper',
   'uber',
   'lyft',
-  // 'navigon',
+  // 'navigon', // this app is not longer available on both Android and iOS Stores
   'transit',
   'waze',
   'yandex',
@@ -21,7 +21,7 @@ export const prefixes = {
   'citymapper': 'citymapper://',
   'uber': 'uber://',
   'lyft': 'lyft://',
-  // 'navigon': 'navigon://',
+  // 'navigon': 'navigon://', // this app is not longer available on both Android and iOS Stores
   'transit': 'transit://',
   'waze': 'waze://',
   'yandex': 'yandexnavi://',
@@ -34,7 +34,7 @@ export const titles = {
   'citymapper': 'Citymapper',
   'uber': 'Uber',
   'lyft': 'Lyft',
-  // 'navigon': 'Navigon',
+  // 'navigon': 'Navigon', // this app is not longer available on both Android and iOS Stores
   'transit': 'The Transit App',
   'waze': 'Waze',
   'yandex': 'Yandex.Navi',

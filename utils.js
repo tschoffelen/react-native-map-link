@@ -1,11 +1,11 @@
 import { Linking, ActionSheetIOS } from 'react-native';
 
-import { prefixes, titles, isIOS } from './constants';
+import { prefixes, titles, isIOS, apps } from './constants';
 
 /**
  * Get available navigation apps.
  */
-const getAvailableApps = async () => {
+export const getAvailableApps = async () => {
   let availableApps = []
   for (let app in prefixes) {
     let avail = await isAppInstalled(app)
