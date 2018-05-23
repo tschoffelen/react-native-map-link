@@ -42,6 +42,12 @@ class Popup extends Component {
     );
   }
 
+  _renderCancelButton = () => (
+    <View style={{ justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+      <Text>Annuler</Text>
+    </View>
+  );
+
   render() {
     return (
       <Modal
@@ -56,6 +62,7 @@ class Popup extends Component {
           <ScrollView>
             {(this.apps || []).map(this._renderAppItem)}
           </ScrollView>
+          {this._renderCancelButton()}
         </View>
       </Modal>
     );
