@@ -41,7 +41,7 @@ class Popup extends Component {
       dialogMessage: '',
       cancelText: 'Cancel',
     },
-    onBackButtonPressed: () => { this.props.onCancelPressed() },
+    onBackButtonPressed: () => { },
     onCancelPressed: () => {},
     onAppPressed: () => {},
   };
