@@ -46,13 +46,7 @@ export function isAppInstalled(app) {
  */
 export function askAppChoice({ dialogTitle, dialogMessage, cancelText }) {
   return new Promise(async (resolve) => {
-    let availableApps = []
-    for (let app in prefixes) {
-      let avail = await isAppInstalled(app)
-      if (avail) {
-        availableApps.push(app)
-      }
-    }
+    let availableApps = await getAvailableApps()
     if (availableApps.length < 2) {
       return resolve(availableApps[0] || null)
     }
@@ -82,6 +76,9 @@ export function askAppChoice({ dialogTitle, dialogMessage, cancelText }) {
   })
 }
 
+/**
+ * Get available navigation apps.
+ */
 export async function getAvailableApps() {
   let availableApps = []
   for (let app in prefixes) {
@@ -90,7 +87,7 @@ export async function getAvailableApps() {
       availableApps.push(app)
     }
   }
-  debugger;
+
   return availableApps;
 };
 

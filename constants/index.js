@@ -52,3 +52,10 @@ export const icons = {
   'yandex': require('../assets/images/yandex.png'),
   'moovit': require('../assets/images/moovit.png')
 };
+
+export const COLORS = {
+  BLACK: '#464646',
+  GREY: '#BBC4CC',
+  GREY2: '#ACBBCB',
+  LIGHT_BLUE: '#ECF2F8',
+};
