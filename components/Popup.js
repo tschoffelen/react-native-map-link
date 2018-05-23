@@ -106,7 +106,7 @@ class Popup extends Component {
       style={[styles.cancelButtonContainer, this.props.style.cancelButtonContainer]}
       onPress={this.props.onCancelPressed}
     >
-      <Text style={[styles.cancelButtonText]}>{this.props.options.cancelText}</Text>
+      <Text style={[styles.cancelButtonText, this.props.style.cancelButtonText]}>{this.props.options.cancelText}</Text>
     </TouchableOpacity> 
   )
 
