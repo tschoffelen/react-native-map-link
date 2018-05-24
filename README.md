@@ -65,7 +65,49 @@ showLocation({
 })
 ```
 
+
+## Component usage (alternative usage)
+
+If you want to have a stylized popup with images you can use the Popup component.
+<a href="https://imgflip.com/gif/2avtml"><img src="https://i.imgflip.com/2avtml.gif" title="made at imgflip.com"/></a>
+
+```
+import { Popup } from 'react-native-map-link';
+
+<Popup
+    isVisible={this.state.isVisible}
+    onCancelPressed={() => this.setState({ isVisible: false })}
+    onAppPressed={() => this.setState({ isVisible: false })}
+    onBackButtonPressed={() => this.setState({ isVisible: false })}
+    modalProps={{ // you can put all <a href="https://github.com/react-native-community/react-native-modal">react-native-modal</a> props inside.
+        animationIn: 'slideInUp',
+    }}
+    options={{ // You can pass exactly the same options as the showLocation method above
+        latitude,
+        longitude,
+        dialogTitle: 'Lancer l\'itinéraire', // optionnal (default: 'Open with...')
+        dialogMessage: 'Choisis grâce à quelle application tu souhaites te rendre à ton ziiin !', // optional (default: '')
+        cancelText: 'Annuler', // optional (default: 'Cancel')
+    }}
+    style={ // optional . You can override default style by passing your values.
+      container: {},
+      itemContainer: {},
+      image: {},
+      itemText: {},
+      headerContainer: {},
+      titleText: {},
+      subtitleText: {},
+      cancelButtonContainer: {},
+      cancelButtonText: {},
+      separatorStyle: {},
+      activityIndicatorContainer: {}
+    }
+/>
+```
+* Every part of the component is editable
+
 * The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supporting all apps, except `Waze and Navigon`, if you want to specify the source lat/long instead of let the app choose your current location.
+
 
 ## Credits
 
@@ -78,3 +120,7 @@ This library is developed by [Includable](https://includable.com/), a creative a
 development agency based in Amsterdam, The Netherlands.
 
 * Thomas Schoffelen, [@tschoffelen](https://twitter.com/tschoffelen)
+
+## Contributors
+
+* Johan le Roch, [@JohnLrDev](https://twitter.com/JohnLrDev)
