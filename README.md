@@ -68,8 +68,9 @@ showLocation({
 
 ## Component usage (alternative usage)
 
-If you want to have a stylized popup with images you can use the Popup component.
 <a href="https://imgflip.com/gif/2avtml"><img src="https://i.imgflip.com/2avtml.gif" title="made at imgflip.com"/></a>
+
+This popup component is entirely customizable.
 
 ```
 import { Popup } from 'react-native-map-link';
