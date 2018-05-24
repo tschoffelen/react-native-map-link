@@ -80,7 +80,7 @@ import { Popup } from 'react-native-map-link';
     onCancelPressed={() => this.setState({ isVisible: false })}
     onAppPressed={() => this.setState({ isVisible: false })}
     onBackButtonPressed={() => this.setState({ isVisible: false })}
-    modalProps={{ // you can put all <a href="https://github.com/react-native-community/react-native-modal">react-native-modal</a> props inside.
+    modalProps={{ // you can put all react-native-modal props inside.
         animationIn: 'slideInUp',
     }}
     options={{ // You can pass exactly the same options as the showLocation method above
@@ -105,7 +105,9 @@ import { Popup } from 'react-native-map-link';
     }
 />
 ```
-* Every part of the component is editable
+* Every part of the component is customizable (excepting app icons).
+
+* The Popup component uses <a href="https://github.com/react-native-community/react-native-modal">react-native-modal</a>. So you can pass all react-native-modal properties inside "modalProps" to modify styling and animations.
 
 * The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supporting all apps, except `Waze and Navigon`, if you want to specify the source lat/long instead of let the app choose your current location.
 
