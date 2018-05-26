@@ -30,7 +30,7 @@ Info.plist to specify the URL schemes with which the app can interact.
 Just put this in your Info.plist depending on which apps you'd like to support.
 Omitting these might mean that the library can't detect some of the maps apps installed by the user.
 
-```
+```xml
 <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>comgooglemaps</string>
@@ -45,15 +45,17 @@ Omitting these might mean that the library can't detect some of the maps apps in
     </array>
 ```
 
-## Usage
+## Basic usage 
 
-```
+Using the `showLocation` function will shown an action sheet on iOS and an alert on Android, without any custom styling:
+
+```js
 import { showLocation } from 'react-native-map-link'
 
 showLocation({
     latitude: 38.8976763,
     longitude: -77.0387185,
-    sourceLatitude: -8.0870631,  // optional
+    sourceLatitude: -8.0870631,  // optionally specify starting location for directions
     sourceLongitude: -34.8941619,  // not optional if sourceLatitude is specified
     title: 'The White House',  // optional
     googleForceLatLon: false,  // optionally force GoogleMaps to use the latlon for the query instead of the title
@@ -65,14 +67,20 @@ showLocation({
 })
 ```
 
+Notes: 
 
-## Component usage (alternative usage)
+* The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supporting all apps, except Waze and Navigon.
 
-<a href="https://imgflip.com/gif/2avtml"><img src="https://i.imgflip.com/2avtml.gif" title="made at imgflip.com"/></a>
 
-This popup component is entirely customizable.
+## Alternative usage: styled popup
 
-```
+Alternatively, it is possible to use a styled popup that displays icons in the app list:
+
+![Popup](https://i.imgflip.com/2avtml.gif)
+
+To use the library in that way, you can import the `Popup` component:
+
+```js
 import { Popup } from 'react-native-map-link';
 
 <Popup
@@ -81,40 +89,32 @@ import { Popup } from 'react-native-map-link';
     onAppPressed={() => this.setState({ isVisible: false })}
     onBackButtonPressed={() => this.setState({ isVisible: false })}
     modalProps={{ // you can put all react-native-modal props inside.
-        animationIn: 'slideInUp',
+        animationIn: 'slideInUp'
     }}
-    options={{ // You can pass exactly the same options as the showLocation method above
-        latitude,
-        longitude,
-        dialogTitle: 'Lancer l\'itinéraire', // optionnal (default: 'Open with...')
-        dialogMessage: 'Choisis grâce à quelle application tu souhaites te rendre à ton ziiin !', // optional (default: '')
-        cancelText: 'Annuler', // optional (default: 'Cancel')
-    }}
-    style={ // optional . You can override default style by passing your values.
-      container: {},
-      itemContainer: {},
-      image: {},
-      itemText: {},
-      headerContainer: {},
-      titleText: {},
-      subtitleText: {},
-      cancelButtonContainer: {},
-      cancelButtonText: {},
-      separatorStyle: {},
-      activityIndicatorContainer: {}
-    }
+    options={{ /* See `showLocation` method above, this accepts the same options. */ }}
+    style={{ /* Optional: you can override default style by passing your values. */ }}
 />
 ```
-* Every part of the component is customizable (excepting app icons).
 
-* The Popup component uses <a href="https://github.com/react-native-community/react-native-modal">react-native-modal</a>. So you can pass all react-native-modal properties inside "modalProps" to modify styling and animations.
+The Popup component uses <a href="https://github.com/react-native-community/react-native-modal">react-native-modal</a>. So you can pass all react-native-modal properties inside "modalProps" to modify styling and animations.
 
-* The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supporting all apps, except `Waze and Navigon`, if you want to specify the source lat/long instead of let the app choose your current location.
+Also, you can customize the styling of the popup by passing an object like this in the `style` prop of the `Popup` component:
 
-
-## Credits
-
-This library is loosely based on [CMMapLauncher](https://github.com/citymapper/CMMapLauncher), ported to React Native for your pleasure and convenience.
+```js
+{
+    container: {},
+    itemContainer: {},
+    image: {},
+    itemText: {},
+    headerContainer: {},
+    titleText: {},
+    subtitleText: {},
+    cancelButtonContainer: {},
+    cancelButtonText: {},
+    separatorStyle: {},
+    activityIndicatorContainer: {}
+}
+```
 
 
 ## Authors
@@ -124,6 +124,11 @@ development agency based in Amsterdam, The Netherlands.
 
 * Thomas Schoffelen, [@tschoffelen](https://twitter.com/tschoffelen)
 
-## Contributors
+
+## Credits
+
+This library is loosely based on [CMMapLauncher](https://github.com/citymapper/CMMapLauncher), ported to React Native for your pleasure and convenience.
+
+Contributors:
 
 * Johan le Roch, [@JohnLrDev](https://twitter.com/JohnLrDev)
