@@ -1,6 +1,10 @@
-import { Linking, ActionSheetIOS } from 'react-native';
+/**
+ * React Native Map Link
+ */
 
-import { prefixes, titles, isIOS, apps } from './constants';
+import { Linking, ActionSheetIOS, Alert } from 'react-native'
+
+import { prefixes, titles, isIOS, apps } from './constants'
 
 /**
  * Get available navigation apps.
@@ -8,14 +12,17 @@ import { prefixes, titles, isIOS, apps } from './constants';
 export const getAvailableApps = async () => {
   let availableApps = []
   for (let app in prefixes) {
+    if (!prefixes.hasOwnProperty(app)) {
+      continue
+    }
     let avail = await isAppInstalled(app)
     if (avail) {
       availableApps.push(app)
     }
   }
 
-  return availableApps;
-};
+  return availableApps
+}
 
 /**
  * Check if a given map app is installed.
@@ -23,7 +30,7 @@ export const getAvailableApps = async () => {
  * @param {string} app
  * @returns {Promise<boolean>}
  */
-function isAppInstalled(app) {
+function isAppInstalled (app) {
   return new Promise((resolve) => {
     if (!(app in prefixes)) {
       return resolve(false)
@@ -37,16 +44,16 @@ function isAppInstalled(app) {
   })
 }
 
- /**
+/**
  * Ask the user to choose one of the available map apps.
  * @param {{
  *     title: string | undefined | null
  *     message: string | undefined | null
  *     cancelText: string | undefined | null
  * }} options
- * @returns {Promise<any>}
+ * @returns {Promise}
  */
-export function askAppChoice({ dialogTitle, dialogMessage, cancelText }) {
+export function askAppChoice ({dialogTitle, dialogMessage, cancelText}) {
   return new Promise(async (resolve) => {
     let availableApps = await getAvailableApps()
     if (availableApps.length < 2) {
@@ -72,9 +79,9 @@ export function askAppChoice({ dialogTitle, dialogMessage, cancelText }) {
       return
     }
 
-    let options = availableApps.map((app) => ({ text: titles[app], onPress: () => resolve(app) }))
-    options.push({ text: 'Cancel', onPress: () => resolve(null), style: 'cancel' })
-    Alert.alert(dialogTitle, dialogMessage, options, { onDismiss: () => resolve(null) })
+    let options = availableApps.map((app) => ({text: titles[app], onPress: () => resolve(app)}))
+    options.push({text: 'Cancel', onPress: () => resolve(null), style: 'cancel'})
+    return Alert.alert(dialogTitle, dialogMessage, options, {onDismiss: () => resolve(null)})
   })
 }
 
@@ -95,7 +102,7 @@ export function askAppChoice({ dialogTitle, dialogMessage, cancelText }) {
  *     cancelText: string | undefined | null
  * }} options
  */
-export function checkOptions(options) {
+export function checkOptions (options) {
   if (!options || typeof options !== 'object') {
     throw new MapsException('First parameter of `showLocation` should contain object with options.')
   }
@@ -117,7 +124,7 @@ export function checkOptions(options) {
 }
 
 class MapsException {
-  constructor(message) {
+  constructor (message) {
     this.message = message
     this.name = 'MapsException'
   }

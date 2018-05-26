@@ -1,14 +1,13 @@
 /**
  * React Native Map Link
- *
- * This file supports both iOS and Android.
  */
 
 import { Platform, Alert, ActionSheetIOS, Linking } from 'react-native'
-export { Popup } from './components/Popup'
-import { apps, prefixes, isIOS } from './constants';
-import { askAppChoice, checkOptions } from './utils';
 
+import { prefixes, isIOS } from './constants'
+import { askAppChoice, checkOptions } from './utils'
+
+export { Popup } from './components/Popup'
 
 /**
  * Open a maps app, or let the user choose what app to open, with the given location.
@@ -27,13 +26,13 @@ import { askAppChoice, checkOptions } from './utils';
  *     cancelText: string | undefined | null
  * }} options
  */
-export async function showLocation(options) {
-  checkOptions(options);
+export async function showLocation (options) {
+  checkOptions(options)
 
   let useSourceDestiny = false
-  let sourceLat;
-  let sourceLng;
-  let sourceLatLng;
+  let sourceLat
+  let sourceLng
+  let sourceLatLng
 
   if (('sourceLatitude' in options) && ('sourceLongitude' in options)) {
     useSourceDestiny = true
@@ -53,7 +52,7 @@ export async function showLocation(options) {
   let cancelText = options.cancelText && options.cancelText.length ? options.cancelText : 'Cancel'
 
   if (!app) {
-    app = await askAppChoice({ dialogTitle, dialogMessage, cancelText })
+    app = await askAppChoice({dialogTitle, dialogMessage, cancelText})
   }
 
   let url = null
@@ -71,7 +70,7 @@ export async function showLocation(options) {
       url = prefixes['google-maps']
       url += `?q=${useTitleForQuery ? encodedTitle : latlng}`
       url += (isIOS) ? '&api=1' : ''
-      url += (googlePlaceId) ? `&query_place_id=${googlePlaceId}` : '',
+      url += (googlePlaceId) ? `&query_place_id=${googlePlaceId}` : ''
       url += (useSourceDestiny) ? `&saddr=${sourceLatLng}&daddr=${latlng}` : `&ll=${latlng}`
       break
     case 'citymapper':

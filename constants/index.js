@@ -1,19 +1,10 @@
-import { Platform, Alert, ActionSheetIOS, Linking } from 'react-native';
+/**
+ * React Native Map Link
+ */
 
-export const isIOS = Platform.OS === 'ios';
+import { Platform, Alert, ActionSheetIOS, Linking } from 'react-native'
 
-export const apps = [
-  'apple-maps',
-  'google-maps',
-  'citymapper',
-  'uber',
-  'lyft',
-  // 'navigon', // this app is not longer available on both Android and iOS Stores
-  'transit',
-  'waze',
-  'yandex',
-  'moovit'
-];
+export const isIOS = Platform.OS === 'ios'
 
 export const prefixes = {
   'apple-maps': isIOS ? 'http://maps.apple.com/' : 'applemaps://',
@@ -21,12 +12,11 @@ export const prefixes = {
   'citymapper': 'citymapper://',
   'uber': 'uber://',
   'lyft': 'lyft://',
-  // 'navigon': 'navigon://', // this app is not longer available on both Android and iOS Stores
   'transit': 'transit://',
   'waze': 'waze://',
   'yandex': 'yandexnavi://',
   'moovit': 'moovit://'
-};
+}
 
 export const titles = {
   'apple-maps': 'Apple Maps',
@@ -34,12 +24,11 @@ export const titles = {
   'citymapper': 'Citymapper',
   'uber': 'Uber',
   'lyft': 'Lyft',
-  // 'navigon': 'Navigon', // this app is not longer available on both Android and iOS Stores
   'transit': 'The Transit App',
   'waze': 'Waze',
   'yandex': 'Yandex.Navi',
   'moovit': 'Moovit'
-};
+}
 
 export const icons = {
   'apple-maps': require('../assets/images/apple-maps.png'),
@@ -51,11 +40,11 @@ export const icons = {
   'waze': require('../assets/images/waze.png'),
   'yandex': require('../assets/images/yandex.png'),
   'moovit': require('../assets/images/moovit.png')
-};
+}
 
-export const COLORS = {
-  BLACK: '#464646',
-  GREY: '#BBC4CC',
-  GREY2: '#ACBBCB',
-  LIGHT_BLUE: '#ECF2F8',
-};
+export const colors = {
+  black: '#464646',
+  gray: '#BBC4CC',
+  lightGray: '#ACBBCB',
+  lightBlue: '#ECF2F8'
+}

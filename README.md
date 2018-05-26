@@ -10,7 +10,6 @@ Currently supported apps:
 * Citymapper – `citymapper`
 * Uber – `uber`
 * Lyft – `lyft`
-* Navigon – `navigon`
 * The Transit App – `transit`
 * Waze – `waze`
 * Yandex.Navi – `yandex`
@@ -37,7 +36,6 @@ Omitting these might mean that the library can't detect some of the maps apps in
         <string>citymapper</string>
         <string>uber</string>
         <string>lyft</string>
-        <string>navigon</string>
         <string>transit</string>
         <string>waze</string>
         <string>yandexnavi</string>
@@ -69,7 +67,7 @@ showLocation({
 
 Notes: 
 
-* The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supporting all apps, except Waze and Navigon.
+* The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supports all apps except Waze.
 
 
 ## Alternative usage: styled popup

@@ -1,15 +1,28 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions, FlatList, ActivityIndicator } from 'react-native';
-import PropTypes from 'prop-types';
-import Modal from 'react-native-modal';
+/**
+ * React Native Map Link
+ */
 
-import { getAvailableApps } from '../utils';
-import { showLocation } from '../index';
-import { titles, icons, apps, COLORS } from '../constants';
+import React from 'react'
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+  FlatList,
+  ActivityIndicator
+} from 'react-native'
+import PropTypes from 'prop-types'
+import Modal from 'react-native-modal'
 
-const { height: SCREEN_HEIGHT } = Dimensions.get('screen'); 
+import { getAvailableApps } from '../utils'
+import { showLocation } from '../index'
+import { titles, icons, colors } from '../constants'
 
-class Popup extends Component {
+const {height: SCREEN_HEIGHT} = Dimensions.get('screen')
+
+export class Popup extends React.Component {
   static propTypes = {
     isVisible: PropTypes.bool,
     showHeader: PropTypes.bool,
@@ -17,8 +30,8 @@ class Popup extends Component {
     onAppPressed: PropTypes.func,
     style: PropTypes.object,
     modalProps: PropTypes.object,
-    options: PropTypes.object.isRequired,
-  };
+    options: PropTypes.object.isRequired
+  }
   static defaultProps = {
     isVisible: false,
     showHeader: true,
@@ -39,56 +52,58 @@ class Popup extends Component {
     options: {
       dialogTitle: 'Open with...',
       dialogMessage: '',
-      cancelText: 'Cancel',
+      cancelText: 'Cancel'
     },
     onBackButtonPressed: () => { },
     onCancelPressed: () => {},
-    onAppPressed: () => {},
-  };
+    onAppPressed: () => {}
+  }
 
   componentDidMount = async () => {
-    this.loading = true;
-    this.apps = await getAvailableApps();
-    this.loading = false;
+    this.loading = true
+    this.apps = await getAvailableApps()
+    this.loading = false
   }
 
   _renderHeader = () => {
-    const { showHeader, options } = this.props;
-    const { dialogTitle, dialogMessage } = options;
+    const {showHeader, options} = this.props
+    const {dialogTitle, dialogMessage} = options
 
     return showHeader ? (
-        <View style={[styles.headerContainer, this.props.style.headerContainer]}>
-          <Text style={[styles.titleText, this.props.style.titleText]}>{dialogTitle}</Text>
-          {dialogMessage && dialogMessage.length ? <Text style={[styles.subtitleText, this.props.style.subtitleText]}>{dialogMessage}</Text> : null}
-        </View>
-      ) : null;
+      <View style={[styles.headerContainer, this.props.style.headerContainer]}>
+        <Text style={[styles.titleText, this.props.style.titleText]}>{dialogTitle}</Text>
+        {dialogMessage && dialogMessage.length ?
+          <Text style={[styles.subtitleText, this.props.style.subtitleText]}>{dialogMessage}</Text> : null}
+      </View>
+    ) : null
   }
 
   _renderApps = () => {
     if (this.loading) {
       return (
         <View style={[styles.activityIndicatorContainer, this.props.style.activityIndicatorContainer]}>
-          <ActivityIndicator size="large" color={COLORS.BLACK} />
+          <ActivityIndicator size="large" color={colors.black}/>
         </View>
-      );
+      )
     }
 
     return (
       <FlatList
-        ItemSeparatorComponent={() => <View style={[styles.separatorStyle, this.props.style.separatorStyle]} />}
+        ItemSeparatorComponent={() =>
+          <View style={[styles.separatorStyle, this.props.style.separatorStyle]}/>}
         data={this.apps}
         renderItem={this._renderAppItem}
-        keyExtractor={(item, index) => item}
+        keyExtractor={(item) => item}
       />
-    );
+    )
   }
 
-  _renderAppItem = ({ item }) => {
+  _renderAppItem = ({item}) => {
     return (
       <TouchableOpacity
         key={item}
         style={[styles.itemContainer, this.props.style.itemContainer]}
-        onPress={() => this._onAppPressed({ app: item })}
+        onPress={() => this._onAppPressed({app: item})}
       >
         <View>
           <Image
@@ -98,7 +113,7 @@ class Popup extends Component {
         </View>
         <Text style={[styles.itemText, this.props.style.itemText]}>{titles[item]}</Text>
       </TouchableOpacity>
-    );
+    )
   }
 
   _renderCancelButton = () => (
@@ -107,19 +122,19 @@ class Popup extends Component {
       onPress={this.props.onCancelPressed}
     >
       <Text style={[styles.cancelButtonText, this.props.style.cancelButtonText]}>{this.props.options.cancelText}</Text>
-    </TouchableOpacity> 
+    </TouchableOpacity>
   )
 
-  _onAppPressed = ({ app }) => {
-    showLocation({ ...this.props.options, app });
-    this.props.onAppPressed();
+  _onAppPressed = ({app}) => {
+    showLocation({...this.props.options, app})
+    this.props.onAppPressed()
   }
 
-  render() {
+  render () {
     return (
       <Modal
         isVisible={this.props.isVisible}
-        backdropColor={COLORS.BLACK}
+        backdropColor={colors.black}
         animationIn="slideInUp"
         hideModalContentWhileAnimating={true}
         useNativeDriver={true}
@@ -132,7 +147,7 @@ class Popup extends Component {
           {this._renderCancelButton()}
         </View>
       </Modal>
-    );
+    )
   }
 }
 
@@ -141,7 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     overflow: 'hidden',
-    maxHeight: SCREEN_HEIGHT * .6,
+    maxHeight: SCREEN_HEIGHT * .6
   },
   itemContainer: {
     flexDirection: 'row',
@@ -149,34 +164,34 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 20,
-    paddingRight: 20,
+    paddingRight: 20
   },
   image: {
     width: 50,
-    height: 50,
+    height: 50
   },
   itemText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: COLORS.BLACK,
-    marginLeft: 15,
+    color: colors.black,
+    marginLeft: 15
   },
   headerContainer: {
     borderWidth: 1,
     borderColor: 'transparent',
-    borderBottomColor: COLORS.LIGHT_BLUE,
-    padding: 15,
+    borderBottomColor: colors.lightBlue,
+    padding: 15
   },
   titleText: {
     fontSize: 16,
     textAlign: 'center',
-    color: COLORS.BLACK,
+    color: colors.black
   },
   subtitleText: {
     fontSize: 12,
-    color: COLORS.GREY2,
+    color: colors.lightGray,
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: 10
   },
   cancelButtonContainer: {
     justifyContent: 'center',
@@ -184,23 +199,21 @@ const styles = StyleSheet.create({
     padding: 20,
     borderWidth: 1,
     borderColor: 'transparent',
-    borderTopColor: COLORS.LIGHT_BLUE,
+    borderTopColor: colors.lightBlue
   },
   cancelButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: COLORS.GREY,
+    color: colors.gray
   },
   separatorStyle: {
     flex: 1,
     height: 1,
-    backgroundColor: COLORS.LIGHT_BLUE,
+    backgroundColor: colors.lightBlue
   },
   activityIndicatorContainer: {
     height: 70,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   }
-});
-
-export { Popup };
+})
