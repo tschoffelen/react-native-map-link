@@ -5,121 +5,10 @@
  */
 
 import { Platform, Alert, ActionSheetIOS, Linking } from 'react-native'
+export { Popup } from './components/Popup'
+import { apps, prefixes, isIOS } from './constants';
+import { askAppChoice, checkOptions } from './utils';
 
-class MapsException {
-  constructor(message) {
-    this.message = message
-    this.name = 'MapsException'
-  }
-}
-
-const isIOS = Platform.OS === 'ios'
-
-const apps = [
-  'apple-maps',
-  'google-maps',
-  'citymapper',
-  'uber',
-  'lyft',
-  'navigon',
-  'transit',
-  'waze',
-  'yandex',
-  'moovit'
-]
-
-const prefixes = {
-  'apple-maps': isIOS ? 'http://maps.apple.com/' : 'applemaps://',
-  'google-maps': isIOS ? 'comgooglemaps://' : 'https://maps.google.com/',
-  'citymapper': 'citymapper://',
-  'uber': 'uber://',
-  'lyft': 'lyft://',
-  'navigon': 'navigon://',
-  'transit': 'transit://',
-  'waze': 'waze://',
-  'yandex': 'yandexnavi://',
-  'moovit': 'moovit://'
-}
-
-const titles = {
-  'apple-maps': 'Apple Maps',
-  'google-maps': 'Google Maps',
-  'citymapper': 'Citymapper',
-  'uber': 'Uber',
-  'lyft': 'Lyft',
-  'navigon': 'Navigon',
-  'transit': 'The Transit App',
-  'waze': 'Waze',
-  'yandex': 'Yandex.Navi',
-  'moovit': 'Moovit'
-}
-
-/**
- * Check if a given map app is installed.
- *
- * @param {string} app
- * @returns {Promise<boolean>}
- */
-export function isAppInstalled(app) {
-  return new Promise((resolve) => {
-    if (!(app in prefixes)) {
-      return resolve(false)
-    }
-
-    Linking.canOpenURL(prefixes[app])
-      .then((result) => {
-        resolve(!!result)
-      })
-      .catch(() => resolve(false))
-  })
-}
-
- /**
- * Ask the user to choose one of the available map apps.
- * @param {{
- *     title: string | undefined | null
- *     message: string | undefined | null
- *     cancelText: string | undefined | null
- * }} options
- * @returns {Promise<any>}
- */
-export function askAppChoice({ dialogTitle, dialogMessage, cancelText }) {
-  return new Promise(async (resolve) => {
-    let availableApps = []
-    for (let app in prefixes) {
-      let avail = await isAppInstalled(app)
-      if (avail) {
-        availableApps.push(app)
-      }
-    }
-    if (availableApps.length < 2) {
-      return resolve(availableApps[0] || null)
-    }
-
-    if (isIOS) {
-      let options = availableApps.map((app) => titles[app])
-      options.push(cancelText)
-
-      ActionSheetIOS.showActionSheetWithOptions({
-        title: dialogTitle,
-        message: dialogMessage,
-        options: options,
-        cancelButtonIndex: options.length - 1
-      }, (buttonIndex) => {
-        if (buttonIndex === options.length - 1) {
-          return resolve(null)
-        }
-        return resolve(availableApps[buttonIndex])
-      })
-
-      return
-    }
-
-    let options = availableApps.map((app) => ({ text: titles[app], onPress: () => resolve(app) }))
-    options.push({ text: 'Cancel', onPress: () => resolve(null), style: 'cancel' })
-    Alert.alert(dialogTitle, dialogMessage, options, { onDismiss: () => resolve(null) })
-  })
-}
 
 /**
  * Open a maps app, or let the user choose what app to open, with the given location.
@@ -139,24 +28,7 @@ export function askAppChoice({ dialogTitle, dialogMessage, cancelText }) {
  * }} options
  */
 export async function showLocation(options) {
-  if (!options || typeof options !== 'object') {
-    throw new MapsException('First parameter of `showLocation` should contain object with options.')
-  }
-  if (!('latitude' in options) || !('longitude' in options)) {
-    throw new MapsException('First parameter of `showLocation` should contain object with at least keys `latitude` and `longitude`.')
-  }
-  if ('title' in options && options.title && typeof options.title !== 'string') {
-    throw new MapsException('Option `title` should be of type `string`.')
-  }
-  if ('googleForceLatLon' in options && options.googleForceLatLon && typeof options.googleForceLatLon !== 'boolean') {
-    throw new MapsException('Option `googleForceLatLon` should be of type `boolean`.')
-  }
-  if ('googlePlaceId' in options && options.googlePlaceId && typeof options.googlePlaceId !== 'number') {
-    throw new MapsException('Option `googlePlaceId` should be of type `number`.')
-  }
-  if ('app' in options && options.app && apps.indexOf(options.app) < 0) {
-    throw new MapsException('Option `app` should be undefined, null, or one of the following: "' + apps.join('", "') + '".')
-  }
+  checkOptions(options);
 
   let useSourceDestiny = false
   let sourceLat;
