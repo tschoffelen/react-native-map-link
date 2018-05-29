@@ -80,7 +80,7 @@ export function askAppChoice ({dialogTitle, dialogMessage, cancelText}) {
     }
 
     let options = availableApps.map((app) => ({text: titles[app], onPress: () => resolve(app)}))
-    options.push({text: 'Cancel', onPress: () => resolve(null), style: 'cancel'})
+    options.push({text: cancelText, onPress: () => resolve(null), style: 'cancel'})
     return Alert.alert(dialogTitle, dialogMessage, options, {onDismiss: () => resolve(null)})
   })
 }
