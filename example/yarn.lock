@@ -4163,9 +4163,9 @@ react-native-animatable@^1.2.4:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-map-link@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-map-link/-/react-native-map-link-2.0.2.tgz#fed2a927d9bfb266c1c8b287e7e57f22b6a7670f"
+react-native-map-link@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-map-link/-/react-native-map-link-2.0.3.tgz#bc0aa6ad44e233250b5c4fcc982ff7be72671362"
   dependencies:
     prop-types "^15.6.1"
     react-native-modal "^6.0.0"
