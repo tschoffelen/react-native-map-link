@@ -30,7 +30,8 @@ export class Popup extends React.Component {
     onAppPressed: PropTypes.func,
     style: PropTypes.object,
     modalProps: PropTypes.object,
-    options: PropTypes.object.isRequired
+    options: PropTypes.object.isRequired,
+    appsWhiteList: PropTypes.array
   }
   static defaultProps = {
     isVisible: false,
@@ -54,14 +55,22 @@ export class Popup extends React.Component {
       dialogMessage: '',
       cancelText: 'Cancel'
     },
+    appsWhiteList: null,
     onBackButtonPressed: () => { },
     onCancelPressed: () => {},
     onAppPressed: () => {}
   }
 
   componentDidMount = async () => {
+    const { appsWhiteList } = this.props
     this.loading = true
     this.apps = await getAvailableApps()
+    
+    if (appsWhiteList && appsWhiteList.length) {
+      this.apps = this.apps
+        .filter(appName => this.props.appsWhiteList.includes(appName))  
+    }
+    
     this.loading = false
   }
 
