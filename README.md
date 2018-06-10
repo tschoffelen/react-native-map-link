@@ -1,4 +1,8 @@
-# React Native Map Link
+<center>
+  <img alt="React Native Map Link" src=".github/banner.svg" />
+</center>
+
+---
 
 An easy way to open a location in a map app of the user's choice, based on the apps they have installed
 on their device.
