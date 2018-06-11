@@ -61,6 +61,7 @@ showLocation({
     dialogTitle: 'This is the dialog Title', // optional (default: 'Open in Maps')
     dialogMessage: 'This is the amazing dialog Message', // optional (default: 'What app would you like to use?')
     cancelText: 'This is the cancel button text', // optional (default: 'Cancel')
+    appsWhiteList: ['google-maps'] // optionally you can set which apps to show (default: will show all supported apps installed on device)
     // app: 'uber'  // optionally specify specific app to use
 })
 ```
@@ -90,7 +91,7 @@ import { Popup } from 'react-native-map-link';
         animationIn: 'slideInUp'
     }}
     appsWhiteList={{ /* Array of apps (apple-maps, google-maps, etc...) that you want 
-    to show in the popup, if is undefined or an empty array it will show all installed apps supported.*/}}
+    to show in the popup, if is undefined or an empty array it will show all supported apps installed on device.*/}}
     options={{ /* See `showLocation` method above, this accepts the same options. */ }}
     style={{ /* Optional: you can override default style by passing your values. */ }}
 />

@@ -50,16 +50,23 @@ function isAppInstalled (app) {
  *     title: string | undefined | null
  *     message: string | undefined | null
  *     cancelText: string | undefined | null
+ *     appsWhiteList: array | undefined | null
  * }} options
  * @returns {Promise}
  */
-export function askAppChoice ({dialogTitle, dialogMessage, cancelText}) {
+export function askAppChoice ({dialogTitle, dialogMessage, cancelText, appsWhiteList}) {
   return new Promise(async (resolve) => {
     let availableApps = await getAvailableApps()
+    
+    if (appsWhiteList && appsWhiteList.length) {
+      availableApps = availableApps
+        .filter(appName => appsWhiteList.includes(appName))  
+    }
+    
     if (availableApps.length < 2) {
       return resolve(availableApps[0] || null)
     }
-
+    
     if (isIOS) {
       let options = availableApps.map((app) => titles[app])
       options.push(cancelText)

@@ -24,6 +24,7 @@ export { Popup } from './components/Popup'
  *     dialogTitle: string | undefined | null
  *     dialogMessage: string | undefined | null
  *     cancelText: string | undefined | null
+ *     appsWhiteList: array | undefined | null
  * }} options
  */
 export async function showLocation (options) {
@@ -50,9 +51,15 @@ export async function showLocation (options) {
   let dialogTitle = options.dialogTitle && options.dialogTitle.length ? options.dialogTitle : 'Open in Maps'
   let dialogMessage = options.dialogMessage && options.dialogMessage.length ? options.dialogMessage : 'What app would you like to use?'
   let cancelText = options.cancelText && options.cancelText.length ? options.cancelText : 'Cancel'
+  let appsWhiteList = options.appsWhiteList && options.appsWhiteList.length ? options.appsWhiteList : null
 
   if (!app) {
-    app = await askAppChoice({dialogTitle, dialogMessage, cancelText})
+    app = await askAppChoice({
+      dialogTitle, 
+      dialogMessage, 
+      cancelText, 
+      appsWhiteList
+    })
   }
 
   let url = null
