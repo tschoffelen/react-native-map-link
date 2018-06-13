@@ -16,7 +16,7 @@ import {
 import PropTypes from 'prop-types'
 import Modal from 'react-native-modal'
 
-import { getAvailableApps } from '../utils'
+import { getAvailableApps, checkNotSupportedApps } from '../utils'
 import { showLocation } from '../index'
 import { titles, icons, colors } from '../constants'
 
@@ -65,12 +65,11 @@ export class Popup extends React.Component {
     const { appsWhiteList } = this.props
     this.loading = true
     this.apps = await getAvailableApps()
-    
     if (appsWhiteList && appsWhiteList.length) {
+      checkNotSupportedApps(appsWhiteList)
       this.apps = this.apps
         .filter(appName => this.props.appsWhiteList.includes(appName))  
     }
-    
     this.loading = false
   }
 
