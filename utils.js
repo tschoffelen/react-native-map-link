@@ -45,17 +45,58 @@ function isAppInstalled (app) {
 }
 
 /**
+ * Check if a given app is supported by this library
+ *
+ * @param {string} app
+ * @returns {boolean}
+ */
+function isSupportedApp(app) {
+  return Object.keys(titles).includes(app)
+}
+
+/**
+ * Get a list of not supported apps from a given array of apps
+ *
+ * @param {array} apps
+ * @returns {array} 
+ */
+function getNotSupportedApps(apps) {
+  return apps.filter(app => !isSupportedApp(app))
+}
+
+/**
+ * Throws an exception if some of the given apps is not supported
+ *
+ * @param {array} apps
+ */
+export function checkNotSupportedApps(apps) {
+  let notSupportedApps = getNotSupportedApps(apps)
+  if (notSupportedApps.length) {
+    throw new MapsException(
+      `appsWhiteList [${notSupportedApps}] are not supported apps, please provide some of the supported apps [${Object.keys(titles)}]`
+    )
+  }
+}
+
+/**
  * Ask the user to choose one of the available map apps.
  * @param {{
  *     title: string | undefined | null
  *     message: string | undefined | null
  *     cancelText: string | undefined | null
+ *     appsWhiteList: array | undefined | null
  * }} options
  * @returns {Promise}
  */
-export function askAppChoice ({dialogTitle, dialogMessage, cancelText}) {
+export function askAppChoice ({dialogTitle, dialogMessage, cancelText, appsWhiteList}) {
   return new Promise(async (resolve) => {
     let availableApps = await getAvailableApps()
+
+    if (appsWhiteList && appsWhiteList.length) {
+      availableApps = availableApps
+        .filter(appName => appsWhiteList.includes(appName))
+    }
+
     if (availableApps.length < 2) {
       return resolve(availableApps[0] || null)
     }
@@ -120,6 +161,9 @@ export function checkOptions (options) {
   }
   if ('app' in options && options.app && !(options.app in prefixes)) {
     throw new MapsException('Option `app` should be undefined, null, or one of the following: "' + Object.keys(prefixes).join('", "') + '".')
+  }
+  if ('appsWhiteList' in options && options.appsWhiteList) {
+    checkNotSupportedApps(options.appsWhiteList)
   }
 }
 
