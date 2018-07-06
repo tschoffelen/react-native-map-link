@@ -29,6 +29,6 @@
    },
    "dependencies": {
       "prop-types": "^15.6.1",
-      "react-native-modal": "^6.0.0"
+      "react-native-modal": "^6.4.0"
    }
 }
