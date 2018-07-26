@@ -156,8 +156,8 @@ export function checkOptions (options) {
   if ('googleForceLatLon' in options && options.googleForceLatLon && typeof options.googleForceLatLon !== 'boolean') {
     throw new MapsException('Option `googleForceLatLon` should be of type `boolean`.')
   }
-  if ('googlePlaceId' in options && options.googlePlaceId && typeof options.googlePlaceId !== 'number') {
-    throw new MapsException('Option `googlePlaceId` should be of type `number`.')
+  if ('googlePlaceId' in options && options.googlePlaceId && typeof options.googlePlaceId !== 'string') {
+    throw new MapsException('Option `googlePlaceId` should be of type `string`.')
   }
   if ('app' in options && options.app && !(options.app in prefixes)) {
     throw new MapsException('Option `app` should be undefined, null, or one of the following: "' + Object.keys(prefixes).join('", "') + '".')
