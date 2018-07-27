@@ -1,6 +1,11 @@
 <center>
   <img alt="React Native Map Link" src=".github/banner.svg" />
-</center>
+</center><br />
+
+
+[![GitHub release](https://img.shields.io/github/release/includable/react-native-map-link.svg)](https://github.com/includable/react-native-map-link/edit/master/README.md)
+[![npm](https://img.shields.io/npm/dm/react-native-map-link.svg)](https://www.npmjs.com/package/react-native-map-link)
+[![GitHub license](https://img.shields.io/github/license/includable/react-native-map-link.svg)](https://github.com/includable/react-native-map-link/blob/master/LICENSE)
 
 ---
 
