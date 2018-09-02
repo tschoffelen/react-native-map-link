@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions, FlatList, ActivityIndicator } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions, FlatList } from "react-native";
 import PropTypes from "prop-types";
 import Modal from "react-native-modal";
 
@@ -22,7 +22,8 @@ export class Popup extends React.Component {
     style: PropTypes.object,
     modalProps: PropTypes.object,
     options: PropTypes.object.isRequired,
-    appsWhiteList: PropTypes.array
+    appsWhiteList: PropTypes.array,
+    onAvailable: PropTypes.func
   };
   static defaultProps = {
     isVisible: false,
@@ -55,33 +56,28 @@ export class Popup extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
-  }
-
-  componentDidMount = () => {
-    const { appsWhiteList } = this.props;
+    this.state = { loading: true };
     getAvailableApps().then(apps => {
-      if (appsWhiteList && appsWhiteList.length) {
-        checkNotSupportedApps(appsWhiteList);
+      if (props.appsWhiteList && props.appsWhiteList.length) {
+        checkNotSupportedApps(props.appsWhiteList);
         apps = apps.filter(appName => this.props.appsWhiteList.includes(appName));
       }
       this.setState({ apps, loading: false });
+      this.onAvailable(true);
     });
-  };
+  }
 
-  _renderHeader = () => {
-    const { showHeader, options } = this.props;
-    const { dialogTitle, dialogMessage } = options;
+  onAvailable = isAvailable => this.props.onAvailable && this.props.onAvailable(isAvailable);
 
-    return showHeader ? (
+  _renderHeader = () =>
+    this.props.showHeader && (
       <View style={[styles.headerContainer, this.props.style.headerContainer]}>
-        <Text style={[styles.titleText, this.props.style.titleText]}>{dialogTitle}</Text>
-        {dialogMessage && dialogMessage.length ? (
-          <Text style={[styles.subtitleText, this.props.style.subtitleText]}>{dialogMessage}</Text>
+        <Text style={[styles.titleText, this.props.style.titleText]}>{this.props.options.dialogTitle}</Text>
+        {this.props.options.dialogMessage && this.props.options.dialogMessage.length ? (
+          <Text style={[styles.subtitleText, this.props.style.subtitleText]}>{this.props.options.dialogMessage}</Text>
         ) : null}
       </View>
-    ) : null;
-  };
+    );
 
   _renderApps = () => (
     <FlatList
