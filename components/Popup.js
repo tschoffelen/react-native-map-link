@@ -2,25 +2,16 @@
  * React Native Map Link
  */
 
-import React from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-  FlatList,
-  ActivityIndicator
-} from 'react-native'
-import PropTypes from 'prop-types'
-import Modal from 'react-native-modal'
+import React from "react";
+import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions, FlatList } from "react-native";
+import PropTypes from "prop-types";
+import Modal from "react-native-modal";
 
-import { getAvailableApps, checkNotSupportedApps } from '../utils'
-import { showLocation } from '../index'
-import { titles, icons, colors } from '../constants'
+import { getAvailableApps, checkNotSupportedApps } from "../utils";
+import { showLocation } from "../index";
+import { titles, icons, colors } from "../constants";
 
-const {height: SCREEN_HEIGHT} = Dimensions.get('screen')
+const { height: SCREEN_HEIGHT } = Dimensions.get("screen");
 
 export class Popup extends React.Component {
   static propTypes = {
@@ -31,8 +22,9 @@ export class Popup extends React.Component {
     style: PropTypes.object,
     modalProps: PropTypes.object,
     options: PropTypes.object.isRequired,
-    appsWhiteList: PropTypes.array
-  }
+    appsWhiteList: PropTypes.array,
+    onAvailable: PropTypes.func
+  };
   static defaultProps = {
     isVisible: false,
     showHeader: true,
@@ -51,78 +43,63 @@ export class Popup extends React.Component {
     },
     modalProps: {},
     options: {
-      dialogTitle: 'Open with...',
-      dialogMessage: '',
-      cancelText: 'Cancel'
+      dialogTitle: "Open with...",
+      dialogMessage: "",
+      cancelText: "Cancel"
     },
     appsWhiteList: null,
-    onBackButtonPressed: () => { },
+    onBackButtonPressed: () => {},
     onCancelPressed: () => {},
     onAppPressed: () => {}
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = { loading: true };
+    getAvailableApps().then(apps => {
+      if (props.appsWhiteList && props.appsWhiteList.length) {
+        checkNotSupportedApps(props.appsWhiteList);
+        apps = apps.filter(appName => this.props.appsWhiteList.includes(appName));
+      }
+      this.setState({ apps, loading: false });
+      this.onAvailable(true);
+    });
   }
 
-  componentDidMount = async () => {
-    const { appsWhiteList } = this.props
-    this.loading = true
-    this.apps = await getAvailableApps()
-    if (appsWhiteList && appsWhiteList.length) {
-      checkNotSupportedApps(appsWhiteList)
-      this.apps = this.apps
-        .filter(appName => this.props.appsWhiteList.includes(appName))  
-    }
-    this.loading = false
-  }
+  onAvailable = isAvailable => this.props.onAvailable && this.props.onAvailable(isAvailable);
 
-  _renderHeader = () => {
-    const {showHeader, options} = this.props
-    const {dialogTitle, dialogMessage} = options
-
-    return showHeader ? (
+  _renderHeader = () =>
+    this.props.showHeader && (
       <View style={[styles.headerContainer, this.props.style.headerContainer]}>
-        <Text style={[styles.titleText, this.props.style.titleText]}>{dialogTitle}</Text>
-        {dialogMessage && dialogMessage.length ?
-          <Text style={[styles.subtitleText, this.props.style.subtitleText]}>{dialogMessage}</Text> : null}
+        <Text style={[styles.titleText, this.props.style.titleText]}>{this.props.options.dialogTitle}</Text>
+        {this.props.options.dialogMessage && this.props.options.dialogMessage.length ? (
+          <Text style={[styles.subtitleText, this.props.style.subtitleText]}>{this.props.options.dialogMessage}</Text>
+        ) : null}
       </View>
-    ) : null
-  }
+    );
 
-  _renderApps = () => {
-    if (this.loading) {
-      return (
-        <View style={[styles.activityIndicatorContainer, this.props.style.activityIndicatorContainer]}>
-          <ActivityIndicator size="large" color={colors.black}/>
-        </View>
-      )
-    }
+  _renderApps = () => (
+    <FlatList
+      ItemSeparatorComponent={() => <View style={[styles.separatorStyle, this.props.style.separatorStyle]} />}
+      data={this.state.apps}
+      renderItem={this._renderAppItem}
+      keyExtractor={item => item}
+    />
+  );
 
-    return (
-      <FlatList
-        ItemSeparatorComponent={() =>
-          <View style={[styles.separatorStyle, this.props.style.separatorStyle]}/>}
-        data={this.apps}
-        renderItem={this._renderAppItem}
-        keyExtractor={(item) => item}
-      />
-    )
-  }
-
-  _renderAppItem = ({item}) => {
-    return (
-      <TouchableOpacity
-        key={item}
-        style={[styles.itemContainer, this.props.style.itemContainer]}
-        onPress={() => this._onAppPressed({app: item})}
-      >
-        <View>
-          <Image
-            style={[styles.image, this.props.style.image]}
-            source={icons[item]}
-          />
-        </View>
-        <Text style={[styles.itemText, this.props.style.itemText]}>{titles[item]}</Text>
-      </TouchableOpacity>
-    )
-  }
+  _renderAppItem = ({ item }) => (
+    <TouchableOpacity
+      key={item}
+      style={[styles.itemContainer, this.props.style.itemContainer]}
+      onPress={() => this._onAppPressed({ app: item })}
+    >
+      <View>
+        <Image style={[styles.image, this.props.style.image]} source={icons[item]} />
+      </View>
+      <Text style={[styles.itemText, this.props.style.itemText]}>{titles[item]}</Text>
+    </TouchableOpacity>
+  );
 
   _renderCancelButton = () => (
     <TouchableOpacity
@@ -131,15 +108,15 @@ export class Popup extends React.Component {
     >
       <Text style={[styles.cancelButtonText, this.props.style.cancelButtonText]}>{this.props.options.cancelText}</Text>
     </TouchableOpacity>
-  )
+  );
 
-  _onAppPressed = ({app}) => {
-    showLocation({...this.props.options, app})
-    this.props.onAppPressed()
-  }
+  _onAppPressed = ({ app }) => {
+    showLocation({ ...this.props.options, app });
+    this.props.onAppPressed();
+  };
 
-  render () {
-    return (
+  render = () =>
+    this.props.isVisible && (
       <Modal
         isVisible={this.props.isVisible}
         backdropColor={colors.black}
@@ -155,20 +132,18 @@ export class Popup extends React.Component {
           {this._renderCancelButton()}
         </View>
       </Modal>
-    )
-  }
+    );
 }
-
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
-    overflow: 'hidden',
-    maxHeight: SCREEN_HEIGHT * .6
+    overflow: "hidden",
+    maxHeight: SCREEN_HEIGHT * 0.6
   },
   itemContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 20,
@@ -180,38 +155,38 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.black,
     marginLeft: 15
   },
   headerContainer: {
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: "transparent",
     borderBottomColor: colors.lightBlue,
     padding: 15
   },
   titleText: {
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
     color: colors.black
   },
   subtitleText: {
     fontSize: 12,
     color: colors.lightGray,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 10
   },
   cancelButtonContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: "transparent",
     borderTopColor: colors.lightBlue
   },
   cancelButtonText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.gray
   },
   separatorStyle: {
@@ -221,7 +196,7 @@ const styles = StyleSheet.create({
   },
   activityIndicatorContainer: {
     height: 70,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center"
   }
-})
+});
