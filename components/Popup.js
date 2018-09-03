@@ -17,7 +17,7 @@ export class Popup extends React.Component {
   static propTypes = {
     isVisible: PropTypes.bool,
     showHeader: PropTypes.bool,
-    onBackButtonPress: PropTypes.func,
+    onRequestClose: PropTypes.func,
     onAppPressed: PropTypes.func,
     style: PropTypes.object,
     modalProps: PropTypes.object,
@@ -120,10 +120,9 @@ export class Popup extends React.Component {
       <Modal
         isVisible={this.props.isVisible}
         backdropColor={colors.black}
+        hardwareAccelerated={true}
         animationIn="slideInUp"
-        hideModalContentWhileAnimating={true}
-        useNativeDriver={true}
-        onBackButtonPress={this.props.onBackButtonPressed}
+        onRequestClose={this.props.onRequestClose}
         {...this.props.modalProps}
       >
         <View style={[styles.container, this.props.style.container]}>
