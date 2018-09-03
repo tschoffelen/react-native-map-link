@@ -17,7 +17,7 @@ export class Popup extends React.Component {
   static propTypes = {
     isVisible: PropTypes.bool,
     showHeader: PropTypes.bool,
-    onRequestClose: PropTypes.func,
+    onBackButtonPressed: PropTypes.func,
     onAppPressed: PropTypes.func,
     style: PropTypes.object,
     modalProps: PropTypes.object,
@@ -57,17 +57,21 @@ export class Popup extends React.Component {
     super(props);
 
     this.state = { loading: true };
-    getAvailableApps().then(apps => {
-      if (props.appsWhiteList && props.appsWhiteList.length) {
-        checkNotSupportedApps(props.appsWhiteList);
-        apps = apps.filter(appName => this.props.appsWhiteList.includes(appName));
-      }
-      this.setState({ apps, loading: false });
-      this.onAvailable(true);
-    });
+    (async () => {
+      this.isWaitingForApplications(true);
+      getAvailableApps().then(apps => {
+        if (props.appsWhiteList && props.appsWhiteList.length) {
+          checkNotSupportedApps(props.appsWhiteList);
+          apps = apps.filter(appName => this.props.appsWhiteList.includes(appName));
+        }
+        this.setState({ apps, loading: false });
+        this.isWaitingForApplications(false);
+      });
+    })();
   }
 
-  onAvailable = isAvailable => this.props.onAvailable && this.props.onAvailable(isAvailable);
+  isWaitingForApplications = isAvailable =>
+    this.props.isWaitingForApplications && this.props.isWaitingForApplications(isAvailable);
 
   _renderHeader = () =>
     this.props.showHeader && (
@@ -120,9 +124,10 @@ export class Popup extends React.Component {
       <Modal
         isVisible={this.props.isVisible}
         backdropColor={colors.black}
-        hardwareAccelerated={true}
         animationIn="slideInUp"
-        onRequestClose={this.props.onRequestClose}
+        hideModalContentWhileAnimating={true}
+        useNativeDriver={true}
+        hardwareAccelerated={true}
         {...this.props.modalProps}
       >
         <View style={[styles.container, this.props.style.container]}>
