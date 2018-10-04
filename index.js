@@ -68,7 +68,7 @@ export async function showLocation (options) {
     case 'apple-maps':
       url = prefixes['apple-maps']
       url = (useSourceDestiny) ? `${url}?saddr=${sourceLatLng}&daddr=${latlng}` : `${url}?ll=${latlng}`
-      url += `&q=${title ? encodedTitle : 'Location'}`
+      url += `&q=${title ? `${encodedTitle}&address=${encodedTitle}` : 'Location'}`
       break
     case 'google-maps':
       let useTitleForQuery = !options.googleForceLatLon && title
