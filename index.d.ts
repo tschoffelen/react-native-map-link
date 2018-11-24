@@ -10,9 +10,9 @@ interface Options {
     googlePlaceId?: number
     title?: string
     app?: string
-    dialogTitle: string
-    dialogMessage: string
-    cancelText: string
+    dialogTitle?: string
+    dialogMessage?: string
+    cancelText?: string
     appsWhiteList?: string[]
 }
 
