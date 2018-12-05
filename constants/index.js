@@ -8,7 +8,7 @@ export const isIOS = Platform.OS === 'ios'
 
 export const prefixes = {
   'apple-maps': isIOS ? 'http://maps.apple.com/' : 'applemaps://',
-  'google-maps': isIOS ? 'comgooglemaps://' : 'https://www.google.com/maps/dir/',
+  'google-maps': isIOS ? 'comgooglemaps://' : 'https://maps.google.com/',
   'citymapper': 'citymapper://',
   'uber': 'uber://',
   'lyft': 'lyft://',
