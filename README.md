@@ -1,7 +1,4 @@
-<center>
-  <img alt="React Native Map Link" src=".github/banner.svg" />
-</center><br />
-
+![React Native Map Link](.github/banner.svg)
 
 [![GitHub release](https://img.shields.io/github/release/includable/react-native-map-link.svg)](https://github.com/includable/react-native-map-link/releases)
 [![npm](https://img.shields.io/npm/dm/react-native-map-link.svg)](https://www.npmjs.com/package/react-native-map-link)
@@ -25,34 +22,41 @@ Currently supported apps:
 * Moovit - `moovit`
 
 
+
 ## Installation
 
-```
+### 1. Install the package
+
+```shell
 npm i -S react-native-map-link         # or yarn add react-native-map-link
 ```
 
-### A note about iOS 9+
-As of iOS 9, your app needs to provide the `LSApplicationQueriesSchemes` key inside
-Info.plist to specify the URL schemes with which the app can interact.
+### 2. Update your Info.plist
+To allow your app to detect if any of the directions apps are installed, an extra step is required on iOS. Your app needs to provide the `LSApplicationQueriesSchemes` key inside `ios/Info.plist` to specify the URL schemes with which the app can interact.
 
-Just put this in your Info.plist depending on which apps you'd like to support.
-Omitting these might mean that the library can't detect some of the maps apps installed by the user.
+Just put this in your `Info.plist` depending on which apps you'd like to support. Omitting these might mean that the library can't detect some of the maps apps installed by the user.
 
 ```xml
 <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>comgooglemaps</string>
-        <string>citymapper</string>
-        <string>uber</string>
-        <string>lyft</string>
-        <string>transit</string>
-        <string>waze</string>
-        <string>yandexnavi</string>
-        <string>moovit</string>
-    </array>
+<array>
+    <string>comgooglemaps</string>
+    <string>citymapper</string>
+    <string>uber</string>
+    <string>lyft</string>
+    <string>transit</string>
+    <string>waze</string>
+    <string>yandexnavi</string>
+    <string>moovit</string>
+</array>
 ```
 
-## Basic usage 
+Using Expo? [Read the instructions](docs/expo.md) to make it work on iOS.
+
+
+
+## Usage
+
+### Easiest way: action sheet 
 
 Using the `showLocation` function will shown an action sheet on iOS and an alert on Android, without any custom styling:
 
@@ -80,7 +84,7 @@ Notes:
 * The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supports all apps except Waze.
 
 
-## Alternative usage: styled popup
+### Alternative: styled popup
 
 Alternatively, it is possible to use a styled popup that displays icons in the app list:
 
