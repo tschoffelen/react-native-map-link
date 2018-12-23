@@ -10,8 +10,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  FlatList,
-  ActivityIndicator
+  FlatList
 } from 'react-native'
 import PropTypes from 'prop-types'
 import Modal from 'react-native-modal'
@@ -33,6 +32,7 @@ export class Popup extends React.Component {
     options: PropTypes.object.isRequired,
     appsWhiteList: PropTypes.array
   }
+
   static defaultProps = {
     isVisible: false,
     showHeader: true,
@@ -50,56 +50,57 @@ export class Popup extends React.Component {
       activityIndicatorContainer: {}
     },
     modalProps: {},
-    options: {
-      dialogTitle: 'Open with...',
-      dialogMessage: '',
-      cancelText: 'Cancel'
-    },
+    options: {},
     appsWhiteList: null,
     onBackButtonPressed: () => { },
     onCancelPressed: () => {},
     onAppPressed: () => {}
   }
 
+  state = {
+    apps: []
+  }
+
   componentDidMount = async () => {
-    const { appsWhiteList } = this.props
-    this.loading = true
-    this.apps = await getAvailableApps()
+    const {appsWhiteList} = this.props
+    let apps = await getAvailableApps()
     if (appsWhiteList && appsWhiteList.length) {
       checkNotSupportedApps(appsWhiteList)
-      this.apps = this.apps
-        .filter(appName => this.props.appsWhiteList.includes(appName))
+      apps = apps.filter(appName => this.props.appsWhiteList.includes(appName))
     }
-    this.loading = false
+
+    this.setState({apps})
   }
 
   _renderHeader = () => {
     const {showHeader, options} = this.props
-    const {dialogTitle, dialogMessage} = options
+    if (!showHeader) {
+      return null
+    }
 
-    return showHeader ? (
+    const dialogTitle = options.dialogTitle && options.dialogTitle.length
+      ? options.dialogTitle
+      : 'Open in Maps'
+    const dialogMessage = options.dialogMessage && options.dialogMessage.length
+      ? options.dialogMessage
+      : 'What app would you like to use?'
+
+    return (
       <View style={[styles.headerContainer, this.props.style.headerContainer]}>
         <Text style={[styles.titleText, this.props.style.titleText]}>{dialogTitle}</Text>
         {dialogMessage && dialogMessage.length ?
           <Text style={[styles.subtitleText, this.props.style.subtitleText]}>{dialogMessage}</Text> : null}
       </View>
-    ) : null
+    )
   }
 
   _renderApps = () => {
-    if (this.loading) {
-      return (
-        <View style={[styles.activityIndicatorContainer, this.props.style.activityIndicatorContainer]}>
-          <ActivityIndicator size="large" color={colors.black}/>
-        </View>
-      )
-    }
-
     return (
       <FlatList
-        ItemSeparatorComponent={() =>
-          <View style={[styles.separatorStyle, this.props.style.separatorStyle]}/>}
-        data={this.apps}
+        ItemSeparatorComponent={() => (
+          <View style={[styles.separatorStyle, this.props.style.separatorStyle]}/>
+        )}
+        data={this.state.apps}
         renderItem={this._renderAppItem}
         keyExtractor={(item) => item}
       />
@@ -124,14 +125,18 @@ export class Popup extends React.Component {
     )
   }
 
-  _renderCancelButton = () => (
-    <TouchableOpacity
-      style={[styles.cancelButtonContainer, this.props.style.cancelButtonContainer]}
-      onPress={this.props.onCancelPressed}
-    >
-      <Text style={[styles.cancelButtonText, this.props.style.cancelButtonText]}>{this.props.options.cancelText}</Text>
-    </TouchableOpacity>
-  )
+  _renderCancelButton = () => {
+    const {options} = this.props
+    const cancelText = options.cancelText && options.cancelText.length ? options.cancelText : 'Cancel'
+    return (
+      <TouchableOpacity
+        style={[styles.cancelButtonContainer, this.props.style.cancelButtonContainer]}
+        onPress={this.props.onCancelPressed}
+      >
+        <Text style={[styles.cancelButtonText, this.props.style.cancelButtonText]}>{cancelText}</Text>
+      </TouchableOpacity>
+    )
+  }
 
   _onAppPressed = ({app}) => {
     showLocation({...this.props.options, app})

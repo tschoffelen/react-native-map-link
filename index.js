@@ -2,7 +2,7 @@
  * React Native Map Link
  */
 
-import { Platform, Alert, ActionSheetIOS, Linking } from 'react-native'
+import { Linking } from 'react-native'
 
 import { prefixes, isIOS } from './constants'
 import { askAppChoice, checkOptions } from './utils'
@@ -55,9 +55,9 @@ export async function showLocation (options) {
 
   if (!app) {
     app = await askAppChoice({
-      dialogTitle, 
-      dialogMessage, 
-      cancelText, 
+      dialogTitle,
+      dialogMessage,
+      cancelText,
       appsWhiteList
     })
   }

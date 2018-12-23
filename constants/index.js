@@ -2,7 +2,7 @@
  * React Native Map Link
  */
 
-import { Platform, Alert, ActionSheetIOS, Linking } from 'react-native'
+import { Platform } from 'react-native'
 
 export const isIOS = Platform.OS === 'ios'
 

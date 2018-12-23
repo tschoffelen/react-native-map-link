@@ -58,7 +58,7 @@ function isSupportedApp(app) {
  * Get a list of not supported apps from a given array of apps
  *
  * @param {array} apps
- * @returns {array} 
+ * @returns {array}
  */
 function getNotSupportedApps(apps) {
   return apps.filter(app => !isSupportedApp(app))
@@ -84,7 +84,7 @@ export function checkNotSupportedApps(apps) {
  *     title: string | undefined | null
  *     message: string | undefined | null
  *     cancelText: string | undefined | null
- *     appsWhiteList: array | undefined | null
+ *     appsWhiteList: string[] | null
  * }} options
  * @returns {Promise}
  */
