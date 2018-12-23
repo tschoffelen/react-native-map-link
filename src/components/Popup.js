@@ -17,11 +17,18 @@ import Modal from 'react-native-modal'
 
 import { getAvailableApps, checkNotSupportedApps } from '../utils'
 import { showLocation } from '../index'
-import { titles, icons, colors } from '../constants'
+import { titles, icons } from '../constants'
 
 const {height: SCREEN_HEIGHT} = Dimensions.get('screen')
 
-export class Popup extends React.Component {
+const colors = {
+  black: '#464646',
+  gray: '#BBC4CC',
+  lightGray: '#ACBBCB',
+  lightBlue: '#ECF2F8'
+}
+
+export default class Popup extends React.Component {
   static propTypes = {
     isVisible: PropTypes.bool,
     showHeader: PropTypes.bool,

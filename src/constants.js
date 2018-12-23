@@ -31,20 +31,13 @@ export const titles = {
 }
 
 export const icons = {
-  'apple-maps': require('../assets/images/apple-maps.png'),
-  'google-maps': require('../assets/images/google-maps.png'),
-  'citymapper': require('../assets/images/citymapper.png'),
-  'uber': require('../assets/images/uber.png'),
-  'lyft': require('../assets/images/lyft.png'),
-  'transit': require('../assets/images/transit.png'),
-  'waze': require('../assets/images/waze.png'),
-  'yandex': require('../assets/images/yandex.png'),
-  'moovit': require('../assets/images/moovit.png')
-}
-
-export const colors = {
-  black: '#464646',
-  gray: '#BBC4CC',
-  lightGray: '#ACBBCB',
-  lightBlue: '#ECF2F8'
+  'apple-maps': require('./images/apple-maps.png'),
+  'google-maps': require('./images/google-maps.png'),
+  'citymapper': require('./images/citymapper.png'),
+  'uber': require('./images/uber.png'),
+  'lyft': require('./images/lyft.png'),
+  'transit': require('./images/transit.png'),
+  'waze': require('./images/waze.png'),
+  'yandex': require('./images/yandex.png'),
+  'moovit': require('./images/moovit.png')
 }
