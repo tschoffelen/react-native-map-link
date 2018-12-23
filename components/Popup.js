@@ -68,7 +68,7 @@ export class Popup extends React.Component {
     if (appsWhiteList && appsWhiteList.length) {
       checkNotSupportedApps(appsWhiteList)
       this.apps = this.apps
-        .filter(appName => this.props.appsWhiteList.includes(appName))  
+        .filter(appName => this.props.appsWhiteList.includes(appName))
     }
     this.loading = false
   }
@@ -176,7 +176,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 50,
-    height: 50
+    height: 50,
+    borderRadius: 25
   },
   itemText: {
     fontSize: 16,
