@@ -147,7 +147,7 @@ export default class Popup extends React.Component {
 
   _onAppPressed = ({app}) => {
     showLocation({...this.props.options, app})
-    this.props.onAppPressed()
+    this.props.onAppPressed(app)
   }
 
   render () {
