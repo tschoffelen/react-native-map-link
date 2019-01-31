@@ -7,7 +7,7 @@ interface Options {
     sourceLatitude?: number
     sourceLongitude?: number
     googleForceLatLon?: boolean
-    googlePlaceId?: number
+    googlePlaceId?: string
     title?: string
     app?: string
     dialogTitle?: string
@@ -19,7 +19,7 @@ interface Options {
 interface PopupStyleProp {
     container?: StyleProp<ViewStyle>,
     itemContainer?: StyleProp<ViewStyle>,
-    image?: StyleProp<ImageStyle>, 
+    image?: StyleProp<ImageStyle>,
     itemText?: StyleProp<TextStyle>,
     headerContainer?: StyleProp<ViewStyle>,
     titleText?: StyleProp<TextStyle>,
