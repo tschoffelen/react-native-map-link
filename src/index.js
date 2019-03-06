@@ -135,6 +135,10 @@ export async function showLocation (options) {
         url += `&orig_lat=${sourceLat}&orig_lon=${sourceLng}`
       }
       break
+    case 'yandex-maps':
+      url = `${prefixes['yandex-maps']}?pt=${lng},${lat}`
+      
+      break
   }
 
   if (url) {

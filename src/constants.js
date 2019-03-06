@@ -15,7 +15,8 @@ export const prefixes = {
   'transit': 'transit://',
   'waze': 'waze://',
   'yandex': 'yandexnavi://',
-  'moovit': 'moovit://'
+  'moovit': 'moovit://',
+  'yandex-maps': 'yandexmaps://maps.yandex.ru/'
 }
 
 export const titles = {
@@ -27,7 +28,8 @@ export const titles = {
   'transit': 'The Transit App',
   'waze': 'Waze',
   'yandex': 'Yandex.Navi',
-  'moovit': 'Moovit'
+  'moovit': 'Moovit',
+  'yandex-maps': 'Yandex Maps'
 }
 
 export const icons = {
@@ -39,5 +41,6 @@ export const icons = {
   'transit': require('./images/transit.png'),
   'waze': require('./images/waze.png'),
   'yandex': require('./images/yandex.png'),
-  'moovit': require('./images/moovit.png')
+  'moovit': require('./images/moovit.png'),
+  'yandex-maps': require('./images/yandex-maps.png')
 }

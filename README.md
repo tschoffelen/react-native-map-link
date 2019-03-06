@@ -20,6 +20,7 @@ Currently supported apps:
 * Waze – `waze`
 * Yandex.Navi – `yandex`
 * Moovit - `moovit`
+* Yandex Maps - `yandex-maps`
 
 
 
@@ -47,6 +48,7 @@ Just put this in your `Info.plist` depending on which apps you'd like to support
     <string>waze</string>
     <string>yandexnavi</string>
     <string>moovit</string>
+    <string>yandexmaps</string>
 </array>
 ```
 
