@@ -19,8 +19,8 @@ Currently supported apps:
 * The Transit App – `transit`
 * Waze – `waze`
 * Yandex.Navi – `yandex`
-* Moovit - `moovit`
-* Yandex Maps - `yandex-maps`
+* Moovit – `moovit`
+* Yandex Maps – `yandex-maps`
 
 
 
