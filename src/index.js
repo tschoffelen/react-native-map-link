@@ -115,7 +115,7 @@ export async function showLocation (options) {
       }
       break
     case 'waze':
-      url = `${prefixes['waze']}?ll=${latlng}&navigate=yes`
+      url = `${prefixes['waze']}?ll=${sourceLatLng}&navigate=yes`
       break
     case 'yandex':
       url = `${prefixes['yandex']}build_route_on_map?lat_to=${lat}&lon_to=${lng}`
