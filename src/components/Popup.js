@@ -19,7 +19,7 @@ import { getAvailableApps, checkNotSupportedApps } from '../utils'
 import { showLocation } from '../index'
 import { titles, icons } from '../constants'
 
-const {height: SCREEN_HEIGHT} = Dimensions.get('screen')
+const { height: SCREEN_HEIGHT } = Dimensions.get('screen')
 
 const colors = {
   black: '#464646',
@@ -32,8 +32,9 @@ export default class Popup extends React.Component {
   static propTypes = {
     isVisible: PropTypes.bool,
     showHeader: PropTypes.bool,
-    onBackButtonPress: PropTypes.func,
+    onBackButtonPressed: PropTypes.func,
     onAppPressed: PropTypes.func,
+    onCancelPressed: PropTypes.func,
     style: PropTypes.object,
     modalProps: PropTypes.object,
     options: PropTypes.object.isRequired,
@@ -69,18 +70,18 @@ export default class Popup extends React.Component {
   }
 
   componentDidMount = async () => {
-    const {appsWhiteList} = this.props
+    const { appsWhiteList } = this.props
     let apps = await getAvailableApps()
     if (appsWhiteList && appsWhiteList.length) {
       checkNotSupportedApps(appsWhiteList)
       apps = apps.filter(appName => this.props.appsWhiteList.includes(appName))
     }
 
-    this.setState({apps})
+    this.setState({ apps })
   }
 
   _renderHeader = () => {
-    const {showHeader, options} = this.props
+    const { showHeader, options } = this.props
     if (!showHeader) {
       return null
     }
@@ -95,8 +96,8 @@ export default class Popup extends React.Component {
     return (
       <View style={[styles.headerContainer, this.props.style.headerContainer]}>
         <Text style={[styles.titleText, this.props.style.titleText]}>{dialogTitle}</Text>
-        {dialogMessage && dialogMessage.length ?
-          <Text style={[styles.subtitleText, this.props.style.subtitleText]}>{dialogMessage}</Text> : null}
+        {dialogMessage && dialogMessage.length
+          ? <Text style={[styles.subtitleText, this.props.style.subtitleText]}>{dialogMessage}</Text> : null}
       </View>
     )
   }
@@ -105,7 +106,7 @@ export default class Popup extends React.Component {
     return (
       <FlatList
         ItemSeparatorComponent={() => (
-          <View style={[styles.separatorStyle, this.props.style.separatorStyle]}/>
+          <View style={[styles.separatorStyle, this.props.style.separatorStyle]} />
         )}
         data={this.state.apps}
         renderItem={this._renderAppItem}
@@ -114,12 +115,12 @@ export default class Popup extends React.Component {
     )
   }
 
-  _renderAppItem = ({item}) => {
+  _renderAppItem = ({ item }) => {
     return (
       <TouchableOpacity
         key={item}
         style={[styles.itemContainer, this.props.style.itemContainer]}
-        onPress={() => this._onAppPressed({app: item})}
+        onPress={() => this._onAppPressed({ app: item })}
       >
         <View>
           <Image
@@ -133,7 +134,7 @@ export default class Popup extends React.Component {
   }
 
   _renderCancelButton = () => {
-    const {options} = this.props
+    const { options } = this.props
     const cancelText = options.cancelText && options.cancelText.length ? options.cancelText : 'Cancel'
     return (
       <TouchableOpacity
@@ -145,8 +146,8 @@ export default class Popup extends React.Component {
     )
   }
 
-  _onAppPressed = ({app}) => {
-    showLocation({...this.props.options, app})
+  _onAppPressed = ({ app }) => {
+    showLocation({ ...this.props.options, app })
     this.props.onAppPressed(app)
   }
 
@@ -155,9 +156,9 @@ export default class Popup extends React.Component {
       <Modal
         isVisible={this.props.isVisible}
         backdropColor={colors.black}
-        animationIn="slideInUp"
-        hideModalContentWhileAnimating={true}
-        useNativeDriver={true}
+        animationIn='slideInUp'
+        hideModalContentWhileAnimating
+        useNativeDriver
         onBackButtonPress={this.props.onBackButtonPressed}
         {...this.props.modalProps}
       >
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     overflow: 'hidden',
-    maxHeight: SCREEN_HEIGHT * .6
+    maxHeight: SCREEN_HEIGHT * 0.6
   },
   itemContainer: {
     flexDirection: 'row',

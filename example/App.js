@@ -31,7 +31,7 @@ export default class App extends Component {
             cancelText: 'This is the cancel button text'
           }}
         />
-        <TouchableOpacity style={{padding: 20}} onPress={() => { this.setState({ isVisible: true }) }}>
+        <TouchableOpacity style={{ padding: 20 }} onPress={() => { this.setState({ isVisible: true }) }}>
           <Text style={styles.welcome}>
             Show in Maps
           </Text>
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
     color: '#4682BC',
     margin: 10
   }
-});
+})

@@ -50,7 +50,7 @@ function isAppInstalled (app) {
  * @param {string} app
  * @returns {boolean}
  */
-function isSupportedApp(app) {
+function isSupportedApp (app) {
   return Object.keys(titles).includes(app)
 }
 
@@ -60,7 +60,7 @@ function isSupportedApp(app) {
  * @param {array} apps
  * @returns {array}
  */
-function getNotSupportedApps(apps) {
+function getNotSupportedApps (apps) {
   return apps.filter(app => !isSupportedApp(app))
 }
 
@@ -69,7 +69,7 @@ function getNotSupportedApps(apps) {
  *
  * @param {array} apps
  */
-export function checkNotSupportedApps(apps) {
+export function checkNotSupportedApps (apps) {
   let notSupportedApps = getNotSupportedApps(apps)
   if (notSupportedApps.length) {
     throw new MapsException(
@@ -88,7 +88,7 @@ export function checkNotSupportedApps(apps) {
  * }} options
  * @returns {Promise}
  */
-export function askAppChoice ({dialogTitle, dialogMessage, cancelText, appsWhiteList}) {
+export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhiteList }) {
   return new Promise(async (resolve) => {
     let availableApps = await getAvailableApps()
 
@@ -120,9 +120,9 @@ export function askAppChoice ({dialogTitle, dialogMessage, cancelText, appsWhite
       return
     }
 
-    let options = availableApps.map((app) => ({text: titles[app], onPress: () => resolve(app)}))
-    options.push({text: cancelText, onPress: () => resolve(null), style: 'cancel'})
-    return Alert.alert(dialogTitle, dialogMessage, options, {onDismiss: () => resolve(null)})
+    let options = availableApps.map((app) => ({ text: titles[app], onPress: () => resolve(app) }))
+    options.push({ text: cancelText, onPress: () => resolve(null), style: 'cancel' })
+    return Alert.alert(dialogTitle, dialogMessage, options, { onDismiss: () => resolve(null) })
   })
 }
 

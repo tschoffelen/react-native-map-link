@@ -7,6 +7,9 @@
       "type": "git",
       "url": "git+https://github.com/includable/react-native-map-link.git"
    },
+   "scripts": {
+      "test": "eslint . --fix"
+   },
    "keywords": [
       "react-native",
       "react-component",
@@ -30,5 +33,18 @@
    "dependencies": {
       "prop-types": "^15.6.1",
       "react-native-modal": "^6.4.0"
+   },
+   "devDependencies": {
+      "@babel/core": "^7.0.0",
+      "@babel/plugin-proposal-decorators": "^7.3.0",
+      "babel-eslint": "^8.0.2",
+      "eslint": "^5.15.2",
+      "eslint-config-standard": "^12.0.0",
+      "eslint-config-standard-react": "^7.0.2",
+      "eslint-plugin-import": "^2.16.0",
+      "eslint-plugin-node": "^8.0.1",
+      "eslint-plugin-promise": "^4.0.1",
+      "eslint-plugin-react": "^7.12.4",
+      "eslint-plugin-standard": "^4.0.0"
    }
 }
