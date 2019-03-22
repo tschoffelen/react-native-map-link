@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "16.8.4",
+    "react": "16.8.5",
     "react-native": "0.59.1",
     "react-native-map-link": "^2.2.1"
   },
