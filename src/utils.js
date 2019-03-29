@@ -4,18 +4,18 @@
 
 import { Linking, ActionSheetIOS, Alert } from 'react-native'
 
-import { prefixes, titles, isIOS } from './constants'
+import { titles, isIOS } from './constants'
 
 /**
  * Get available navigation apps.
  */
-export const getAvailableApps = async () => {
+export const getAvailableApps = async (prefixes) => {
   let availableApps = []
   for (let app in prefixes) {
     if (!prefixes.hasOwnProperty(app)) {
       continue
     }
-    let avail = await isAppInstalled(app)
+    let avail = await isAppInstalled(app, prefixes)
     if (avail) {
       availableApps.push(app)
     }
@@ -30,7 +30,7 @@ export const getAvailableApps = async () => {
  * @param {string} app
  * @returns {Promise<boolean>}
  */
-function isAppInstalled (app) {
+function isAppInstalled(app, prefixes) {
   return new Promise((resolve) => {
     if (!(app in prefixes)) {
       return resolve(false)
@@ -50,7 +50,7 @@ function isAppInstalled (app) {
  * @param {string} app
  * @returns {boolean}
  */
-function isSupportedApp (app) {
+function isSupportedApp(app) {
   return Object.keys(titles).includes(app)
 }
 
@@ -60,7 +60,7 @@ function isSupportedApp (app) {
  * @param {array} apps
  * @returns {array}
  */
-function getNotSupportedApps (apps) {
+function getNotSupportedApps(apps) {
   return apps.filter(app => !isSupportedApp(app))
 }
 
@@ -69,7 +69,7 @@ function getNotSupportedApps (apps) {
  *
  * @param {array} apps
  */
-export function checkNotSupportedApps (apps) {
+export function checkNotSupportedApps(apps) {
   let notSupportedApps = getNotSupportedApps(apps)
   if (notSupportedApps.length) {
     throw new MapsException(
@@ -88,7 +88,7 @@ export function checkNotSupportedApps (apps) {
  * }} options
  * @returns {Promise}
  */
-export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhiteList }) {
+export function askAppChoice({ dialogTitle, dialogMessage, cancelText, appsWhiteList }) {
   return new Promise(async (resolve) => {
     let availableApps = await getAvailableApps()
 
@@ -143,7 +143,7 @@ export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhit
  *     cancelText: string | undefined | null
  * }} options
  */
-export function checkOptions (options) {
+export function checkOptions(options, prefixes) {
   if (!options || typeof options !== 'object') {
     throw new MapsException('First parameter of `showLocation` should contain object with options.')
   }
@@ -168,7 +168,7 @@ export function checkOptions (options) {
 }
 
 class MapsException {
-  constructor (message) {
+  constructor(message) {
     this.message = message
     this.name = 'MapsException'
   }

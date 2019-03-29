@@ -6,17 +6,25 @@ import { Platform } from 'react-native'
 
 export const isIOS = Platform.OS === 'ios'
 
-export const prefixes = {
-  'apple-maps': isIOS ? 'http://maps.apple.com/' : 'applemaps://',
-  'google-maps': isIOS ? 'comgooglemaps://' : 'https://maps.google.com/',
-  'citymapper': 'citymapper://',
-  'uber': 'uber://',
-  'lyft': 'lyft://',
-  'transit': 'transit://',
-  'waze': 'waze://',
-  'yandex': 'yandexnavi://',
-  'moovit': 'moovit://',
-  'yandex-maps': 'yandexmaps://maps.yandex.ru/'
+export function generatePrefixes(options) {
+  return {
+    'apple-maps': isIOS ? 'http://maps.apple.com/' : 'applemaps://',
+    'google-maps': prefixForGoogleMaps(options.alwaysIncludeGoogle),
+    citymapper: 'citymapper://',
+    uber: 'uber://',
+    lyft: 'lyft://',
+    transit: 'transit://',
+    waze: 'waze://',
+    yandex: 'yandexnavi://',
+    moovit: 'moovit://',
+    'yandex-maps': 'yandexmaps://maps.yandex.ru/',
+  }
+}
+
+export function prefixForGoogleMaps(alwaysIncludeGoogle) {
+  return isIOS && !alwaysIncludeGoogle
+    ? 'comgooglemaps://'
+    : 'https://maps.google.com/'
 }
 
 export const titles = {
