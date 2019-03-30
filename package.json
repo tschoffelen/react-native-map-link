@@ -27,7 +27,7 @@
    },
    "homepage": "https://github.com/includable/react-native-map-link#readme",
    "peerDependencies": {
-      "react": ">=16.8.5",
+      "react": ">=16.8.6",
       "react-native": ">=0.40.0"
    },
    "dependencies": {
