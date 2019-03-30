@@ -4,7 +4,7 @@
 
 import { Linking } from 'react-native'
 
-import { prefixes, isIOS } from './constants'
+import { isIOS, generatePrefixes } from './constants'
 import { askAppChoice, checkOptions } from './utils'
 
 /**
@@ -15,6 +15,7 @@ import { askAppChoice, checkOptions } from './utils'
  *     longitude: number | string,
  *     sourceLatitude: number | undefined | null,
  *     sourceLongitude: number | undefined | null,
+ *     alwaysIncludeGoogle: boolean | undefined | null,
  *     googleForceLatLon: boolean | undefined | null,
  *     googlePlaceId: number | undefined | null,
  *     title: string | undefined | null,
@@ -25,8 +26,9 @@ import { askAppChoice, checkOptions } from './utils'
  *     appsWhiteList: array | undefined | null
  * }} options
  */
-export async function showLocation (options) {
-  checkOptions(options)
+export async function showLocation(options) {
+  const prefixes = generatePrefixes(options)
+  checkOptions(options, prefixes)
 
   let useSourceDestiny = false
   let sourceLat

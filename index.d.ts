@@ -6,6 +6,7 @@ interface Options {
     longitude: number | string
     sourceLatitude?: number
     sourceLongitude?: number
+    alwaysIncludeGoogle?: boolean
     googleForceLatLon?: boolean
     googlePlaceId?: string
     title?: string
