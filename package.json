@@ -32,7 +32,7 @@
    },
    "dependencies": {
       "prop-types": "^15.6.1",
-      "react-native-modal": "^9.0.0"
+      "react-native-modal": "^10.0.0"
    },
    "devDependencies": {
       "@babel/core": "^7.0.0",
