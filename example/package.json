@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "react": "16.8.6",
-    "react-native": "0.59.1",
+    "react-native": "0.59.7",
     "react-native-map-link": "^2.2.1"
   },
   "devDependencies": {
