@@ -10,7 +10,8 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  FlatList
+  FlatList,
+  ActivityIndicator,
 } from 'react-native'
 import PropTypes from 'prop-types'
 import Modal from 'react-native-modal'
@@ -66,7 +67,8 @@ export default class Popup extends React.Component {
   }
 
   state = {
-    apps: []
+    apps: [],
+    loading: true,
   }
 
   componentDidMount = async () => {
@@ -77,7 +79,7 @@ export default class Popup extends React.Component {
       apps = apps.filter(appName => this.props.appsWhiteList.includes(appName))
     }
 
-    this.setState({ apps })
+    this.setState({ apps, loading: false })
   }
 
   _renderHeader = () => {
@@ -152,6 +154,7 @@ export default class Popup extends React.Component {
   }
 
   render () {
+    const { loading } = this.state
     return (
       <Modal
         isVisible={this.props.isVisible}
@@ -164,7 +167,7 @@ export default class Popup extends React.Component {
       >
         <View style={[styles.container, this.props.style.container]}>
           {this._renderHeader()}
-          {this._renderApps()}
+          {loading ? <ActivityIndicator style={[styles.activityIndicatorContainer, this.props.style.activityIndicatorContainer]} /> : this._renderApps()}
           {this._renderCancelButton()}
         </View>
       </Modal>
