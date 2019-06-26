@@ -30,7 +30,7 @@ export const getAvailableApps = async (prefixes) => {
  * @param {string} app
  * @returns {Promise<boolean>}
  */
-function isAppInstalled(app, prefixes) {
+function isAppInstalled (app, prefixes) {
   return new Promise((resolve) => {
     if (!(app in prefixes)) {
       return resolve(false)
@@ -50,7 +50,7 @@ function isAppInstalled(app, prefixes) {
  * @param {string} app
  * @returns {boolean}
  */
-function isSupportedApp(app) {
+function isSupportedApp (app) {
   return Object.keys(titles).includes(app)
 }
 
@@ -60,7 +60,7 @@ function isSupportedApp(app) {
  * @param {array} apps
  * @returns {array}
  */
-function getNotSupportedApps(apps) {
+function getNotSupportedApps (apps) {
   return apps.filter(app => !isSupportedApp(app))
 }
 
@@ -69,7 +69,7 @@ function getNotSupportedApps(apps) {
  *
  * @param {array} apps
  */
-export function checkNotSupportedApps(apps) {
+export function checkNotSupportedApps (apps) {
   let notSupportedApps = getNotSupportedApps(apps)
   if (notSupportedApps.length) {
     throw new MapsException(
@@ -89,7 +89,7 @@ export function checkNotSupportedApps(apps) {
  * }} options
  * @returns {Promise}
  */
-export function askAppChoice({ dialogTitle, dialogMessage, cancelText, appsWhiteList, prefixes }) {
+export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhiteList, prefixes }) {
   return new Promise(async (resolve) => {
     let availableApps = await getAvailableApps(prefixes)
 
@@ -144,7 +144,7 @@ export function askAppChoice({ dialogTitle, dialogMessage, cancelText, appsWhite
  *     cancelText: string | undefined | null
  * }} options
  */
-export function checkOptions(options, prefixes) {
+export function checkOptions (options, prefixes) {
   if (!options || typeof options !== 'object') {
     throw new MapsException('First parameter of `showLocation` should contain object with options.')
   }
@@ -169,7 +169,7 @@ export function checkOptions(options, prefixes) {
 }
 
 class MapsException {
-  constructor(message) {
+  constructor (message) {
     this.message = message
     this.name = 'MapsException'
   }

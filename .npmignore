@@ -1,4 +1,9 @@
 /example
 /docs
-/.github
+greenkeeper.json
+.github
 .editorconfig
+.idea
+.vscode
+.travis.yml
+.eslintrc.json

@@ -26,7 +26,7 @@ import { askAppChoice, checkOptions } from './utils'
  *     appsWhiteList: array | undefined | null
  * }} options
  */
-export async function showLocation(options) {
+export async function showLocation (options) {
   const prefixes = generatePrefixes(options)
   checkOptions(options, prefixes)
 

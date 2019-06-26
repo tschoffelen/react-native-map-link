@@ -6,7 +6,7 @@ import { Platform } from 'react-native'
 
 export const isIOS = Platform.OS === 'ios'
 
-export function generatePrefixes(options) {
+export function generatePrefixes (options) {
   return {
     'apple-maps': isIOS ? 'http://maps.apple.com/' : 'applemaps://',
     'google-maps': prefixForGoogleMaps(options.alwaysIncludeGoogle),
@@ -17,11 +17,11 @@ export function generatePrefixes(options) {
     waze: 'waze://',
     yandex: 'yandexnavi://',
     moovit: 'moovit://',
-    'yandex-maps': 'yandexmaps://maps.yandex.ru/',
+    'yandex-maps': 'yandexmaps://maps.yandex.ru/'
   }
 }
 
-export function prefixForGoogleMaps(alwaysIncludeGoogle) {
+export function prefixForGoogleMaps (alwaysIncludeGoogle) {
   return isIOS && !alwaysIncludeGoogle
     ? 'comgooglemaps://'
     : 'https://maps.google.com/'

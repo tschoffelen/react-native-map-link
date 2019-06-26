@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   Dimensions,
   FlatList,
-  ActivityIndicator,
+  ActivityIndicator
 } from 'react-native'
 import PropTypes from 'prop-types'
 import Modal from 'react-native-modal'
@@ -68,7 +68,7 @@ export default class Popup extends React.Component {
 
   state = {
     apps: [],
-    loading: true,
+    loading: true
   }
 
   componentDidMount = async () => {
