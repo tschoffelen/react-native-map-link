@@ -92,18 +92,11 @@ Notes:
 * [Adding support for new maps apps](docs/add-app.md)
 
 
-## Authors
-
-This library is developed by [Includable](https://includable.com/), a creative app and web platform
-development agency based in Amsterdam, The Netherlands.
-
-* Thomas Schoffelen, [@tschoffelen](https://twitter.com/tschoffelen)
-
-
 ## Credits
 
-This library is loosely based on [CMMapLauncher](https://github.com/citymapper/CMMapLauncher), ported to React Native for your pleasure and convenience.
+This library is developed by [Lean Motherfuckers](https://leanmotherfuckers.com/), a tech consulting company like no other.
 
 Contributors:
 
+* Thomas Schoffelen, [@tschoffelen](https://twitter.com/tschoffelen)
 * Johan le Roch, [@JohnLrDev](https://twitter.com/JohnLrDev)
