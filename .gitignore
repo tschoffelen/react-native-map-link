@@ -2,3 +2,4 @@ node_modules
 .idea
 .vscode
 yarn.lock
+example/package-lock.json
