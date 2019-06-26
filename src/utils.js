@@ -85,12 +85,13 @@ export function checkNotSupportedApps(apps) {
  *     message: string | undefined | null
  *     cancelText: string | undefined | null
  *     appsWhiteList: string[] | null
+ *     prefixes: string[]
  * }} options
  * @returns {Promise}
  */
-export function askAppChoice({ dialogTitle, dialogMessage, cancelText, appsWhiteList }) {
+export function askAppChoice({ dialogTitle, dialogMessage, cancelText, appsWhiteList, prefixes }) {
   return new Promise(async (resolve) => {
-    let availableApps = await getAvailableApps()
+    let availableApps = await getAvailableApps(prefixes)
 
     if (appsWhiteList && appsWhiteList.length) {
       availableApps = availableApps

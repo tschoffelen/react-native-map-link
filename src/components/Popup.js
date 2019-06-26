@@ -18,7 +18,7 @@ import Modal from 'react-native-modal'
 
 import { getAvailableApps, checkNotSupportedApps } from '../utils'
 import { showLocation } from '../index'
-import { titles, icons } from '../constants'
+import { titles, icons, generatePrefixes } from '../constants'
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('screen')
 
@@ -72,8 +72,8 @@ export default class Popup extends React.Component {
   }
 
   componentDidMount = async () => {
-    const { appsWhiteList } = this.props
-    let apps = await getAvailableApps()
+    const { appsWhiteList, options } = this.props
+    let apps = await getAvailableApps(generatePrefixes(options))
     if (appsWhiteList && appsWhiteList.length) {
       checkNotSupportedApps(appsWhiteList)
       apps = apps.filter(appName => this.props.appsWhiteList.includes(appName))
