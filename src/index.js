@@ -58,7 +58,8 @@ export async function showLocation(options) {
       dialogTitle,
       dialogMessage,
       cancelText,
-      appsWhiteList
+      appsWhiteList,
+      prefixes
     })
   }
 
