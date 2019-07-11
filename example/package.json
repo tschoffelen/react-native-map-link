@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "react": "^16.8.6",
-    "react-native": "^0.59.9",
+    "react-native": "^0.60.1",
     "react-native-map-link": "^2.4.3"
   }
 }
