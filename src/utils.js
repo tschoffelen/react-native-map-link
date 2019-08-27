@@ -10,12 +10,9 @@ import { titles, isIOS } from './constants'
  * Get available navigation apps.
  */
 export const getAvailableApps = async (prefixes) => {
-  let availableApps = []
-  for (let app in prefixes) {
-    if (!prefixes.hasOwnProperty(app)) {
-      continue
-    }
-    let avail = await isAppInstalled(app, prefixes)
+  const availableApps = []
+  for (const app in prefixes) {
+    const avail = await isAppInstalled(app, prefixes)
     if (avail) {
       availableApps.push(app)
     }
@@ -28,6 +25,7 @@ export const getAvailableApps = async (prefixes) => {
  * Check if a given map app is installed.
  *
  * @param {string} app
+ * @param {object} prefixes
  * @returns {Promise<boolean>}
  */
 function isAppInstalled (app, prefixes) {
@@ -70,7 +68,7 @@ function getNotSupportedApps (apps) {
  * @param {array} apps
  */
 export function checkNotSupportedApps (apps) {
-  let notSupportedApps = getNotSupportedApps(apps)
+  const notSupportedApps = getNotSupportedApps(apps)
   if (notSupportedApps.length) {
     throw new MapsException(
       `appsWhiteList [${notSupportedApps}] are not supported apps, please provide some of the supported apps [${Object.keys(titles)}]`
@@ -103,7 +101,7 @@ export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhit
     }
 
     if (isIOS) {
-      let options = availableApps.map((app) => titles[app])
+      const options = availableApps.map((app) => titles[app])
       options.push(cancelText)
 
       ActionSheetIOS.showActionSheetWithOptions({
@@ -121,7 +119,7 @@ export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhit
       return
     }
 
-    let options = availableApps.map((app) => ({ text: titles[app], onPress: () => resolve(app) }))
+    const options = availableApps.map((app) => ({ text: titles[app], onPress: () => resolve(app) }))
     options.push({ text: cancelText, onPress: () => resolve(null), style: 'cancel' })
     return Alert.alert(dialogTitle, dialogMessage, options, { onDismiss: () => resolve(null) })
   })
@@ -143,6 +141,7 @@ export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhit
  *     dialogMessage: string | undefined | null
  *     cancelText: string | undefined | null
  * }} options
+ * @param {object} prefixes
  */
 export function checkOptions (options, prefixes) {
   if (!options || typeof options !== 'object') {

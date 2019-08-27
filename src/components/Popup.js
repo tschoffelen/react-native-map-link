@@ -20,7 +20,7 @@ import { getAvailableApps, checkNotSupportedApps } from '../utils'
 import { showLocation } from '../index'
 import { titles, icons, generatePrefixes } from '../constants'
 
-const { height: SCREEN_HEIGHT } = Dimensions.get('screen')
+const SCREEN_HEIGHT = Dimensions.get('screen').height
 
 const colors = {
   black: '#464646',
@@ -30,48 +30,16 @@ const colors = {
 }
 
 export default class Popup extends React.Component {
-  static propTypes = {
-    isVisible: PropTypes.bool,
-    showHeader: PropTypes.bool,
-    onBackButtonPressed: PropTypes.func,
-    onAppPressed: PropTypes.func,
-    onCancelPressed: PropTypes.func,
-    style: PropTypes.object,
-    modalProps: PropTypes.object,
-    options: PropTypes.object.isRequired,
-    appsWhiteList: PropTypes.array
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      apps: [],
+      loading: true
+    }
   }
 
-  static defaultProps = {
-    isVisible: false,
-    showHeader: true,
-    style: {
-      container: {},
-      itemContainer: {},
-      image: {},
-      itemText: {},
-      headerContainer: {},
-      titleText: {},
-      subtitleText: {},
-      cancelButtonContainer: {},
-      cancelButtonText: {},
-      separatorStyle: {},
-      activityIndicatorContainer: {}
-    },
-    modalProps: {},
-    options: {},
-    appsWhiteList: null,
-    onBackButtonPressed: () => { },
-    onCancelPressed: () => {},
-    onAppPressed: () => {}
-  }
-
-  state = {
-    apps: [],
-    loading: true
-  }
-
-  componentDidMount = async () => {
+  async componentDidMount () {
     const { appsWhiteList, options } = this.props
     let apps = await getAvailableApps(generatePrefixes(options))
     if (appsWhiteList && appsWhiteList.length) {
@@ -82,7 +50,7 @@ export default class Popup extends React.Component {
     this.setState({ apps, loading: false })
   }
 
-  _renderHeader = () => {
+  _renderHeader () {
     const { showHeader, options } = this.props
     if (!showHeader) {
       return null
@@ -104,11 +72,11 @@ export default class Popup extends React.Component {
     )
   }
 
-  _renderApps = () => {
+  _renderApps () {
     return (
       <FlatList
         ItemSeparatorComponent={() => (
-          <View style={[styles.separatorStyle, this.props.style.separatorStyle]} />
+          <View style={[styles.separatorStyle, this.props.style.separatorStyle]}/>
         )}
         data={this.state.apps}
         renderItem={this._renderAppItem}
@@ -117,7 +85,7 @@ export default class Popup extends React.Component {
     )
   }
 
-  _renderAppItem = ({ item }) => {
+  _renderAppItem ({ item }) {
     return (
       <TouchableOpacity
         key={item}
@@ -135,7 +103,7 @@ export default class Popup extends React.Component {
     )
   }
 
-  _renderCancelButton = () => {
+  _renderCancelButton () {
     const { options } = this.props
     const cancelText = options.cancelText && options.cancelText.length ? options.cancelText : 'Cancel'
     return (
@@ -148,7 +116,7 @@ export default class Popup extends React.Component {
     )
   }
 
-  _onAppPressed = ({ app }) => {
+  _onAppPressed ({ app }) {
     showLocation({ ...this.props.options, app })
     this.props.onAppPressed(app)
   }
@@ -163,16 +131,53 @@ export default class Popup extends React.Component {
         hideModalContentWhileAnimating
         useNativeDriver
         onBackButtonPress={this.props.onBackButtonPressed}
-        {...this.props.modalProps}
-      >
+        {...this.props.modalProps}>
         <View style={[styles.container, this.props.style.container]}>
           {this._renderHeader()}
-          {loading ? <ActivityIndicator style={[styles.activityIndicatorContainer, this.props.style.activityIndicatorContainer]} /> : this._renderApps()}
+          {loading ? (
+            <ActivityIndicator style={[styles.activityIndicatorContainer, this.props.style.activityIndicatorContainer]}/>
+          ) : this._renderApps()}
           {this._renderCancelButton()}
         </View>
       </Modal>
     )
   }
+}
+
+Popup.propTypes = {
+  isVisible: PropTypes.bool,
+  showHeader: PropTypes.bool,
+  onBackButtonPressed: PropTypes.func,
+  onAppPressed: PropTypes.func,
+  onCancelPressed: PropTypes.func,
+  style: PropTypes.object,
+  modalProps: PropTypes.object,
+  options: PropTypes.object.isRequired,
+  appsWhiteList: PropTypes.array
+}
+
+Popup.defaultProps = {
+  isVisible: false,
+  showHeader: true,
+  style: {
+    container: {},
+    itemContainer: {},
+    image: {},
+    itemText: {},
+    headerContainer: {},
+    titleText: {},
+    subtitleText: {},
+    cancelButtonContainer: {},
+    cancelButtonText: {},
+    separatorStyle: {},
+    activityIndicatorContainer: {}
+  },
+  modalProps: {},
+  options: {},
+  appsWhiteList: null,
+  onBackButtonPressed: () => { },
+  onCancelPressed: () => {},
+  onAppPressed: () => {}
 }
 
 const styles = StyleSheet.create({

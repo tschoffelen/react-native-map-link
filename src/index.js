@@ -42,16 +42,16 @@ export async function showLocation (options) {
     sourceLatLng = `${sourceLat},${sourceLng}`
   }
 
-  let lat = parseFloat(options.latitude)
-  let lng = parseFloat(options.longitude)
-  let latlng = `${lat},${lng}`
-  let title = options.title && options.title.length ? options.title : null
-  let encodedTitle = encodeURIComponent(title)
+  const lat = parseFloat(options.latitude)
+  const lng = parseFloat(options.longitude)
+  const latlng = `${lat},${lng}`
+  const title = options.title && options.title.length ? options.title : null
+  const encodedTitle = encodeURIComponent(title)
   let app = options.app && options.app.length ? options.app : null
-  let dialogTitle = options.dialogTitle && options.dialogTitle.length ? options.dialogTitle : 'Open in Maps'
-  let dialogMessage = options.dialogMessage && options.dialogMessage.length ? options.dialogMessage : 'What app would you like to use?'
-  let cancelText = options.cancelText && options.cancelText.length ? options.cancelText : 'Cancel'
-  let appsWhiteList = options.appsWhiteList && options.appsWhiteList.length ? options.appsWhiteList : null
+  const dialogTitle = options.dialogTitle && options.dialogTitle.length ? options.dialogTitle : 'Open in Maps'
+  const dialogMessage = options.dialogMessage && options.dialogMessage.length ? options.dialogMessage : 'What app would you like to use?'
+  const cancelText = options.cancelText && options.cancelText.length ? options.cancelText : 'Cancel'
+  const appsWhiteList = options.appsWhiteList && options.appsWhiteList.length ? options.appsWhiteList : null
 
   if (!app) {
     app = await askAppChoice({
@@ -72,17 +72,14 @@ export async function showLocation (options) {
       url += `&q=${title ? `${encodedTitle}&address=${encodedTitle}` : 'Location'}`
       break
     case 'google-maps':
-      let useTitleForQuery = !options.googleForceLatLon && title
-      let googlePlaceId = options.googlePlaceId ? options.googlePlaceId : null
-
       url = prefixes['google-maps']
-      url += `?q=${useTitleForQuery ? encodedTitle : latlng}`
+      url += `?q=${!options.googleForceLatLon && title ? encodedTitle : latlng}`
       url += (isIOS) ? '&api=1' : ''
-      url += (googlePlaceId) ? `&query_place_id=${googlePlaceId}` : ''
+      url += (options.googlePlaceId) ? `&query_place_id=${options.googlePlaceId}` : ''
       url += (useSourceDestiny) ? `&saddr=${sourceLatLng}&daddr=${latlng}` : `&ll=${latlng}`
       break
     case 'citymapper':
-      url = `${prefixes['citymapper']}directions?endcoord=${latlng}`
+      url = `${prefixes.citymapper}directions?endcoord=${latlng}`
 
       if (title) {
         url += `&endname=${encodedTitle}`
@@ -93,17 +90,17 @@ export async function showLocation (options) {
       }
       break
     case 'uber':
-      url = `${prefixes['uber']}?action=setPickup&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}`
+      url = `${prefixes.uber}?action=setPickup&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}`
 
       if (title) {
         url += `&dropoff[nickname]=${encodedTitle}`
       }
 
-      url += (useSourceDestiny) ? `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}` : `&pickup=my_location`
+      url += (useSourceDestiny) ? `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}` : '&pickup=my_location'
 
       break
     case 'lyft':
-      url = `${prefixes['lyft']}ridetype?id=lyft&destination[latitude]=${lat}&destination[longitude]=${lng}`
+      url = `${prefixes.lyft}ridetype?id=lyft&destination[latitude]=${lat}&destination[longitude]=${lng}`
 
       if (useSourceDestiny) {
         url += `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}`
@@ -111,27 +108,27 @@ export async function showLocation (options) {
 
       break
     case 'transit':
-      url = `${prefixes['transit']}directions?to=${latlng}`
+      url = `${prefixes.transit}directions?to=${latlng}`
 
       if (useSourceDestiny) {
         url += `&from=${sourceLatLng}`
       }
       break
     case 'waze':
-      url = `${prefixes['waze']}?ll=${latlng}&navigate=yes`
+      url = `${prefixes.waze}?ll=${latlng}&navigate=yes`
       if (title) {
         url += `&q=${encodedTitle}`
       }
       break
     case 'yandex':
-      url = `${prefixes['yandex']}build_route_on_map?lat_to=${lat}&lon_to=${lng}`
+      url = `${prefixes.yandex}build_route_on_map?lat_to=${lat}&lon_to=${lng}`
 
       if (useSourceDestiny) {
         url += `&lat_from=${sourceLat}&lon_from=${sourceLng}`
       }
       break
     case 'moovit':
-      url = `${prefixes['moovit']}directions?dest_lat=${lat}&dest_lon=${lng}`
+      url = `${prefixes.moovit}directions?dest_lat=${lat}&dest_lon=${lng}`
 
       if (title) {
         url += `&dest_name=${encodedTitle}`
