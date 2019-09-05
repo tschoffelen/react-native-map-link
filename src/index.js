@@ -75,11 +75,11 @@ export async function showLocation (options) {
       url = prefixes['google-maps']
 
       if (options.googleForceLatLon && title) {
-        url += `?q=loc:${lat},+${lng}+(${encodedTitle})`;
+        url += `?q=loc:${lat},+${lng}+(${encodedTitle})`
       } else if (title) {
         url += `?q=${encodedTitle}`
       } else {
-        url += `?q=${latlng}`;
+        url += `?q=${latlng}`
       }
 
       url += (isIOS) ? '&api=1' : ''
