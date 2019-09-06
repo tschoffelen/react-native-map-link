@@ -73,7 +73,15 @@ export async function showLocation (options) {
       break
     case 'google-maps':
       url = prefixes['google-maps']
-      url += `?q=${!options.googleForceLatLon && title ? encodedTitle : latlng}`
+
+      if (options.googleForceLatLon && title) {
+        url += `?q=loc:${lat},+${lng}+(${encodedTitle})`
+      } else if (title) {
+        url += `?q=${encodedTitle}`
+      } else {
+        url += `?q=${latlng}`
+      }
+
       url += (isIOS) ? '&api=1' : ''
       url += (options.googlePlaceId) ? `&query_place_id=${options.googlePlaceId}` : ''
       url += (useSourceDestiny) ? `&saddr=${sourceLatLng}&daddr=${latlng}` : `&ll=${latlng}`
