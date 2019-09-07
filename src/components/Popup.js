@@ -37,6 +37,8 @@ export default class Popup extends React.Component {
       apps: [],
       loading: true
     }
+
+    this._renderAppItem = this._renderAppItem.bind(this)
   }
 
   async componentDidMount () {
