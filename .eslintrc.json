@@ -22,5 +22,7 @@
         "react"
     ],
     "rules": {
+      "react/jsx-uses-vars": [2],
+      "no-async-promise-executor": 0
     }
 }
