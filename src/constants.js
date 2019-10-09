@@ -22,9 +22,14 @@ export function generatePrefixes(options) {
 }
 
 export function prefixForGoogleMaps(alwaysIncludeGoogle) {
-  return isIOS && !alwaysIncludeGoogle
+  switch (isIOS) {
+    case true : return isIOS && !alwaysIncludeGoogle
     ? 'comgooglemaps://'
     : 'https://www.google.com/maps';
+    case false :  return isIOS && !alwaysIncludeGoogle
+    ? 'comgooglemaps://'
+    : 'https://maps.google.com/'; 
+  }
 }
 
 export const titles = {

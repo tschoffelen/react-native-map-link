@@ -79,9 +79,9 @@ export async function showLocation(options) {
       } else if (title) {
         url += `?q=${encodedTitle}`;
       } else if (useSourceDestiny) {
-        url += `/dir/'${sourceLatLng}'/'${latlng}'`;
+        url += isIOS ? `/dir/'${sourceLatLng}'/'${latlng}'` : `&saddr=${sourceLatLng}&daddr=${latlng}`;
       } else {
-        url += `/place/'${latlng}'`;
+        url += isIOS ? `/place/'${latlng}'` : `&ll=${latlng}`;
       }
 
       url += options.googlePlaceId
