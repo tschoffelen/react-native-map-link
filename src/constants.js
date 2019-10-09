@@ -1,10 +1,10 @@
 /**
  * React Native Map Link
  */
-import { Platform } from 'react-native';
+import { Platform } from 'react-native'
 
 
-export const isIOS = Platform.OS === 'ios';
+export const isIOS = Platform.OS === 'ios'
 
 export function generatePrefixes(options) {
   return {
@@ -17,19 +17,18 @@ export function generatePrefixes(options) {
     waze: 'waze://',
     yandex: 'yandexnavi://',
     moovit: 'moovit://',
-    'yandex-maps': 'yandexmaps://maps.yandex.ru/',
-  };
+    'yandex-maps': 'yandexmaps://maps.yandex.ru/'
+  }
 }
 
 export function prefixForGoogleMaps(alwaysIncludeGoogle) {
-  switch (isIOS) {
-    case true : return isIOS && !alwaysIncludeGoogle
-    ? 'comgooglemaps://'
-    : 'https://www.google.com/maps';
-    case false :  return isIOS && !alwaysIncludeGoogle
-    ? 'comgooglemaps://'
-    : 'https://maps.google.com/'; 
+  if (isIOS && !alwaysIncludeGoogle) {
+    return 'comgooglemaps://'
   }
+    
+  return isIOS
+    ? 'https://www.google.com/maps'
+    : 'https://maps.google.com/'
 }
 
 export const titles = {
@@ -42,8 +41,8 @@ export const titles = {
   waze: 'Waze',
   yandex: 'Yandex.Navi',
   moovit: 'Moovit',
-  'yandex-maps': 'Yandex Maps',
-};
+  'yandex-maps': 'Yandex Maps'
+}
 
 export const icons = {
   'apple-maps': require('./images/apple-maps.png'),
@@ -55,5 +54,5 @@ export const icons = {
   waze: require('./images/waze.png'),
   yandex: require('./images/yandex.png'),
   moovit: require('./images/moovit.png'),
-  'yandex-maps': require('./images/yandex-maps.png'),
-};
+  'yandex-maps': require('./images/yandex-maps.png')
+}
