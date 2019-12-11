@@ -17,7 +17,8 @@ export function generatePrefixes (options) {
     waze: 'waze://',
     yandex: 'yandexnavi://',
     moovit: 'moovit://',
-    'yandex-maps': 'yandexmaps://maps.yandex.ru/'
+    'yandex-maps': 'yandexmaps://maps.yandex.ru/',
+    kakaomap: 'kakaomap://'
   }
 }
 
@@ -37,7 +38,8 @@ export const titles = {
   waze: 'Waze',
   yandex: 'Yandex.Navi',
   moovit: 'Moovit',
-  'yandex-maps': 'Yandex Maps'
+  'yandex-maps': 'Yandex Maps',
+  kakaomap: 'Kakao Maps'
 }
 
 export const icons = {
@@ -50,5 +52,6 @@ export const icons = {
   waze: require('./images/waze.png'),
   yandex: require('./images/yandex.png'),
   moovit: require('./images/moovit.png'),
-  'yandex-maps': require('./images/yandex-maps.png')
+  'yandex-maps': require('./images/yandex-maps.png'),
+  kakaomap: require('./images/kakao-map.png')
 }
