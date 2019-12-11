@@ -150,6 +150,13 @@ export async function showLocation (options) {
       url = `${prefixes['yandex-maps']}?pt=${lng},${lat}`
 
       break
+    case 'kakaomap':
+        url = `${prefixes.kakaomap}look?p=${latlng}`
+        
+        if (useSourceDestiny) {
+          url = `${prefixes.kakaomap}route?sp=${sourceLat},${sourceLng}&ep=${latlng}&by=CAR`
+        }
+        break
   }
 
   if (url) {
