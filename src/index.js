@@ -160,6 +160,6 @@ export async function showLocation (options) {
   }
 
   if (url) {
-    return Linking.openURL(url)
+    return Linking.openURL(url).then(() => Promise.resolve(app))
   }
 }
