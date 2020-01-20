@@ -15,7 +15,7 @@ interface Options {
     dialogMessage?: string
     cancelText?: string
     appsWhiteList?: string[]
-    appTitles?: { [key: string]: string };
+    appTitles?: { [key: string]: string }
 }
 
 interface PopupStyleProp {

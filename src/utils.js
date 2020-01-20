@@ -170,7 +170,7 @@ export function checkOptions (options, prefixes) {
     checkNotSupportedApps(options.appsWhiteList)
   }
   if ('appTitles' in options && options.appTitles && typeof options.appTitles !== 'object') {
-    throw new MapsException('Option `appTitles` should be of type `object`.');
+    throw new MapsException('Option `appTitles` should be of type `object`.')
   }
 }
 

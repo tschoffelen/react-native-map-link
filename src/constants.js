@@ -29,7 +29,7 @@ export function prefixForGoogleMaps (alwaysIncludeGoogle) {
 }
 
 export function generateTitles (titles) {
-  return Object.assign({
+  return {
     'apple-maps': 'Apple Maps',
     'google-maps': 'Google Maps',
     citymapper: 'Citymapper',
@@ -40,8 +40,9 @@ export function generateTitles (titles) {
     yandex: 'Yandex.Navi',
     moovit: 'Moovit',
     'yandex-maps': 'Yandex Maps',
-    kakaomap: 'Kakao Maps'
-  }, titles || {});
+    kakaomap: 'Kakao Maps',
+    ...(titles || {})
+  }
 }
 
 export const icons = {

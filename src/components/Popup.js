@@ -18,7 +18,7 @@ import Modal from 'react-native-modal'
 
 import { getAvailableApps, checkNotSupportedApps } from '../utils'
 import { showLocation } from '../index'
-import { generateTitles, icons, generatePrefixes } from "../constants";
+import { generateTitles, icons, generatePrefixes } from '../constants'
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height
 
