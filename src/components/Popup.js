@@ -18,7 +18,7 @@ import Modal from 'react-native-modal'
 
 import { getAvailableApps, checkNotSupportedApps } from '../utils'
 import { showLocation } from '../index'
-import { titles, icons, generatePrefixes } from '../constants'
+import { generateTitles, icons, generatePrefixes } from "../constants";
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height
 
@@ -35,7 +35,8 @@ export default class Popup extends React.Component {
 
     this.state = {
       apps: [],
-      loading: true
+      loading: true,
+      titles: generateTitles(props.appTitles),
     }
 
     this._renderAppItem = this._renderAppItem.bind(this)
@@ -100,7 +101,7 @@ export default class Popup extends React.Component {
             source={icons[item]}
           />
         </View>
-        <Text style={[styles.itemText, this.props.style.itemText]}>{titles[item]}</Text>
+        <Text style={[styles.itemText, this.props.style.itemText]}>{this.state.titles[item]}</Text>
       </TouchableOpacity>
     )
   }

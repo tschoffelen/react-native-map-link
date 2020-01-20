@@ -28,18 +28,20 @@ export function prefixForGoogleMaps (alwaysIncludeGoogle) {
     : 'https://maps.google.com/'
 }
 
-export const titles = {
-  'apple-maps': 'Apple Maps',
-  'google-maps': 'Google Maps',
-  citymapper: 'Citymapper',
-  uber: 'Uber',
-  lyft: 'Lyft',
-  transit: 'The Transit App',
-  waze: 'Waze',
-  yandex: 'Yandex.Navi',
-  moovit: 'Moovit',
-  'yandex-maps': 'Yandex Maps',
-  kakaomap: 'Kakao Maps'
+export function generateTitles (titles) {
+  return Object.assign({
+    'apple-maps': 'Apple Maps',
+    'google-maps': 'Google Maps',
+    citymapper: 'Citymapper',
+    uber: 'Uber',
+    lyft: 'Lyft',
+    transit: 'The Transit App',
+    waze: 'Waze',
+    yandex: 'Yandex.Navi',
+    moovit: 'Moovit',
+    'yandex-maps': 'Yandex Maps',
+    kakaomap: 'Kakao Maps'
+  }, titles || {});
 }
 
 export const icons = {
@@ -55,3 +57,5 @@ export const icons = {
   'yandex-maps': require('./images/yandex-maps.png'),
   kakaomap: require('./images/kakao-map.png')
 }
+
+export const appKeys = Object.keys(icons);

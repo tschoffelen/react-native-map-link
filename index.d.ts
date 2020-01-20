@@ -15,6 +15,7 @@ interface Options {
     dialogMessage?: string
     cancelText?: string
     appsWhiteList?: string[]
+    appTitles?: { [key: string]: string };
 }
 
 interface PopupStyleProp {
@@ -40,7 +41,8 @@ interface PopupProps {
     style?: PopupStyleProp,
     modalProps?: object,
     options: Options,
-    appsWhiteList: string[]
+    appsWhiteList: string[],
+    appTitles?: { [key: string]: string }
 }
 
 export function showLocation(options: Options): Promise<void>;
