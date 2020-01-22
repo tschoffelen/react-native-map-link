@@ -1,8 +1,8 @@
 ![React Native Map Link](https://lowcdn.com/2x/8f2/3ab63c0fe3f9-00fb302c20/banner.svg)
 
-[![GitHub release](https://img.shields.io/github/release/includable/react-native-map-link.svg)](https://github.com/includable/react-native-map-link/releases)
+[![GitHub release](https://img.shields.io/github/release/tschoffelen/react-native-map-link.svg)](https://github.com/tschoffelen/react-native-map-link/releases)
 [![npm](https://img.shields.io/npm/dm/react-native-map-link.svg)](https://www.npmjs.com/package/react-native-map-link)
-[![GitHub license](https://img.shields.io/github/license/includable/react-native-map-link.svg)](https://github.com/includable/react-native-map-link/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/includable/react-native-map-link.svg)](https://github.com/tschoffelen/react-native-map-link/blob/master/LICENSE)
 
 ---
 
