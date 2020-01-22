@@ -4,7 +4,7 @@
 
 import { Linking } from 'react-native'
 
-import { isIOS, generatePrefixes } from './constants'
+import { isIOS, generatePrefixes, generateTitles } from './constants'
 import { askAppChoice, checkOptions } from './utils'
 
 /**
@@ -24,6 +24,7 @@ import { askAppChoice, checkOptions } from './utils'
  *     dialogMessage: string | undefined | null
  *     cancelText: string | undefined | null
  *     appsWhiteList: array | undefined | null
+ *     appTitles: object | undefined | null
  * }} options
  */
 export async function showLocation (options) {
@@ -59,8 +60,9 @@ export async function showLocation (options) {
       dialogMessage,
       cancelText,
       appsWhiteList,
-      prefixes
-    })
+      prefixes,
+      appTitles: generateTitles(options.appTitles)
+    });
   }
 
   let url = null

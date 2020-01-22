@@ -4,7 +4,7 @@
 
 import { Linking, ActionSheetIOS, Alert } from 'react-native'
 
-import { titles, isIOS } from './constants'
+import { appKeys, isIOS } from "./constants"
 
 /**
  * Get available navigation apps.
@@ -49,7 +49,7 @@ function isAppInstalled (app, prefixes) {
  * @returns {boolean}
  */
 function isSupportedApp (app) {
-  return Object.keys(titles).includes(app)
+  return appKeys.includes(app)
 }
 
 /**
@@ -71,7 +71,7 @@ export function checkNotSupportedApps (apps) {
   const notSupportedApps = getNotSupportedApps(apps)
   if (notSupportedApps.length) {
     throw new MapsException(
-      `appsWhiteList [${notSupportedApps}] are not supported apps, please provide some of the supported apps [${Object.keys(titles)}]`
+      `appsWhiteList [${notSupportedApps}] are not supported apps, please provide some of the supported apps [${appKeys}]`
     )
   }
 }
@@ -83,11 +83,12 @@ export function checkNotSupportedApps (apps) {
  *     message: string | undefined | null
  *     cancelText: string | undefined | null
  *     appsWhiteList: string[] | null
- *     prefixes: string[]
+ *     prefixes: string[],
+ *     appTitles: object | undefined | null
  * }} options
  * @returns {Promise}
  */
-export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhiteList, prefixes }) {
+export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhiteList, prefixes, appTitles }) {
   return new Promise(async (resolve) => {
     let availableApps = await getAvailableApps(prefixes)
 
@@ -101,7 +102,7 @@ export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhit
     }
 
     if (isIOS) {
-      const options = availableApps.map((app) => titles[app])
+      const options = availableApps.map(app => appTitles[app])
       options.push(cancelText)
 
       ActionSheetIOS.showActionSheetWithOptions({
@@ -119,8 +120,12 @@ export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhit
       return
     }
 
-    const options = availableApps.map((app) => ({ text: titles[app], onPress: () => resolve(app) }))
+    const options = availableApps.map(app => ({
+      text: appTitles[app],
+      onPress: () => resolve(app)
+    }))
     options.unshift({ text: cancelText, onPress: () => resolve(null), style: 'cancel' })
+
     return Alert.alert(dialogTitle, dialogMessage, options, { onDismiss: () => resolve(null) })
   })
 }
@@ -164,6 +169,9 @@ export function checkOptions (options, prefixes) {
   }
   if ('appsWhiteList' in options && options.appsWhiteList) {
     checkNotSupportedApps(options.appsWhiteList)
+  }
+  if ('appTitles' in options && options.appTitles && typeof options.appTitles !== 'object') {
+    throw new MapsException('Option `appTitles` should be of type `object`.')
   }
 }
 
