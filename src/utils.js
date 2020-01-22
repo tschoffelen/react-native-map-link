@@ -124,7 +124,8 @@ export function askAppChoice ({ dialogTitle, dialogMessage, cancelText, appsWhit
       text: appTitles[app],
       onPress: () => resolve(app)
     }))
-    options.push({ text: cancelText, onPress: () => resolve(null), style: 'cancel' })
+    options.unshift({ text: cancelText, onPress: () => resolve(null), style: 'cancel' })
+
     return Alert.alert(dialogTitle, dialogMessage, options, { onDismiss: () => resolve(null) })
   })
 }
