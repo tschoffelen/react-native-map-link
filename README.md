@@ -34,9 +34,9 @@ npm i -S react-native-map-link         # or yarn add react-native-map-link
 ```
 
 ### 2. Update your Info.plist
-To allow your app to detect if any of the directions apps are installed, an extra step is required on iOS. Your app needs to provide the `LSApplicationQueriesSchemes` key inside `ios/Info.plist` to specify the URL schemes with which the app can interact.
+To allow your app to detect if any of the directions apps are installed, an extra step is required on iOS. Your app needs to provide the `LSApplicationQueriesSchemes` key inside `ios/{my-project}/Info.plist` to specify the URL schemes with which the app can interact.
 
-Just put this in your `Info.plist` depending on which apps you'd like to support. Omitting these might mean that the library can't detect some of the maps apps installed by the user.
+Just add this in your `Info.plist` depending on which apps you'd like to support. Omitting these might mean that the library can't detect some of the maps apps installed by the user.
 
 ```xml
 <key>LSApplicationQueriesSchemes</key>
