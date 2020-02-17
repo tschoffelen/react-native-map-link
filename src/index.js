@@ -124,6 +124,9 @@ export async function showLocation (options) {
         url += `&from=${sourceLatLng}`
       }
       break
+    case 'truckmap':
+      url = `http://truckmap.com/place/${lat},${lng}`
+      break
     case 'waze':
       url = `${prefixes.waze}?ll=${latlng}&navigate=yes`
       if (title) {

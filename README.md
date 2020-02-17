@@ -17,6 +17,7 @@ Currently supported apps:
 * Uber – `uber`
 * Lyft – `lyft`
 * The Transit App – `transit`
+* TruckMap – `truckmap`
 * Waze – `waze`
 * Yandex.Navi – `yandex`
 * Moovit – `moovit`
@@ -46,6 +47,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>uber</string>
     <string>lyft</string>
     <string>transit</string>
+    <string>truckmap</string>
     <string>waze</string>
     <string>yandexnavi</string>
     <string>moovit</string>
