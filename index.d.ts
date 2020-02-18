@@ -45,5 +45,5 @@ interface PopupProps {
     appTitles?: { [key: string]: string }
 }
 
-export function showLocation(options: Options): Promise<void>;
+export function showLocation(options: Options): Promise<string | undefined | null>;
 export class Popup extends React.Component<PopupProps>{ }
