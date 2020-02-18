@@ -126,6 +126,10 @@ export async function showLocation (options) {
       break
     case 'truckmap':
       url = `http://truckmap.com/place/${lat},${lng}`
+      
+      if (useSourceDestiny) {
+        url = `http://truckmap.com/route/${sourceLat},${sourceLng}/${lat},${lng}`
+      }
       break
     case 'waze':
       url = `${prefixes.waze}?ll=${latlng}&navigate=yes`
