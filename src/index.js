@@ -4,7 +4,7 @@
 
 import { Linking } from 'react-native'
 
-import { isIOS, generatePrefixes, generateTitles } from './constants'
+import { generatePrefixes, generateTitles } from './constants'
 import { askAppChoice, checkOptions } from './utils'
 
 /**
@@ -75,18 +75,19 @@ export async function showLocation (options) {
       break
     case 'google-maps':
       url = prefixes['google-maps']
-
-      if (options.googleForceLatLon && title) {
-        url += `?q=loc:${lat},+${lng}+(${encodedTitle})`
-      } else if (title) {
-        url += `?q=${encodedTitle}`
+      if(useSourceDestiny) {
+        url += `?saddr=${sourceLatLng}&daddr=${latlng}`
       } else {
-        url += `?q=${latlng}`
+        if (options.googleForceLatLon && title) {
+          url += `?q=loc:${lat},+${lng}+(${encodedTitle})`
+        } else if (title) {
+          url += `?q=${encodedTitle}`
+        } else {
+          url += `?q=${latlng}`
+        }
       }
 
-      url += (isIOS) ? '&api=1' : ''
       url += (options.googlePlaceId) ? `&query_place_id=${options.googlePlaceId}` : ''
-      url += (useSourceDestiny) ? `&saddr=${sourceLatLng}&daddr=${latlng}` : `&ll=${latlng}`
       break
     case 'citymapper':
       url = `${prefixes.citymapper}directions?endcoord=${latlng}`
