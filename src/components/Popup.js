@@ -54,9 +54,12 @@ export default class Popup extends React.Component {
   }
 
   _renderHeader () {
-    const { showHeader, options } = this.props
+    const { showHeader, customHeader, options } = this.props
     if (!showHeader) {
       return null
+    }
+    if (customHeader) {
+      return customHeader;
     }
 
     const dialogTitle = options.dialogTitle && options.dialogTitle.length
@@ -119,6 +122,14 @@ export default class Popup extends React.Component {
     )
   }
 
+  _renderFooter () {
+    const { customFooter } = this.props
+    if (customFooter) {
+      return customFooter;
+    }
+   return this._renderCancelButton();
+  }
+
   _onAppPressed ({ app }) {
     showLocation({ ...this.props.options, app })
     this.props.onAppPressed(app)
@@ -140,7 +151,7 @@ export default class Popup extends React.Component {
           {loading ? (
             <ActivityIndicator style={[styles.activityIndicatorContainer, this.props.style.activityIndicatorContainer]}/>
           ) : this._renderApps()}
-          {this._renderCancelButton()}
+          {this._renderFooter()}
         </View>
       </Modal>
     )
@@ -150,6 +161,8 @@ export default class Popup extends React.Component {
 Popup.propTypes = {
   isVisible: PropTypes.bool,
   showHeader: PropTypes.bool,
+  customHeader: PropTypes.element,
+  customFooter: PropTypes.element,
   onBackButtonPressed: PropTypes.func,
   onAppPressed: PropTypes.func,
   onCancelPressed: PropTypes.func,
@@ -162,6 +175,8 @@ Popup.propTypes = {
 Popup.defaultProps = {
   isVisible: false,
   showHeader: true,
+  customHeader: null,
+  customFooter: null,
   style: {
     container: {},
     itemContainer: {},
