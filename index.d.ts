@@ -35,6 +35,8 @@ interface PopupStyleProp {
 interface PopupProps {
     isVisible: boolean,
     showHeader?: boolean,
+    customHeader?: React.ReactNode,
+    customFooter?:  React.ReactNode,
     onCancelPressed: () => void,
     onBackButtonPressed: () => void,
     onAppPressed: () => void,
