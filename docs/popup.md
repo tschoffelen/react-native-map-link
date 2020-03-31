@@ -44,3 +44,29 @@ Also, you can customize the styling of the popup by passing an object like this 
     activityIndicatorContainer: {}
 }
 ```
+
+### Custom Header and Footer Components
+
+You can also make use of your own Header and Footer components by adding the `customHeader` and/or `customFooter` Props to the Popup component. See the example below:
+
+```js
+
+renderHeader() {
+  return <MyCustomHeaderComponent/>
+}
+
+renderFooter() {
+  return <MyCustomFooterComponent/>
+}
+
+render() {
+  return (
+    <Popup
+      ...
+      customHeader={this.renderHeader()}
+      customFooter={this.renderFooter()}
+    />
+  );
+}
+
+```
