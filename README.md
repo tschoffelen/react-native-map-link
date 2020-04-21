@@ -21,6 +21,7 @@ Currently supported apps:
 * Waze – `waze`
 * Yandex.Navi – `yandex`
 * Moovit – `moovit`
+* Yandex Taxi – `yandex-taxi`
 * Yandex Maps – `yandex-maps`
 * Kakao Map – `kakaomap`
 
@@ -51,6 +52,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>waze</string>
     <string>yandexnavi</string>
     <string>moovit</string>
+    <string>yandextaxi</string>
     <string>yandexmaps</string>
     <string>kakaomap</string>
 </array>

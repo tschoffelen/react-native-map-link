@@ -156,6 +156,10 @@ export async function showLocation (options) {
         url += `&orig_lat=${sourceLat}&orig_lon=${sourceLng}`
       }
       break
+    case 'yandex-taxi':
+      url = `${prefixes['yandex-taxi']}route?end-lat=${lat}&end-lon=${lng}&appmetrica_tracking_id=1178268795219780156`
+  
+      break
     case 'yandex-maps':
       url = `${prefixes['yandex-maps']}?pt=${lng},${lat}`
 
