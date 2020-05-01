@@ -24,7 +24,7 @@ Currently supported apps:
 * Yandex Taxi – `yandex-taxi`
 * Yandex Maps – `yandex-maps`
 * Kakao Map – `kakaomap`
-
+* Mapy.cz – `mapycz`
 
 
 ## Installation
@@ -55,6 +55,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>yandextaxi</string>
     <string>yandexmaps</string>
     <string>kakaomap</string>
+    <string>szn-mapy</string>
 </array>
 ```
 

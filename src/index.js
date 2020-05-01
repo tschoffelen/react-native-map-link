@@ -171,6 +171,10 @@ export async function showLocation (options) {
           url = `${prefixes.kakaomap}route?sp=${sourceLat},${sourceLng}&ep=${latlng}&by=CAR`
         }
         break
+    case 'mapycz':
+        url = `${prefixes.mapycz}www.mapy.cz/zakladni?x=${lng}&y=${lat}&source=coor&id=${lng},${lat}` 
+
+        break
   }
 
   if (url) {

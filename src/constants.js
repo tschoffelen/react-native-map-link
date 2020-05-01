@@ -20,7 +20,8 @@ export function generatePrefixes (options) {
     moovit: 'moovit://',
     'yandex-maps': 'yandexmaps://maps.yandex.ru/',
     'yandex-taxi': 'yandextaxi://',
-    kakaomap: 'kakaomap://'
+    kakaomap: 'kakaomap://',
+    'mapycz':  isIOS ? 'szn-mapy://' : 'mapycz://'
   }
 }
 
@@ -45,6 +46,7 @@ export function generateTitles (titles) {
     'yandex-taxi': 'Yandex Taxi',
     'yandex-maps': 'Yandex Maps',
     kakaomap: 'Kakao Maps',
+    mapycz: 'Mapy.cz',
     ...(titles || {})
   }
 }
@@ -62,7 +64,8 @@ export const icons = {
   moovit: require('./images/moovit.png'),
   'yandex-taxi': require('./images/yandex-taxi.png'),
   'yandex-maps': require('./images/yandex-maps.png'),
-  kakaomap: require('./images/kakao-map.png')
+  kakaomap: require('./images/kakao-map.png'),
+  mapycz: require('./images/mapycz.png')
 }
 
 export const appKeys = Object.keys(icons);
