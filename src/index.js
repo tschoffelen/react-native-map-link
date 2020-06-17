@@ -175,6 +175,10 @@ export async function showLocation (options) {
         url = `${prefixes.mapycz}www.mapy.cz/zakladni?x=${lng}&y=${lat}&source=coor&id=${lng},${lat}` 
 
         break
+    case 'maps-me':
+      url = `${prefixes['maps-me']}route?sll=${sourceLat},${sourceLng}&saddr= &dll=${lat},${lng}&daddr=${title}&type=vehicle`
+
+      break
   }
 
   if (url) {

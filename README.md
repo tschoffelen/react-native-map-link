@@ -25,6 +25,7 @@ Currently supported apps:
 * Yandex Maps – `yandex-maps`
 * Kakao Map – `kakaomap`
 * Mapy.cz – `mapycz`
+* Maps.me – `maps-me`
 
 
 ## Installation
@@ -56,6 +57,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>yandexmaps</string>
     <string>kakaomap</string>
     <string>szn-mapy</string>
+    <string>mapsme</string>
 </array>
 ```
 
