@@ -100,13 +100,3 @@ Notes:
 * [Using this library with Expo](docs/expo.md)
 * [Alternative usage: styled popup](docs/popup.md)
 * [Adding support for new maps apps](docs/add-app.md)
-
-
-## Credits
-
-This library is developed by [Lean Motherfuckers](https://leanmotherfuckers.com/), a tech consulting company like no other.
-
-Contributors:
-
-* Thomas Schoffelen, [@tschoffelen](https://twitter.com/tschoffelen)
-* Johan le Roch, [@JohnLrDev](https://twitter.com/JohnLrDev)
