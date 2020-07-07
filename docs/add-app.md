@@ -16,7 +16,7 @@ maps/directions app to the library.
 ## Step by step
 
 ### 1. Add constants
-Start by updating [`src/constants.js`](src/constants.js).
+Start by updating [`src/constants.js`](../src/constants.js).
 
 Start by determining a key that you will use to identify the new app.
 This should be a lowercase alphanumeric string that might contain dashes,
@@ -35,7 +35,7 @@ directory, and then add the appropriate reference to that icon to the
 `icons` object in the `src/constants.js` file.
 
 ### 3. Add logic
-In `src/index.js` you will find the logic to actually open the app. Add the
+In [`src/index.js`](../src/index.js) you will find the logic to actually open the app. Add the
 logic for your new app there, and make sure to test it on Android and
 iOS. Some apps use different URL formats for each platform.
 
