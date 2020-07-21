@@ -23,7 +23,7 @@ export function generatePrefixes (options) {
     kakaomap: 'kakaomap://',
     'mapycz':  isIOS ? 'szn-mapy://' : 'mapycz://',
     'maps-me': 'mapsme://',
-    osmand: 'https://osmand.net/',
+    osmand: isIOS ? 'osmandmaps://' : 'osmand.geo://',
   }
 }
 
