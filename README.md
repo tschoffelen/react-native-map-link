@@ -26,7 +26,7 @@ Currently supported apps:
 * Kakao Map – `kakaomap`
 * Mapy.cz – `mapycz`
 * Maps.me – `maps-me`
-
+* OsmAnd - `osmand`
 
 ## Installation
 
