@@ -4,7 +4,7 @@
 
 import { Linking, ActionSheetIOS, Alert } from 'react-native'
 
-import { appKeys, isIOS } from "./constants"
+import { appKeys, isIOS } from './constants'
 
 /**
  * Get available navigation apps.

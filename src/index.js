@@ -62,7 +62,7 @@ export async function showLocation (options) {
       appsWhiteList,
       prefixes,
       appTitles: generateTitles(options.appTitles)
-    });
+    })
   }
 
   let url = null
@@ -75,7 +75,7 @@ export async function showLocation (options) {
       break
     case 'google-maps':
       url = prefixes['google-maps']
-      if(useSourceDestiny) {
+      if (useSourceDestiny) {
         url += `?saddr=${sourceLatLng}&daddr=${latlng}`
       } else {
         if (options.googleForceLatLon && title) {
@@ -165,22 +165,22 @@ export async function showLocation (options) {
 
       break
     case 'kakaomap':
-        url = `${prefixes.kakaomap}look?p=${latlng}`
+      url = `${prefixes.kakaomap}look?p=${latlng}`
 
-        if (useSourceDestiny) {
-          url = `${prefixes.kakaomap}route?sp=${sourceLat},${sourceLng}&ep=${latlng}&by=CAR`
-        }
-        break
+      if (useSourceDestiny) {
+        url = `${prefixes.kakaomap}route?sp=${sourceLat},${sourceLng}&ep=${latlng}&by=CAR`
+      }
+      break
     case 'mapycz':
-        url = `${prefixes.mapycz}www.mapy.cz/zakladni?x=${lng}&y=${lat}&source=coor&id=${lng},${lat}`
+      url = `${prefixes.mapycz}www.mapy.cz/zakladni?x=${lng}&y=${lat}&source=coor&id=${lng},${lat}`
 
-        break
+      break
     case 'maps-me':
       url = `${prefixes['maps-me']}route?sll=${sourceLat},${sourceLng}&saddr= &dll=${lat},${lng}&daddr=${title}&type=vehicle`
 
       break
     case 'osmand':
-      url = `${prefixes['osmand']}go?lat=${lat}&lon=${lng}`
+      url = `${prefixes.osmand}go?lat=${lat}&lon=${lng}`
 
       break
   }

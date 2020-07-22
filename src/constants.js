@@ -21,9 +21,9 @@ export function generatePrefixes (options) {
     'yandex-maps': 'yandexmaps://maps.yandex.ru/',
     'yandex-taxi': 'yandextaxi://',
     kakaomap: 'kakaomap://',
-    'mapycz':  isIOS ? 'szn-mapy://' : 'mapycz://',
+    mapycz: isIOS ? 'szn-mapy://' : 'mapycz://',
     'maps-me': 'mapsme://',
-    osmand: isIOS ? 'osmandmaps://' : 'osmand.geo://',
+    osmand: isIOS ? 'osmandmaps://' : 'osmand.geo://'
   }
 }
 
@@ -71,7 +71,7 @@ export const icons = {
   kakaomap: require('./images/kakao-map.png'),
   mapycz: require('./images/mapycz.png'),
   'maps-me': require('./images/maps-me.png'),
-  osmand: require('./images/osmand.png'),
+  osmand: require('./images/osmand.png')
 }
 
-export const appKeys = Object.keys(icons);
+export const appKeys = Object.keys(icons)

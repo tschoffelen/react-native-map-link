@@ -36,7 +36,7 @@ export default class Popup extends React.Component {
     this.state = {
       apps: [],
       loading: true,
-      titles: generateTitles(props.appTitles),
+      titles: generateTitles(props.appTitles)
     }
 
     this._renderAppItem = this._renderAppItem.bind(this)
@@ -59,7 +59,7 @@ export default class Popup extends React.Component {
       return null
     }
     if (customHeader) {
-      return customHeader;
+      return customHeader
     }
 
     const dialogTitle = options.dialogTitle && options.dialogTitle.length
@@ -125,9 +125,9 @@ export default class Popup extends React.Component {
   _renderFooter () {
     const { customFooter } = this.props
     if (customFooter) {
-      return customFooter;
+      return customFooter
     }
-   return this._renderCancelButton();
+    return this._renderCancelButton()
   }
 
   _onAppPressed ({ app }) {
