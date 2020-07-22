@@ -1,9 +1,9 @@
-name: Test using Jest
+name: Unit tests
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
-  test:
+  jest:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
