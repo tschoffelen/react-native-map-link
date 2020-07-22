@@ -2,11 +2,11 @@
  * React Native Map Link
  */
 
-import { Platform } from 'react-native'
+import {Platform} from 'react-native';
 
-export const isIOS = Platform.OS === 'ios'
+export const isIOS = Platform.OS === 'ios';
 
-export function generatePrefixes (options) {
+export function generatePrefixes(options) {
   return {
     'apple-maps': isIOS ? 'http://maps.apple.com/' : 'applemaps://',
     'google-maps': prefixForGoogleMaps(options.alwaysIncludeGoogle),
@@ -23,17 +23,17 @@ export function generatePrefixes (options) {
     kakaomap: 'kakaomap://',
     mapycz: isIOS ? 'szn-mapy://' : 'mapycz://',
     'maps-me': 'mapsme://',
-    osmand: isIOS ? 'osmandmaps://' : 'osmand.geo://'
-  }
+    osmand: isIOS ? 'osmandmaps://' : 'osmand.geo://',
+  };
 }
 
-export function prefixForGoogleMaps (alwaysIncludeGoogle) {
+export function prefixForGoogleMaps(alwaysIncludeGoogle) {
   return isIOS && !alwaysIncludeGoogle
     ? 'comgooglemaps://'
-    : 'https://maps.google.com/'
+    : 'https://maps.google.com/';
 }
 
-export function generateTitles (titles) {
+export function generateTitles(titles) {
   return {
     'apple-maps': 'Apple Maps',
     'google-maps': 'Google Maps',
@@ -51,8 +51,8 @@ export function generateTitles (titles) {
     mapycz: 'Mapy.cz',
     'maps-me': 'Maps Me',
     osmand: 'OsmAnd',
-    ...(titles || {})
-  }
+    ...(titles || {}),
+  };
 }
 
 export const icons = {
@@ -71,7 +71,7 @@ export const icons = {
   kakaomap: require('./images/kakao-map.png'),
   mapycz: require('./images/mapycz.png'),
   'maps-me': require('./images/maps-me.png'),
-  osmand: require('./images/osmand.png')
-}
+  osmand: require('./images/osmand.png'),
+};
 
-export const appKeys = Object.keys(icons)
+export const appKeys = Object.keys(icons);

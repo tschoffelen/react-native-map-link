@@ -8,8 +8,8 @@
     "url": "git+https://github.com/includable/react-native-map-link.git"
   },
   "scripts": {
-    "lint": "eslint src --fix",
-    "test": "yarn lint && jest"
+    "lint": "eslint src --fix --max-warnings=0 && eslint tests --fix --max-warnings=0",
+    "test": "jest"
   },
   "keywords": [
     "react-native",
@@ -36,13 +36,19 @@
     "react-native": ">=0.40.0"
   },
   "devDependencies": {
-    "eslint": "^6.2.2",
-    "eslint-config-standard": "^14.0.1",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-standard": "^4.0.1",
-    "jest": "^26.1.0"
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "@react-native-community/eslint-config": "^1.1.0",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.5.1",
+    "jest": "^25.1.0",
+    "metro-react-native-babel-preset": "^0.61.0",
+    "react-native": "^0.63.2"
+  },
+  "jest": {
+    "preset": "react-native",
+    "setupFiles": [
+      "./tests/setup.js"
+    ]
   }
 }

@@ -1,11 +1,11 @@
-name: Lint using ESLint
+name: Test using Jest
 
 on: [push, pull_request]
 
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - run: yarn
-    - run: yarn lint
+    - run: yarn test
