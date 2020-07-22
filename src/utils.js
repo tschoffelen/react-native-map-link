@@ -142,6 +142,7 @@ export function askAppChoice({
     });
 
     return Alert.alert(dialogTitle, dialogMessage, options, {
+      cancelable: true,
       onDismiss: () => resolve(null),
     });
   });
