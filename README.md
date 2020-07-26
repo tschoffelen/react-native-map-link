@@ -27,6 +27,7 @@ Currently supported apps:
 * Mapy.cz – `mapycz`
 * Maps.me – `maps-me`
 * OsmAnd - `osmand`
+* Gett - `gett`
 
 ## Installation
 
@@ -58,6 +59,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>kakaomap</string>
     <string>szn-mapy</string>
     <string>mapsme</string>
+    <string>gett</string>
 </array>
 ```
 

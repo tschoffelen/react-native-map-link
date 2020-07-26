@@ -24,6 +24,7 @@ export function generatePrefixes(options) {
     mapycz: isIOS ? 'szn-mapy://' : 'mapycz://',
     'maps-me': 'mapsme://',
     osmand: isIOS ? 'osmandmaps://' : 'osmand.geo://',
+    gett: 'gett://',
   };
 }
 
@@ -51,6 +52,7 @@ export function generateTitles(titles) {
     mapycz: 'Mapy.cz',
     'maps-me': 'Maps Me',
     osmand: 'OsmAnd',
+    gett:'Gett',
     ...(titles || {}),
   };
 }
@@ -72,6 +74,7 @@ export const icons = {
   mapycz: require('./images/mapycz.png'),
   'maps-me': require('./images/maps-me.png'),
   osmand: require('./images/osmand.png'),
+  gett: require('./images/gett.png'),
 };
 
 export const appKeys = Object.keys(icons);
