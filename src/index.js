@@ -203,6 +203,10 @@ export async function showLocation(options) {
       url = `${prefixes.osmand}go?lat=${lat}&lon=${lng}`;
 
       break;
+    case 'gett':
+      url = `${prefixes['gett']}order?pickup=my_location&dropoff_latitude=${lat}&dropoff_longitude=${lng}`
+
+      break
   }
 
   if (url) {
