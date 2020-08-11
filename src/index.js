@@ -4,7 +4,7 @@
 
 import {Linking} from 'react-native';
 
-import {generatePrefixes, generateTitles} from './constants';
+import {generatePrefixes, generateTitles, isIOS} from './constants';
 import {askAppChoice, checkOptions} from './utils';
 
 /**
@@ -200,7 +200,7 @@ export async function showLocation(options) {
 
       break;
     case 'osmand':
-      url = `${prefixes.osmand}go?lat=${lat}&lon=${lng}`;
+      url = isIOS ? `${prefixes.osmand}?lat=${lat}&lon=${lng}` : `${prefixes.osmand}?q=${lat},${lng}`;
 
       break;
     case 'gett':
