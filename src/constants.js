@@ -25,6 +25,7 @@ export function generatePrefixes(options) {
     'maps-me': 'mapsme://',
     osmand: isIOS ? 'osmandmaps://' : 'osmand.geo://',
     gett: 'gett://',
+    navermap:'nmap://'
   };
 }
 
@@ -53,6 +54,7 @@ export function generateTitles(titles) {
     'maps-me': 'Maps Me',
     osmand: 'OsmAnd',
     gett:'Gett',
+    navermap:'Naver Map',
     ...(titles || {}),
   };
 }
@@ -75,6 +77,7 @@ export const icons = {
   'maps-me': require('./images/maps-me.png'),
   osmand: require('./images/osmand.png'),
   gett: require('./images/gett.png'),
+  navermap: require('./images/naver-map.png'),
 };
 
 export const appKeys = Object.keys(icons);

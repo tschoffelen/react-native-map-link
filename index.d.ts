@@ -16,6 +16,7 @@ interface Options {
     cancelText?: string
     appsWhiteList?: string[]
     appTitles?: { [key: string]: string }
+    naverCallerName?: string
 }
 
 interface PopupStyleProp {

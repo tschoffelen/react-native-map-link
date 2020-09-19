@@ -163,6 +163,7 @@ export function askAppChoice({
  *     dialogTitle: string | undefined | null
  *     dialogMessage: string | undefined | null
  *     cancelText: string | undefined | null
+ *     naverCallerName: string | undefined
  * }} options
  * @param {object} prefixes
  */
@@ -218,6 +219,12 @@ export function checkOptions(options, prefixes) {
     typeof options.appTitles !== 'object'
   ) {
     throw new MapsException('Option `appTitles` should be of type `object`.');
+  }
+}
+
+export function checkOptionsForNaverMap(options) {
+  if (typeof options.naverCallerName === 'string') {
+    throw new MapsException('Option `naverCallerName` should be set to link into Naver Map')
   }
 }
 
