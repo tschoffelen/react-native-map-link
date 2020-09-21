@@ -25,7 +25,7 @@ export function generatePrefixes(options) {
     'maps-me': 'mapsme://',
     osmand: isIOS ? 'osmandmaps://' : 'osmand.geo://',
     gett: 'gett://',
-    navermap:'nmap://'
+    navermap: options.naverCallerName ? 'nmap://' : 'nmap-disabled://'
   };
 }
 

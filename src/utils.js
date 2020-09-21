@@ -222,11 +222,6 @@ export function checkOptions(options, prefixes) {
   }
 }
 
-export function checkOptionsForNaverMap(options) {
-  if (typeof options.naverCallerName === 'string') {
-    throw new MapsException('Option `naverCallerName` should be set to link into Naver Map')
-  }
-}
 
 class MapsException {
   constructor(message) {

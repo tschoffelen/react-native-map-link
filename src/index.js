@@ -5,7 +5,7 @@
 import {Linking} from 'react-native';
 
 import {generatePrefixes, generateTitles, isIOS} from './constants';
-import {askAppChoice, checkOptions, checkNaverMapOptions} from './utils';
+import {askAppChoice, checkOptions } from './utils';
 
 /**
  * Open a maps app, or let the user choose what app to open, with the given location.
@@ -209,7 +209,6 @@ export async function showLocation(options) {
 
       break
     case 'navermap':
-      checkNaverMapOptions(options)
       url = `${prefixes.navermap}map?lat=${lat}&lng=${lng}&appname=${options.naverCallerName}`;
 
       if (useSourceDestiny) {
