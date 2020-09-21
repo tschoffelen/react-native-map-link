@@ -28,6 +28,7 @@ Currently supported apps:
 * Maps.me – `maps-me`
 * OsmAnd - `osmand`
 * Gett - `gett`
+* Naver Map - `navermap`
 
 ## Installation
 
@@ -61,6 +62,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>mapsme</string>
     <string>osmandmaps</string>
     <string>gett</string>
+    <string>nmap</string>
 </array>
 ```
 
@@ -87,7 +89,8 @@ showLocation({
     dialogTitle: 'This is the dialog Title', // optional (default: 'Open in Maps')
     dialogMessage: 'This is the amazing dialog Message', // optional (default: 'What app would you like to use?')
     cancelText: 'This is the cancel button text', // optional (default: 'Cancel')
-    appsWhiteList: ['google-maps'] // optionally you can set which apps to show (default: will show all supported apps installed on device)
+    appsWhiteList: ['google-maps'], // optionally you can set which apps to show (default: will show all supported apps installed on device)
+    naverCallerName: 'com.example.myapp' // to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android.
     // appTitles: { 'google-maps': 'My custom Google Maps title' } // optionally you can override default app titles
     // app: 'uber'  // optionally specify specific app to use
 })

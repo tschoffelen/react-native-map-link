@@ -5,7 +5,7 @@
 import {Linking} from 'react-native';
 
 import {generatePrefixes, generateTitles, isIOS} from './constants';
-import {askAppChoice, checkOptions} from './utils';
+import {askAppChoice, checkOptions } from './utils';
 
 /**
  * Open a maps app, or let the user choose what app to open, with the given location.
@@ -25,6 +25,7 @@ import {askAppChoice, checkOptions} from './utils';
  *     cancelText: string | undefined | null
  *     appsWhiteList: array | undefined | null
  *     appTitles: object | undefined | null
+ *     naverCallerName: string | undefined
  * }} options
  */
 export async function showLocation(options) {
@@ -207,6 +208,12 @@ export async function showLocation(options) {
       url = `${prefixes['gett']}order?pickup=my_location&dropoff_latitude=${lat}&dropoff_longitude=${lng}`
 
       break
+    case 'navermap':
+      url = `${prefixes.navermap}map?lat=${lat}&lng=${lng}&appname=${options.naverCallerName}`;
+
+      if (useSourceDestiny) {
+        url = `${prefixes.navermap}route?slat=${sourceLat}&slng=${sourceLng}&dlat=${lat}&dlng=${lng}&appname=${options.naverCallerName}`;
+      }
   }
 
   if (url) {

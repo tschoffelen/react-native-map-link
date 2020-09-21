@@ -163,6 +163,7 @@ export function askAppChoice({
  *     dialogTitle: string | undefined | null
  *     dialogMessage: string | undefined | null
  *     cancelText: string | undefined | null
+ *     naverCallerName: string | undefined
  * }} options
  * @param {object} prefixes
  */
@@ -220,6 +221,7 @@ export function checkOptions(options, prefixes) {
     throw new MapsException('Option `appTitles` should be of type `object`.');
   }
 }
+
 
 class MapsException {
   constructor(message) {
