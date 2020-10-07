@@ -8,7 +8,7 @@ export const isIOS = Platform.OS === 'ios';
 
 export function generatePrefixes(options) {
   return {
-    'apple-maps': isIOS ? 'http://maps.apple.com/' : 'applemaps://',
+    'apple-maps': isIOS ? 'maps://' : 'applemaps://',
     'google-maps': prefixForGoogleMaps(options.alwaysIncludeGoogle),
     citymapper: 'citymapper://',
     uber: 'uber://',
