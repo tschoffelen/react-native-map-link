@@ -32,7 +32,7 @@ export function generatePrefixes(options) {
 export function prefixForGoogleMaps(alwaysIncludeGoogle) {
   return isIOS && !alwaysIncludeGoogle
     ? 'comgooglemaps://'
-    : 'https://maps.google.com/';
+    : (isIOS && alwaysIncludeGoogle ? 'https://maps.google.com/' : 'geo:');
 }
 
 export function generateTitles(titles) {
