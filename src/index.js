@@ -5,7 +5,7 @@
 import {Linking} from 'react-native';
 
 import {generatePrefixes, generateTitles, isIOS} from './constants';
-import {askAppChoice, checkOptions } from './utils';
+import {askAppChoice, checkOptions} from './utils';
 
 /**
  * Open a maps app, or let the user choose what app to open, with the given location.
@@ -91,7 +91,8 @@ export async function showLocation(options) {
       }`;
       break;
     case 'google-maps':
-      url = prefixes['google-maps'];
+      // Always using universal URL instead of URI scheme since the latter doesn't support all parameters (#155)
+      url = 'https://maps.google.com/';
       if (useSourceDestiny) {
         url += `?saddr=${sourceLatLng}&daddr=${latlng}`;
       } else {
@@ -201,13 +202,15 @@ export async function showLocation(options) {
 
       break;
     case 'osmand':
-      url = isIOS ? `${prefixes.osmand}?lat=${lat}&lon=${lng}` : `${prefixes.osmand}?q=${lat},${lng}`;
+      url = isIOS
+        ? `${prefixes.osmand}?lat=${lat}&lon=${lng}`
+        : `${prefixes.osmand}?q=${lat},${lng}`;
 
       break;
     case 'gett':
-      url = `${prefixes['gett']}order?pickup=my_location&dropoff_latitude=${lat}&dropoff_longitude=${lng}`
+      url = `${prefixes.gett}order?pickup=my_location&dropoff_latitude=${lat}&dropoff_longitude=${lng}`;
 
-      break
+      break;
     case 'navermap':
       url = `${prefixes.navermap}map?lat=${lat}&lng=${lng}&appname=${options.naverCallerName}`;
 

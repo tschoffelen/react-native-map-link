@@ -12,9 +12,11 @@ import {appKeys, isIOS} from './constants';
 export const getAvailableApps = async (prefixes) => {
   const availableApps = [];
   for (const app in prefixes) {
-    const avail = await isAppInstalled(app, prefixes);
-    if (avail) {
-      availableApps.push(app);
+    if (prefixes.hasOwnProperty(app)) {
+      const avail = await isAppInstalled(app, prefixes);
+      if (avail) {
+        availableApps.push(app);
+      }
     }
   }
 
@@ -221,7 +223,6 @@ export function checkOptions(options, prefixes) {
     throw new MapsException('Option `appTitles` should be of type `object`.');
   }
 }
-
 
 class MapsException {
   constructor(message) {
