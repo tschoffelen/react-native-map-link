@@ -92,21 +92,18 @@ export async function showLocation(options) {
       break;
     case 'google-maps':
       // Always using universal URL instead of URI scheme since the latter doesn't support all parameters (#155)
-      url = 'https://maps.google.com/';
+      url = 'https://www.google.com/maps/dir/?api=1';
       if (useSourceDestiny) {
-        url += `?saddr=${sourceLatLng}&daddr=${latlng}`;
+        url +=`&origin=${sourceLatLng}`
+      } 
+      if (!options.googleForceLatLon && title) {
+        url += `&destination=${encodedTitle}`
       } else {
-        if (options.googleForceLatLon && title) {
-          url += `?q=loc:${lat},+${lng}+(${encodedTitle})`;
-        } else if (title) {
-          url += `?q=${encodedTitle}`;
-        } else {
-          url += `?q=${latlng}`;
-        }
+        url += `&destination=${latlng}`
       }
 
       url += options.googlePlaceId
-        ? `&query_place_id=${options.googlePlaceId}`
+        ? `&destination_place_id=${options.googlePlaceId}`
         : '';
       break;
     case 'citymapper':
