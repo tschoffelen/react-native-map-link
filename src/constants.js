@@ -26,6 +26,7 @@ export function generatePrefixes(options) {
     osmand: isIOS ? 'osmandmaps://' : 'osmand.geo://',
     gett: 'gett://',
     navermap: options.naverCallerName ? 'nmap://' : 'nmap-disabled://',
+    dgis: 'dgis://2gis.ru/',
   };
 }
 
@@ -55,6 +56,7 @@ export function generateTitles(titles) {
     osmand: 'OsmAnd',
     gett: 'Gett',
     navermap: 'Naver Map',
+    dgis: '2GIS',
     ...(titles || {}),
   };
 }
@@ -78,6 +80,7 @@ export const icons = {
   osmand: require('./images/osmand.png'),
   gett: require('./images/gett.png'),
   navermap: require('./images/naver-map.png'),
+  dgis: require('./images/dgis.png'),
 };
 
 export const appKeys = Object.keys(icons);
