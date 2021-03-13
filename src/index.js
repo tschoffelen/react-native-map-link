@@ -216,10 +216,10 @@ export async function showLocation(options) {
       }
       break;
     case 'dgis':
-      url = `${prefixes.dgis}/routeSearch/to/${lng},${lat}/go`;
+      url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/go`;
 
       if (useSourceDestiny) {
-        url = `${prefixes.dgis}/routeSearch/to/${lng},${lat}/from/${sourceLng},${sourceLat}/go`;
+        url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/from/${sourceLng},${sourceLat}/go`;
       }
   }
 
