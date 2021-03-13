@@ -94,12 +94,12 @@ export async function showLocation(options) {
       // Always using universal URL instead of URI scheme since the latter doesn't support all parameters (#155)
       url = 'https://www.google.com/maps/dir/?api=1';
       if (useSourceDestiny) {
-        url +=`&origin=${sourceLatLng}`
-      } 
+        url += `&origin=${sourceLatLng}`;
+      }
       if (!options.googleForceLatLon && title) {
-        url += `&destination=${encodedTitle}`
+        url += `&destination=${encodedTitle}`;
       } else {
-        url += `&destination=${latlng}`
+        url += `&destination=${latlng}`;
       }
 
       url += options.googlePlaceId
