@@ -29,6 +29,7 @@ Currently supported apps:
 * OsmAnd - `osmand`
 * Gett - `gett`
 * Naver Map - `navermap`
+* 2GIS - `dgis`
 
 ## Installation
 
@@ -63,6 +64,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>osmandmaps</string>
     <string>gett</string>
     <string>nmap</string>
+    <string>dgis</string>
 </array>
 ```
 

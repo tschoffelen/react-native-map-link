@@ -214,6 +214,13 @@ export async function showLocation(options) {
       if (useSourceDestiny) {
         url = `${prefixes.navermap}route?slat=${sourceLat}&slng=${sourceLng}&dlat=${lat}&dlng=${lng}&appname=${options.naverCallerName}`;
       }
+      break;
+    case 'dgis':
+      url = `${prefixes.dgis}/routeSearch/to/${lng},${lat}/go`;
+
+      if (useSourceDestiny) {
+        url = `${prefixes.dgis}/routeSearch/to/${lng},${lat}/from/${sourceLng},${sourceLat}/go`;
+      }
   }
 
   if (url) {
