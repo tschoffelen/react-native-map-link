@@ -11,18 +11,15 @@ Simply add the following to your Expo app's `app.json` file:
 
 ```js
 "ios": {
-   "infoPlist": {
-      "LSApplicationQueriesSchemes": [
-         "message",
-         "readdle-spark",
-         "airmail",
-         "ms-outlook",
-         "googlegmail",
-         "inbox-gmail",
-         "ymail",
-         "superhuman"
-      ]
-   }
+ 	"infoPlist": {
+ 		"LSApplicationQueriesSchemes": [
+ 			"comgooglemaps",
+ 			"citymapper",
+ 			"uber",
+ 			"lyft",
+ 			"waze"
+ 		]
+ 	}
 }
 ```
 
