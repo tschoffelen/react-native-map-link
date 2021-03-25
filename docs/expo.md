@@ -11,15 +11,15 @@ Simply add the following to your Expo app's `app.json` file:
 
 ```js
 "ios": {
- 	"infoPlist": {
- 		"LSApplicationQueriesSchemes": [
- 			"comgooglemaps",
- 			"citymapper",
- 			"uber",
- 			"lyft",
- 			"waze"
- 		]
- 	}
+   "infoPlist": {
+      "LSApplicationQueriesSchemes": [
+         "comgooglemaps",
+         "citymapper",
+         "uber",
+         "lyft",
+         "waze"
+      ]
+   }
 }
 ```
 
