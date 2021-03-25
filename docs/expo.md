@@ -13,14 +13,14 @@ Simply add the following to your Expo app's `app.json` file:
 "ios": {
    "infoPlist": {
       "LSApplicationQueriesSchemes": [
-      "message",
-      "readdle-spark",
-      "airmail",
-      "ms-outlook",
-      "googlegmail",
-      "inbox-gmail",
-      "ymail",
-      "superhuman"
+         "message",
+         "readdle-spark",
+         "airmail",
+         "ms-outlook",
+         "googlegmail",
+         "inbox-gmail",
+         "ymail",
+         "superhuman"
       ]
    }
 }
