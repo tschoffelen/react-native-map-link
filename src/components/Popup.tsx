@@ -17,8 +17,8 @@ import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
 
 import {getAvailableApps, checkNotSupportedApps} from '../utils';
-import {showLocation} from '../index';
-import {generateTitles, icons, generatePrefixes} from '../constants';
+import {showLocation, ShowLocationOptions} from '../index';
+import {generateTitles, icons, generatePrefixes, KnownApp, AppTitles} from '../constants';
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
 
@@ -29,18 +29,39 @@ const colors = {
   lightBlue: '#ECF2F8',
 };
 
-export default class Popup extends React.Component {
-  constructor(props) {
-    super(props);
+interface PopupProps {
+  isVisible: boolean,
+  showHeader: boolean,
+  customHeader: React.ElementType,
+  customFooter: React.ElementType,
+  onBackButtonPressed: () => void,
+  onAppPressed: (app: KnownApp) => void,
+  onCancelPressed: () => void,
+  style: any,
+  modalProps: () => void,
+  options: {
+    dialogTitle?: string,
+    dialogMessage?: string,
+    cancelText?: string,
+    alwaysIncludeGoogle?: boolean,
+    naverCallerName?: boolean | string,
+  } & Omit<ShowLocationOptions, 'app'>,
+  appsWhiteList: KnownApp[],
+  appTitles?: Partial<AppTitles>
+}
 
-    this.state = {
-      apps: [],
-      loading: true,
-      titles: generateTitles(props.appTitles),
-    };
+interface PopupState {
+  apps: KnownApp[],
+  loading: boolean,
+  titles: AppTitles
+}
 
-    this._renderAppItem = this._renderAppItem.bind(this);
-  }
+export default class Popup extends React.Component<PopupProps, PopupState> {
+  state = {
+    apps: [],
+    loading: true,
+    titles: generateTitles(this.props.appTitles),
+  };
 
   componentDidMount() {
     this.loadApps();
@@ -106,7 +127,7 @@ export default class Popup extends React.Component {
     );
   }
 
-  _renderAppItem({item}) {
+  _renderAppItem = ({item}: {item: KnownApp}) => {
     return (
       <TouchableOpacity
         key={item}
@@ -154,7 +175,7 @@ export default class Popup extends React.Component {
     return this._renderCancelButton();
   }
 
-  _onAppPressed({app}) {
+  _onAppPressed({app}: {app: KnownApp}) {
     showLocation({...this.props.options, app});
     this.props.onAppPressed(app);
   }
@@ -187,47 +208,33 @@ export default class Popup extends React.Component {
       </Modal>
     );
   }
+
+  static defaultProps = {
+    isVisible: false,
+    showHeader: true,
+    customHeader: null,
+    customFooter: null,
+    style: {
+      container: {},
+      itemContainer: {},
+      image: {},
+      itemText: {},
+      headerContainer: {},
+      titleText: {},
+      subtitleText: {},
+      cancelButtonContainer: {},
+      cancelButtonText: {},
+      separatorStyle: {},
+      activityIndicatorContainer: {},
+    },
+    modalProps: {},
+    options: {},
+    appsWhiteList: null,
+    onBackButtonPressed: () => {},
+    onCancelPressed: () => {},
+    onAppPressed: () => {},
+  }
 }
-
-Popup.propTypes = {
-  isVisible: PropTypes.bool,
-  showHeader: PropTypes.bool,
-  customHeader: PropTypes.element,
-  customFooter: PropTypes.element,
-  onBackButtonPressed: PropTypes.func,
-  onAppPressed: PropTypes.func,
-  onCancelPressed: PropTypes.func,
-  style: PropTypes.object,
-  modalProps: PropTypes.object,
-  options: PropTypes.object.isRequired,
-  appsWhiteList: PropTypes.array,
-};
-
-Popup.defaultProps = {
-  isVisible: false,
-  showHeader: true,
-  customHeader: null,
-  customFooter: null,
-  style: {
-    container: {},
-    itemContainer: {},
-    image: {},
-    itemText: {},
-    headerContainer: {},
-    titleText: {},
-    subtitleText: {},
-    cancelButtonContainer: {},
-    cancelButtonText: {},
-    separatorStyle: {},
-    activityIndicatorContainer: {},
-  },
-  modalProps: {},
-  options: {},
-  appsWhiteList: null,
-  onBackButtonPressed: () => {},
-  onCancelPressed: () => {},
-  onAppPressed: () => {},
-};
 
 const styles = StyleSheet.create({
   container: {

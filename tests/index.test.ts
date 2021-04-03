@@ -1,4 +1,4 @@
-import {showLocation} from '../src/index';
+import {ShowLocationOptions, showLocation} from '../src/index';
 import {Linking} from 'react-native';
 
 jest.mock('react-native', () => ({
@@ -17,10 +17,10 @@ describe('showLocation', () => {
   const sourceLongitude = 890;
 
   beforeEach(() => {
-    Linking.openURL.mockClear();
+    (Linking.openURL as jest.Mock).mockClear();
   });
 
-  const verifyThatSettingsLeadToUrl = (settings, url) => {
+  const verifyThatSettingsLeadToUrl = (settings: ShowLocationOptions, url: string) => {
     showLocation(settings);
     expect(Linking.openURL).toHaveBeenCalledWith(url);
   };

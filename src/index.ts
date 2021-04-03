@@ -4,31 +4,31 @@
 
 import {Linking} from 'react-native';
 
-import {generatePrefixes, generateTitles, isIOS} from './constants';
+import {generatePrefixes, generateTitles, isIOS, KnownApp} from './constants';
 import {askAppChoice, checkOptions} from './utils';
+
+export interface ShowLocationOptions {
+  alwaysIncludeGoogle?: boolean
+  app?: string
+  appsWhiteList?: KnownApp[]
+  appTitles?: Record<KnownApp, string>
+  cancelText?: string
+  dialogMessage?: string
+  dialogTitle?: string
+  googleForceLatLon?: boolean
+  googlePlaceId?: string
+  latitude: number | string
+  longitude: number | string
+  naverCallerName?: string
+  sourceLatitude?: number
+  sourceLongitude?: number
+  title?: string
+}
 
 /**
  * Open a maps app, or let the user choose what app to open, with the given location.
- *
- * @param {{
- *     latitude: number | string,
- *     longitude: number | string,
- *     sourceLatitude: number | undefined | null,
- *     sourceLongitude: number | undefined | null,
- *     alwaysIncludeGoogle: boolean | undefined | null,
- *     googleForceLatLon: boolean | undefined | null,
- *     googlePlaceId: number | undefined | null,
- *     title: string | undefined | null,
- *     app: string | undefined | null
- *     dialogTitle: string | undefined | null
- *     dialogMessage: string | undefined | null
- *     cancelText: string | undefined | null
- *     appsWhiteList: array | undefined | null
- *     appTitles: object | undefined | null
- *     naverCallerName: string | undefined
- * }} options
  */
-export async function showLocation(options) {
+export async function showLocation(options: ShowLocationOptions) {
   const prefixes = generatePrefixes(options);
   checkOptions(options, prefixes);
 
@@ -37,17 +37,22 @@ export async function showLocation(options) {
   let sourceLng;
   let sourceLatLng;
 
-  if ('sourceLatitude' in options && 'sourceLongitude' in options) {
+  if (
+      options.sourceLatitude !== undefined &&
+      options.sourceLatitude !== null &&
+      options.sourceLongitude !== undefined &&
+      options.sourceLongitude !== null
+      ) {
     useSourceDestiny = true;
-    sourceLat = parseFloat(options.sourceLatitude);
-    sourceLng = parseFloat(options.sourceLongitude);
+    sourceLat = parseFloat(`${options.sourceLatitude}`);
+    sourceLng = parseFloat(`${options.sourceLongitude}`);
     sourceLatLng = `${sourceLat},${sourceLng}`;
   }
 
-  const lat = parseFloat(options.latitude);
-  const lng = parseFloat(options.longitude);
+  const lat = parseFloat(`${options.latitude}`);
+  const lng = parseFloat(`${options.longitude}`);
   const latlng = `${lat},${lng}`;
-  const title = options.title && options.title.length ? options.title : null;
+  const title = options.title && options.title.length ? options.title : '';
   const encodedTitle = encodeURIComponent(title);
   let app = options.app && options.app.length ? options.app : null;
   const dialogTitle =

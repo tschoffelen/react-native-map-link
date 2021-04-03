@@ -2,20 +2,20 @@
  * React Native Map Link
  */
 
-import {Linking, ActionSheetIOS, Alert} from 'react-native';
+import {Linking, ActionSheetIOS, Alert, AlertButton} from 'react-native';
 
-import {appKeys, isIOS} from './constants';
+import {appKeys, isIOS, KnownApp} from './constants';
 
 /**
  * Get available navigation apps.
  */
-export const getAvailableApps = async (prefixes) => {
-  const availableApps = [];
+export const getAvailableApps = async (prefixes: Record<KnownApp, string>): Promise<KnownApp[]> => {
+  const availableApps: KnownApp[] = [];
   for (const app in prefixes) {
     if (prefixes.hasOwnProperty(app)) {
       const avail = await isAppInstalled(app, prefixes);
       if (avail) {
-        availableApps.push(app);
+        availableApps.push(app as KnownApp);
       }
     }
   }
@@ -25,18 +25,14 @@ export const getAvailableApps = async (prefixes) => {
 
 /**
  * Check if a given map app is installed.
- *
- * @param {string} app
- * @param {object} prefixes
- * @returns {Promise<boolean>}
  */
-export function isAppInstalled(app, prefixes) {
+export function isAppInstalled(app: string, prefixes: Partial<Record<KnownApp, string>>): Promise<boolean> {
   return new Promise((resolve) => {
     if (!(app in prefixes)) {
       return resolve(false);
     }
 
-    Linking.canOpenURL(prefixes[app])
+    Linking.canOpenURL(prefixes[app as KnownApp] as string)
       .then((result) => {
         resolve(!!result);
       })
@@ -50,26 +46,21 @@ export function isAppInstalled(app, prefixes) {
  * @param {string} app
  * @returns {boolean}
  */
-function isSupportedApp(app) {
-  return appKeys.includes(app);
+function isSupportedApp(app: string):boolean {
+  return appKeys.includes(app as KnownApp);
 }
 
 /**
  * Get a list of not supported apps from a given array of apps
- *
- * @param {array} apps
- * @returns {array}
  */
-function getNotSupportedApps(apps) {
+function getNotSupportedApps(apps: KnownApp[]): KnownApp[] {
   return apps.filter((app) => !isSupportedApp(app));
 }
 
 /**
  * Throws an exception if some of the given apps is not supported
- *
- * @param {array} apps
  */
-export function checkNotSupportedApps(apps) {
+export function checkNotSupportedApps(apps: KnownApp[]) {
   const notSupportedApps = getNotSupportedApps(apps);
   if (notSupportedApps.length) {
     throw new MapsException(
@@ -80,16 +71,16 @@ export function checkNotSupportedApps(apps) {
 
 /**
  * Ask the user to choose one of the available map apps.
- * @param {{
- *     title: string | undefined | null
- *     message: string | undefined | null
- *     cancelText: string | undefined | null
- *     appsWhiteList: string[] | null
- *     prefixes: string[],
- *     appTitles: object | undefined | null
- * }} options
- * @returns {Promise}
  */
+interface AskAppChoiceOptions {
+  dialogTitle: string | undefined | null;
+  dialogMessage: string | undefined | null;
+  cancelText?: string | null;
+  appsWhiteList: string[] | null;
+  prefixes: Record<KnownApp, string>;
+  appTitles?: Record<KnownApp, string>;
+}
+
 export function askAppChoice({
   dialogTitle,
   dialogMessage,
@@ -97,7 +88,7 @@ export function askAppChoice({
   appsWhiteList,
   prefixes,
   appTitles,
-}) {
+}: AskAppChoiceOptions): Promise<KnownApp | null> {
   return new Promise(async (resolve) => {
     let availableApps = await getAvailableApps(prefixes);
 
@@ -112,13 +103,13 @@ export function askAppChoice({
     }
 
     if (isIOS) {
-      const options = availableApps.map((app) => appTitles[app]);
-      options.push(cancelText);
+      const options = availableApps.map((app) => appTitles?.[app] || app);
+      options.push(cancelText || '');
 
       ActionSheetIOS.showActionSheetWithOptions(
         {
-          title: dialogTitle,
-          message: dialogMessage,
+          title: dialogTitle || '',
+          message: dialogMessage || '',
           options: options,
           cancelButtonIndex: options.length - 1,
         },
@@ -133,17 +124,17 @@ export function askAppChoice({
       return;
     }
 
-    const options = availableApps.map((app) => ({
-      text: appTitles[app],
+    const options: AlertButton[] = availableApps.map((app) => ({
+      text: appTitles?.[app] || '',
       onPress: () => resolve(app),
     }));
     options.unshift({
-      text: cancelText,
+      text: cancelText || '',
       onPress: () => resolve(null),
       style: 'cancel',
     });
 
-    return Alert.alert(dialogTitle, dialogMessage, options, {
+    return Alert.alert(dialogTitle || '', dialogMessage || '', options, {
       cancelable: true,
       onDismiss: () => resolve(null),
     });
@@ -152,24 +143,25 @@ export function askAppChoice({
 
 /**
  * Check if options are valid and well passed
- *
- * @param {{
- *     latitude: number | string,
- *     longitude: number | string,
- *     sourceLatitude: number | undefined | null,
- *     sourceLongitude: number | undefined | null,
- *     googleForceLatLon: boolean | undefined | null,
- *     googlePlaceId: number | undefined | null,
- *     title: string | undefined | null,
- *     app: string | undefined | null
- *     dialogTitle: string | undefined | null
- *     dialogMessage: string | undefined | null
- *     cancelText: string | undefined | null
- *     naverCallerName: string | undefined
- * }} options
- * @param {object} prefixes
  */
-export function checkOptions(options, prefixes) {
+interface CheckOptions {
+  app?: string | null
+  appsWhiteList?: KnownApp[],
+  appTitles?: Record<KnownApp, string>
+  cancelText?: string | null
+  dialogMessage?: string | null
+  dialogTitle?: string | null
+  googleForceLatLon?: boolean | null,
+  googlePlaceId?: string | null,
+  latitude: number | string,
+  longitude: number | string,
+  naverCallerName?: string,
+  sourceLatitude?: number | null,
+  sourceLongitude?: number | null,
+  title?: string  | null,
+}
+
+export function checkOptions(options: CheckOptions | undefined, prefixes: Record<KnownApp, string>) {
   if (!options || typeof options !== 'object') {
     throw new MapsException(
       'First parameter of `showLocation` should contain object with options.',
@@ -225,8 +217,6 @@ export function checkOptions(options, prefixes) {
 }
 
 class MapsException {
-  constructor(message) {
-    this.message = message;
-    this.name = 'MapsException';
-  }
+  public name: string = 'MapsException';
+  constructor(public message: string) {}
 }

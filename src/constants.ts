@@ -2,11 +2,16 @@
  * React Native Map Link
  */
 
-import {Platform} from 'react-native';
+import {ImageSourcePropType, Platform} from 'react-native';
 
 export const isIOS = Platform.OS === 'ios';
 
-export function generatePrefixes(options) {
+interface GeneratePrefixesOptions {
+  alwaysIncludeGoogle?: boolean,
+  naverCallerName?: boolean | string,
+}
+
+export function generatePrefixes(options: GeneratePrefixesOptions) {
   return {
     'apple-maps': isIOS ? 'maps://' : 'applemaps://',
     'google-maps': prefixForGoogleMaps(options.alwaysIncludeGoogle),
@@ -30,13 +35,16 @@ export function generatePrefixes(options) {
   };
 }
 
-export function prefixForGoogleMaps(alwaysIncludeGoogle) {
+export type KnownApp = keyof ReturnType<typeof generatePrefixes>;
+
+export function prefixForGoogleMaps(alwaysIncludeGoogle?: boolean): string {
   return isIOS && !alwaysIncludeGoogle
     ? 'comgooglemaps://'
     : 'https://www.google.com/maps/';
 }
 
-export function generateTitles(titles) {
+export type AppTitles = Record<KnownApp, string>;
+export function generateTitles(titles?: Partial<AppTitles>): AppTitles {
   return {
     'apple-maps': 'Apple Maps',
     'google-maps': 'Google Maps',
@@ -61,7 +69,7 @@ export function generateTitles(titles) {
   };
 }
 
-export const icons = {
+export const icons: Record<KnownApp, ImageSourcePropType> = {
   'apple-maps': require('./images/apple-maps.png'),
   'google-maps': require('./images/google-maps.png'),
   citymapper: require('./images/citymapper.png'),
@@ -83,4 +91,4 @@ export const icons = {
   dgis: require('./images/dgis.png'),
 };
 
-export const appKeys = Object.keys(icons);
+export const appKeys = Object.keys(icons) as KnownApp[];
