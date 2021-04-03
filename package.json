@@ -2,15 +2,19 @@
   "name": "react-native-map-link",
   "version": "2.7.24",
   "description": "Open the map app of the user's choice with a specific location",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/includable/react-native-map-link.git"
   },
   "scripts": {
-    "lint:ts":"tsc --noEmit",
-    "lint": "npm run lint:ts && eslint src --max-warnings=0 && eslint tests --max-warnings=0",
-    "test": "jest"
+    "lint:ts": "tsc --noEmit",
+    "lint:src": "eslint src --ext .js,.ts,.tsx",
+    "lint:tests": "eslint tests --ext .js,.ts,.tsx",
+    "lint": "npm run lint:ts && npm run lint:src && npm run lint:tests",
+    "test": "jest",
+    "build": "tsc && cp -nfr src/images dist/src/images",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "react-native",
@@ -29,7 +33,6 @@
   },
   "homepage": "https://github.com/includable/react-native-map-link#readme",
   "dependencies": {
-    "prop-types": "^15.7.2",
     "react-native-modal": "^10.0.0"
   },
   "peerDependencies": {
@@ -43,6 +46,8 @@
     "@react-native-community/eslint-config": "^1.1.0",
     "@types/jest": "^26.0.22",
     "@types/react-native": "^0.64.2",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
     "babel-jest": "^25.1.0",
     "eslint": "^6.5.1",
     "jest": "^25.1.0",

@@ -3,3 +3,4 @@ node_modules
 .vscode
 package-lock.json
 example/yarn.lock
+dist

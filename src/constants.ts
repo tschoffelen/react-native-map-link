@@ -7,8 +7,8 @@ import {ImageSourcePropType, Platform} from 'react-native';
 export const isIOS = Platform.OS === 'ios';
 
 interface GeneratePrefixesOptions {
-  alwaysIncludeGoogle?: boolean,
-  naverCallerName?: boolean | string,
+  alwaysIncludeGoogle?: boolean;
+  naverCallerName?: boolean | string;
 }
 
 export function generatePrefixes(options: GeneratePrefixesOptions) {

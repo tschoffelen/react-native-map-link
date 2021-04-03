@@ -8,21 +8,21 @@ import {generatePrefixes, generateTitles, isIOS, KnownApp} from './constants';
 import {askAppChoice, checkOptions} from './utils';
 
 export interface ShowLocationOptions {
-  alwaysIncludeGoogle?: boolean
-  app?: string
-  appsWhiteList?: KnownApp[]
-  appTitles?: Record<KnownApp, string>
-  cancelText?: string
-  dialogMessage?: string
-  dialogTitle?: string
-  googleForceLatLon?: boolean
-  googlePlaceId?: string
-  latitude: number | string
-  longitude: number | string
-  naverCallerName?: string
-  sourceLatitude?: number
-  sourceLongitude?: number
-  title?: string
+  alwaysIncludeGoogle?: boolean;
+  app?: string;
+  appsWhiteList?: KnownApp[];
+  appTitles?: Record<KnownApp, string>;
+  cancelText?: string;
+  dialogMessage?: string;
+  dialogTitle?: string;
+  googleForceLatLon?: boolean;
+  googlePlaceId?: string;
+  latitude: number | string;
+  longitude: number | string;
+  naverCallerName?: string;
+  sourceLatitude?: number;
+  sourceLongitude?: number;
+  title?: string;
 }
 
 /**
@@ -38,11 +38,11 @@ export async function showLocation(options: ShowLocationOptions) {
   let sourceLatLng;
 
   if (
-      options.sourceLatitude !== undefined &&
-      options.sourceLatitude !== null &&
-      options.sourceLongitude !== undefined &&
-      options.sourceLongitude !== null
-      ) {
+    options.sourceLatitude !== undefined &&
+    options.sourceLatitude !== null &&
+    options.sourceLongitude !== undefined &&
+    options.sourceLongitude !== null
+  ) {
     useSourceDestiny = true;
     sourceLat = parseFloat(`${options.sourceLatitude}`);
     sourceLng = parseFloat(`${options.sourceLongitude}`);

@@ -20,7 +20,10 @@ describe('showLocation', () => {
     (Linking.openURL as jest.Mock).mockClear();
   });
 
-  const verifyThatSettingsLeadToUrl = (settings: ShowLocationOptions, url: string) => {
+  const verifyThatSettingsLeadToUrl = (
+    settings: ShowLocationOptions,
+    url: string,
+  ) => {
     showLocation(settings);
     expect(Linking.openURL).toHaveBeenCalledWith(url);
   };

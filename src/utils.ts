@@ -9,7 +9,9 @@ import {appKeys, isIOS, KnownApp} from './constants';
 /**
  * Get available navigation apps.
  */
-export const getAvailableApps = async (prefixes: Record<KnownApp, string>): Promise<KnownApp[]> => {
+export const getAvailableApps = async (
+  prefixes: Record<KnownApp, string>,
+): Promise<KnownApp[]> => {
   const availableApps: KnownApp[] = [];
   for (const app in prefixes) {
     if (prefixes.hasOwnProperty(app)) {
@@ -26,7 +28,10 @@ export const getAvailableApps = async (prefixes: Record<KnownApp, string>): Prom
 /**
  * Check if a given map app is installed.
  */
-export function isAppInstalled(app: string, prefixes: Partial<Record<KnownApp, string>>): Promise<boolean> {
+export function isAppInstalled(
+  app: string,
+  prefixes: Partial<Record<KnownApp, string>>,
+): Promise<boolean> {
   return new Promise((resolve) => {
     if (!(app in prefixes)) {
       return resolve(false);
@@ -46,7 +51,7 @@ export function isAppInstalled(app: string, prefixes: Partial<Record<KnownApp, s
  * @param {string} app
  * @returns {boolean}
  */
-function isSupportedApp(app: string):boolean {
+function isSupportedApp(app: string): boolean {
   return appKeys.includes(app as KnownApp);
 }
 
@@ -145,23 +150,26 @@ export function askAppChoice({
  * Check if options are valid and well passed
  */
 interface CheckOptions {
-  app?: string | null
-  appsWhiteList?: KnownApp[],
-  appTitles?: Record<KnownApp, string>
-  cancelText?: string | null
-  dialogMessage?: string | null
-  dialogTitle?: string | null
-  googleForceLatLon?: boolean | null,
-  googlePlaceId?: string | null,
-  latitude: number | string,
-  longitude: number | string,
-  naverCallerName?: string,
-  sourceLatitude?: number | null,
-  sourceLongitude?: number | null,
-  title?: string  | null,
+  app?: string | null;
+  appsWhiteList?: KnownApp[];
+  appTitles?: Record<KnownApp, string>;
+  cancelText?: string | null;
+  dialogMessage?: string | null;
+  dialogTitle?: string | null;
+  googleForceLatLon?: boolean | null;
+  googlePlaceId?: string | null;
+  latitude: number | string;
+  longitude: number | string;
+  naverCallerName?: string;
+  sourceLatitude?: number | null;
+  sourceLongitude?: number | null;
+  title?: string | null;
 }
 
-export function checkOptions(options: CheckOptions | undefined, prefixes: Record<KnownApp, string>) {
+export function checkOptions(
+  options: CheckOptions | undefined,
+  prefixes: Record<KnownApp, string>,
+) {
   if (!options || typeof options !== 'object') {
     throw new MapsException(
       'First parameter of `showLocation` should contain object with options.',
@@ -217,6 +225,6 @@ export function checkOptions(options: CheckOptions | undefined, prefixes: Record
 }
 
 class MapsException {
-  public name: string = 'MapsException';
+  public name = 'MapsException';
   constructor(public message: string) {}
 }
