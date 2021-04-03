@@ -1,5 +1,5 @@
-import {isAppInstalled} from '../src/utils.js';
-import {generatePrefixes} from '../src/constants.js';
+import {isAppInstalled} from '../src/utils';
+import {generatePrefixes} from '../src/constants';
 
 describe('app installed check', () => {
   test('returns false for unknown apps', () => {
