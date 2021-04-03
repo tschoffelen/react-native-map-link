@@ -8,7 +8,8 @@
     "url": "git+https://github.com/includable/react-native-map-link.git"
   },
   "scripts": {
-    "lint": "eslint src --max-warnings=0 && eslint tests --max-warnings=0",
+    "lint:ts":"tsc --noEmit",
+    "lint": "npm run lint:ts && eslint src --max-warnings=0 && eslint tests --max-warnings=0",
     "test": "jest"
   },
   "keywords": [
