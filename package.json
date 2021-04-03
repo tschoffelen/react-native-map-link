@@ -3,6 +3,7 @@
   "version": "2.7.24",
   "description": "Open the map app of the user's choice with a specific location",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/includable/react-native-map-link.git"
