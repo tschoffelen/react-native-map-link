@@ -422,7 +422,7 @@ describe('showLocation', () => {
           longitude,
           app: 'maps-me',
         },
-        'mapsme://route?sll=undefined,undefined&saddr= &dll=123,234&daddr=null&type=vehicle',
+        'mapsme://route?sll=undefined,undefined&saddr= &dll=123,234&daddr=&type=vehicle',
       );
     });
 
@@ -435,7 +435,7 @@ describe('showLocation', () => {
           sourceLongitude,
           app: 'maps-me',
         },
-        'mapsme://route?sll=567,890&saddr= &dll=123,234&daddr=null&type=vehicle',
+        'mapsme://route?sll=567,890&saddr= &dll=123,234&daddr=&type=vehicle',
       );
     });
   });
