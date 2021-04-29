@@ -87,7 +87,7 @@ export async function showLocation(options) {
         ? `${url}?saddr=${sourceLatLng}&daddr=${latlng}`
         : `${url}?ll=${latlng}`;
       url += `&q=${
-        title ? `${encodedTitle}&address=${encodedTitle}` : 'Location'
+        title ? encodedTitle : 'Location'
       }`;
       break;
     case 'google-maps':
