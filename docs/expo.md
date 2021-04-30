@@ -9,17 +9,17 @@ However, on iOS (since iOS 9), Apple won't allow apps to open other apps or chec
 
 Simply add the following to your Expo app's `app.json` file:
 
-```
+```js
 "ios": {
-	"infoPlist": {
-		"LSApplicationQueriesSchemes": [
-			"comgooglemaps",
-			"citymapper",
-			"uber",
-			"lyft",
-			"waze"
-		]
-	}
+   "infoPlist": {
+      "LSApplicationQueriesSchemes": [
+         "comgooglemaps",
+         "citymapper",
+         "uber",
+         "lyft",
+         "waze"
+      ]
+   }
 }
 ```
 
