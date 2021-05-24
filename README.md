@@ -7,9 +7,10 @@
 ---
 
 An easy way to open a location in a map app of the user's choice, based on the apps they have installed
-on their device.
+on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and a dozen other apps.
 
-Currently supported apps:
+<details>
+<summary>Full list of supported apps</summary>
 
 * Apple Maps – `apple-maps`
 * Google Maps – `google-maps`
@@ -31,6 +32,8 @@ Currently supported apps:
 * Naver Map - `navermap`
 * 2GIS - `dgis`
 
+</details>
+
 ## Installation
 
 ### 1. Install the package
@@ -39,7 +42,13 @@ Currently supported apps:
 npm i -S react-native-map-link         # or yarn add react-native-map-link
 ```
 
-### 2. Update your Info.plist
+### 2. Post-install steps
+
+Based on the platforms your app supports, you also need to:
+
+<details>
+<summary><strong>iOS – Update Info.plist</strong></summary>
+
 To allow your app to detect if any of the directions apps are installed, an extra step is required on iOS. Your app needs to provide the `LSApplicationQueriesSchemes` key inside `ios/{my-project}/Info.plist` to specify the URL schemes with which the app can interact.
 
 Just add this in your `Info.plist` depending on which apps you'd like to support. Omitting these might mean that the library can't detect some of the maps apps installed by the user.
@@ -70,6 +79,116 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
 
 Using Expo? [Read the instructions](docs/expo.md) to make it work on iOS.
 
+</details>
+
+<details>
+<summary><strong>Android – Update AndroidManifest.xml</strong></summary>
+
+When switching to Android 11/Android SDK 30 (i.e. using Expo SDK 41), this library doesn't work out of the box anymore. The reason is the new [Package Visibilty](https://developer.android.com/training/package-visibility) security feature. We'll have to update our `AndroidManifest.xml` to explicitly allow querying for other apps.
+
+You can do so by coping the `<queries>` statement below, and pasting it in the top level of your AndroidManifest (i.e. within the `<manifest> ... </manifest>`).
+
+```xml
+<queries>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="http"/>
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="https"/>
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="geo" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="google.navigation" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="applemaps" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="citymapper" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="uber" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="lyft" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="transit" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="truckmap" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="waze" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="yandexnavi" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="moovit" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="yandexmaps://maps.yandex." />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="yandextaxi" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="kakaomap" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="mapycz" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="mapsme" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="osmand.geo" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="gett" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="nmap" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="dgis" />
+  </intent>
+</queries>
+```
+
+</details>
+
+<details>
+<summary><strong>Expo – Update app.json</strong></summary>
+
+[Read the instructions here](docs/expo.md) to make it work on iOS.
+
+</details>
 
 
 ## Usage
