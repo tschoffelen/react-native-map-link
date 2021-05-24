@@ -183,6 +183,13 @@ You can do so by coping the `<queries>` statement below, and pasting it in the t
 
 </details>
 
+<details>
+<summary><strong>Expo – Update app.json</strong></summary>
+
+[Read the instructions here](docs/expo.md) to make it work on iOS.
+
+</details>
+
 
 ## Usage
 
