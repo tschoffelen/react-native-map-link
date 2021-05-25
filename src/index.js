@@ -100,12 +100,14 @@ export async function showLocation(options) {
       let googlePlaceId = options.googlePlaceId ? options.googlePlaceId : null
 
       url = prefixes['google-maps']
-      url += `?q=${useTitleForQuery ? encodedTitle : latlng}`
-      url += (isIOS) ? '&api=1' : ''
-      url += (googlePlaceId) ? `&query_place_id=${googlePlaceId}` : ''
-
       url += (useSourceDestiny) ? `&saddr=${sourceLatLng}` : ''
       url += (useDstAddr) ? `&daddr=${encodedDstaddr}` : `&daddr=${latlng}`
+
+      url += `?q=${useTitleForQuery ? encodedTitle : latlng}`
+      // url += (isIOS) ? '&api=1' : ''
+      url += (googlePlaceId) ? `&query_place_id=${googlePlaceId}` : ''
+
+      url += '&directionsmode=driving'
       break;
     case 'citymapper':
       url = `${prefixes.citymapper}directions?endcoord=${latlng}`;
