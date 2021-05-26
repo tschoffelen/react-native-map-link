@@ -106,7 +106,7 @@ export async function showLocation(options) {
 
       url += (useSourceDestiny) ? `&saddr=${sourceLatLng}` : ''
       url += (useDstAddr) ? `&daddr=${encodedDstaddr}` : `&daddr=${latlng}`
-      // url += '&directionsmode=driving'
+      url += '&directionsmode=driving'
       break;
     case 'citymapper':
       url = `${prefixes.citymapper}directions?endcoord=${latlng}`;
