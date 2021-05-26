@@ -101,12 +101,12 @@ export async function showLocation(options) {
 
       url = prefixes['google-maps']
       url += `?q=${useTitleForQuery ? encodedTitle : latlng}`
-      url += '&directionsmode=driving'
       // url += (isIOS) ? '&api=1' : ''
       url += (googlePlaceId) ? `&query_place_id=${googlePlaceId}` : ''
 
       url += (useSourceDestiny) ? `&saddr=${sourceLatLng}` : ''
       url += (useDstAddr) ? `&daddr=${encodedDstaddr}` : `&daddr=${latlng}`
+      // url += '&directionsmode=driving'
       break;
     case 'citymapper':
       url = `${prefixes.citymapper}directions?endcoord=${latlng}`;
