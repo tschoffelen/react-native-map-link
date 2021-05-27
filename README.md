@@ -181,6 +181,14 @@ You can do so by coping the `<queries>` statement below, and pasting it in the t
 </queries>
 ```
 
+If you're running into a 'unexpected element `<queries>` found in `<manifest>`' error, make sure you have an updated version of Gradle in your `android/build.gradle` file:
+  
+```java
+classpath("com.android.tools.build:gradle:3.5.4")
+```
+
+More info [here](https://stackoverflow.com/a/67383641/1129689).
+
 </details>
 
 <details>
