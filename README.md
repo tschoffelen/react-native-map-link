@@ -31,6 +31,7 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 * Gett - `gett`
 * Naver Map - `navermap`
 * 2GIS - `dgis`
+* Liftago - `liftago`
 
 </details>
 
@@ -74,6 +75,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>gett</string>
     <string>nmap</string>
     <string>dgis</string>
+    <string>lftgpas</string>
 </array>
 ```
 
@@ -177,6 +179,10 @@ You can do so by coping the `<queries>` statement below, and pasting it in the t
   <intent>
     <action android:name="android.intent.action.VIEW" />
     <data android:scheme="dgis" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="lftgpas" />
   </intent>
 </queries>
 ```
