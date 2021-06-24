@@ -219,6 +219,18 @@ export async function showLocation(options) {
       if (useSourceDestiny) {
         url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/from/${sourceLng},${sourceLat}/go`;
       }
+      break;
+    case 'liftago':
+      url = `${prefixes.liftago}order?destinationLat=${lat}&destinationLon=${lng}`;
+
+      if (title) {
+        url += `&destinationName=${encodedTitle}`;
+      }
+
+      if (useSourceDestiny) {
+        url += `&pickupLat=${sourceLat}&pickupLon=${sourceLng}`;
+      }
+      break;
   }
 
   if (url) {
