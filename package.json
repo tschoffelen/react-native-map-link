@@ -43,7 +43,7 @@
     "eslint": "^6.5.1",
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.61.0",
-    "react-native": "^0.63.4"
+    "react-native": "^0.64.1"
   },
   "jest": {
     "preset": "react-native",
