@@ -42,6 +42,9 @@ interface SharedOptions {
 interface Options extends SharedOptions {
   latitude: number | string;
   longitude: number | string;
+  fromAddress?: string;
+  toAddress?: string;
+
   /** optionally specify starting location for directions */
   sourceLatitude?: number;
   /** not optional if `sourceLatitude` is specified */
