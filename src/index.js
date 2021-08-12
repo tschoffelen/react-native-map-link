@@ -34,6 +34,7 @@ import {
  *     appTitles: object | undefined | null
  *     naverCallerName: string | undefined
  *     directionsMode: 'car' | 'walk' | 'public-transport' | 'bike' | undefined
+ *     tintColor: string | undefined
  * }} options
  */
 export async function showLocation(options) {
@@ -86,6 +87,7 @@ export async function showLocation(options) {
       appsWhiteList,
       prefixes,
       appTitles: generateTitles(options.appTitles),
+      tintColor: options.tintColor,
     });
   }
 
