@@ -142,11 +142,15 @@ export async function showLocation(options) {
       if (useSourceDestiny || options.directionsMode) {
         // Use "dir" as this will open up directions
         url = 'https://www.google.com/maps/dir/?api=1';
+
+        const fromAddressQuery = fromAddress ? encodeURI(fromAddress) : '';
+        const toAddressQuery = toAddress ? encodeURI(toAddress) : '';
+
         url += sourceLatLng ? `&origin=${sourceLatLng}` : '';
         if (!options.googleForceLatLon && title) {
-          url += `&destination=${encodedTitle}`;
+          url += `&destination=${toAddressQuery || encodedTitle}`;
         } else {
-          url += `&destination=${latlng}`;
+          url += `&destination=${toAddressQuery || latlng}`;
         }
 
         url += options.googlePlaceId
@@ -279,10 +283,13 @@ export async function showLocation(options) {
       }
       break;
     case 'dgis':
-      url = `${prefixes.dgis}routeSearch/to/${lng},${lat}|${toAddress}/go`;
+      const toAddressQuery = toAddress ? `|${toAddress}` : '';
+      const fromAddressQuery = fromAddress ? `|${fromAddress}` : '';
+
+      url = `${prefixes.dgis}routeSearch/from/${lng},${lat}|${toAddressQuery}/go`;
 
       if (useSourceDestiny) {
-        url = `${prefixes.dgis}routeSearch/to/${lng},${lat}|${toAddress}/from/${sourceLng},${sourceLat}|${fromAddress}/go`;
+        url = `${prefixes.dgis}routeSearch/to/${lng},${lat}|${toAddressQuery}/from/${sourceLng},${sourceLat}|${fromAddressQuery}/go`;
       }
       break;
     case 'liftago':
