@@ -18,6 +18,8 @@ import {
  * @param {{
  *     latitude: number | string,
  *     longitude: number | string,
+ *     fromAddress: string | undefined,
+ *     toAddress: string | undefined,
  *     sourceLatitude: number | undefined | null,
  *     sourceLongitude: number | undefined | null,
  *     alwaysIncludeGoogle: boolean | undefined | null,
@@ -49,6 +51,9 @@ export async function showLocation(options) {
     sourceLng = parseFloat(options.sourceLongitude);
     sourceLatLng = `${sourceLat},${sourceLng}`;
   }
+
+  const fromAddress = options.fromAddress;
+  const toAddress = options.toAddress;
 
   const lat = parseFloat(options.latitude);
   const lng = parseFloat(options.longitude);
@@ -274,10 +279,10 @@ export async function showLocation(options) {
       }
       break;
     case 'dgis':
-      url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/go`;
+      url = `${prefixes.dgis}routeSearch/to/${lng},${lat}|${toAddress}/go`;
 
       if (useSourceDestiny) {
-        url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/from/${sourceLng},${sourceLat}/go`;
+        url = `${prefixes.dgis}routeSearch/to/${lng},${lat}|${toAddress}/from/${sourceLng},${sourceLat}|${fromAddress}/go`;
       }
       break;
     case 'liftago':

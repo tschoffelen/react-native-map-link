@@ -176,6 +176,8 @@ export function askAppChoice({
  * @param {{
  *     latitude: number | string,
  *     longitude: number | string,
+ *     fromAddress: string | undefined,
+ *     toAddress: string | undefined,
  *     sourceLatitude: number | undefined | null,
  *     sourceLongitude: number | undefined | null,
  *     googleForceLatLon: boolean | undefined | null,
@@ -241,6 +243,17 @@ export function checkOptions(options, prefixes) {
     typeof options.appTitles !== 'object'
   ) {
     throw new MapsException('Option `appTitles` should be of type `object`.');
+  }
+  if ('fromAddress' in options &&  options.fromAddress && typeof options.fromAddress !== 'string') {
+    throw new MapsException(
+      'Option `fromAddress` should be of type `string`.',
+    );
+  }
+  
+  if ('toAddress' in options &&  options.toAddress && typeof options.toAddress !== 'string') {
+    throw new MapsException(
+      'Option `toAddress` should be of type `string`.',
+    );
   }
 }
 
