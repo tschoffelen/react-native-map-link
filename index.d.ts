@@ -64,6 +64,7 @@ interface Options extends SharedOptions {
   /** to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android. */
   naverCallerName?: string;
   directionsMode?: 'car' | 'walk' | 'public-transport' | 'bike';
+  tintColor: string | undefined;
 }
 
 interface PopupStyleProp {

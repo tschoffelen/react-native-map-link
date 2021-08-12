@@ -106,7 +106,8 @@ export function checkNotSupportedApps(apps) {
  *     cancelText: string | undefined | null
  *     appsWhiteList: string[] | null
  *     prefixes: string[],
- *     appTitles: object | undefined | null
+ *     appTitles: object | undefined | null,
+ *     tintColor: string | undefined
  * }} options
  * @returns {Promise}
  */
@@ -117,6 +118,7 @@ export function askAppChoice({
   appsWhiteList,
   prefixes,
   appTitles,
+  tintColor
 }) {
   return new Promise(async (resolve) => {
     let availableApps = await getAvailableApps(prefixes);
@@ -141,6 +143,7 @@ export function askAppChoice({
           message: dialogMessage,
           options: options,
           cancelButtonIndex: options.length - 1,
+          tintColor
         },
         (buttonIndex) => {
           if (buttonIndex === options.length - 1) {
@@ -249,7 +252,7 @@ export function checkOptions(options, prefixes) {
       'Option `fromAddress` should be of type `string`.',
     );
   }
-  
+
   if ('toAddress' in options &&  options.toAddress && typeof options.toAddress !== 'string') {
     throw new MapsException(
       'Option `toAddress` should be of type `string`.',

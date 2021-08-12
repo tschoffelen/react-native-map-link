@@ -286,7 +286,7 @@ export async function showLocation(options) {
       const toAddressQuery = toAddress ? `|${toAddress}` : '';
       const fromAddressQuery = fromAddress ? `|${fromAddress}` : '';
 
-      url = `${prefixes.dgis}routeSearch/from/${lng},${lat}|${toAddressQuery}/go`;
+      url = `${prefixes.dgis}routeSearch/to/${lng},${lat}|${toAddressQuery}/go`;
 
       if (useSourceDestiny) {
         url = `${prefixes.dgis}routeSearch/to/${lng},${lat}|${toAddressQuery}/from/${sourceLng},${sourceLat}|${fromAddressQuery}/go`;
