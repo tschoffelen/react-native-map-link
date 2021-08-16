@@ -145,7 +145,6 @@ export async function showLocation(options) {
         // Use "dir" as this will open up directions
         url = 'https://www.google.com/maps/dir/?api=1';
 
-        const fromAddressQuery = fromAddress ? encodeURI(fromAddress) : '';
         const toAddressQuery = toAddress ? encodeURI(toAddress) : '';
 
         url += sourceLatLng ? `&origin=${sourceLatLng}` : '';
@@ -245,6 +244,11 @@ export async function showLocation(options) {
       }
       break;
     case 'yandex-taxi':
+      if (useSourceDestiny) {
+        url = `${prefixes['yandex-taxi']}route?start-lat=${sourceLat}&end-lat=${lat}&start-lon=${sourceLng}&end-lon=${lng}&appmetrica_tracking_id=1178268795219780156`;
+        break;
+      }
+
       url = `${prefixes['yandex-taxi']}route?end-lat=${lat}&end-lon=${lng}&appmetrica_tracking_id=1178268795219780156`;
 
       break;
