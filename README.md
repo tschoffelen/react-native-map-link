@@ -241,3 +241,19 @@ Notes:
 * [Using this library with Expo](docs/expo.md)
 * [Alternative usage: styled popup](docs/popup.md)
 * [Adding support for new maps apps](docs/add-app.md)
+
+
+<br /><br />
+
+---
+
+<div align="center">
+  <br />
+	<b>
+		<a href="https://schof.co/consulting/?utm_source=flexible-agency/react-native-map-link">Get professional support for this package →</a>
+	</b>
+	<br>
+	<sub>
+		Custom consulting sessions availabe by request, just message thomas at schof dot co.
+	</sub>
+</div>
