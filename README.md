@@ -248,7 +248,6 @@ Notes:
 ---
 
 <div align="center">
-  <br />
 	<b>
 		<a href="https://schof.co/consulting/?utm_source=flexible-agency/react-native-map-link">Get professional support for this package →</a>
 	</b>
