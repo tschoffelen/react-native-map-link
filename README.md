@@ -243,6 +243,7 @@ Notes:
 * [Adding support for new maps apps](docs/add-app.md)
 
 
+
 <br /><br />
 
 ---
@@ -253,6 +254,6 @@ Notes:
 	</b>
 	<br>
 	<sub>
-		Custom consulting sessions availabe by request, just message thomas at schof dot co.
+		Custom consulting sessions availabe for implementation support or feature development.
 	</sub>
 </div>
