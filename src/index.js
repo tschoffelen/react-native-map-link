@@ -26,6 +26,7 @@ import {askAppChoice, checkOptions} from './utils';
  *     appsWhiteList: array | undefined | null
  *     appTitles: object | undefined | null
  *     naverCallerName: string | undefined
+ *     directionsMode: 'car' | 'walk' | 'public-transport' | 'bike' | undefined
  * }} options
  */
 export async function showLocation(options) {
@@ -80,15 +81,53 @@ export async function showLocation(options) {
 
   let url = null;
 
+  const getDirectionsModeAppleMaps = () => {
+    switch (options.directionsMode) {
+      case 'car':
+        return 'd';
+
+      case 'walk':
+        return 'w';
+
+      case 'public-transport':
+        return 'r';
+
+      default:
+        return undefined;
+    }
+  };
+
+  const getDirectionsModeGoogleMaps = () => {
+    switch (options.directionsMode) {
+      case 'car':
+        return 'driving';
+
+      case 'walk':
+        return 'walking';
+
+      case 'public-transport':
+        return 'transit';
+
+      case 'bike':
+        return 'bicycling';
+
+      default:
+        return undefined;
+    }
+  };
+
   switch (app) {
     case 'apple-maps':
+      const appleDirectionMode = getDirectionsModeAppleMaps();
       url = prefixes['apple-maps'];
       url = useSourceDestiny
         ? `${url}?saddr=${sourceLatLng}&daddr=${latlng}`
         : `${url}?ll=${latlng}`;
       url += `&q=${title ? encodedTitle : 'Location'}`;
+      url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
       break;
     case 'google-maps':
+      const googleDirectionMode = getDirectionsModeGoogleMaps();
       // Always using universal URL instead of URI scheme since the latter doesn't support all parameters (#155)
       url = 'https://www.google.com/maps/dir/?api=1';
       if (useSourceDestiny) {
@@ -103,6 +142,8 @@ export async function showLocation(options) {
       url += options.googlePlaceId
         ? `&destination_place_id=${options.googlePlaceId}`
         : '';
+
+      url += googleDirectionMode ? `&travelmode=${googleDirectionMode}` : '';
       break;
     case 'citymapper':
       url = `${prefixes.citymapper}directions?endcoord=${latlng}`;
