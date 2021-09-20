@@ -12,26 +12,26 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 <details>
 <summary>Full list of supported apps</summary>
 
-* Apple Maps – `apple-maps`
-* Google Maps – `google-maps`
-* Citymapper – `citymapper`
-* Uber – `uber`
-* Lyft – `lyft`
-* The Transit App – `transit`
-* TruckMap – `truckmap`
-* Waze – `waze`
-* Yandex.Navi – `yandex`
-* Moovit – `moovit`
-* Yandex Taxi – `yandex-taxi`
-* Yandex Maps – `yandex-maps`
-* Kakao Map – `kakaomap`
-* Mapy.cz – `mapycz`
-* Maps.me – `maps-me`
-* OsmAnd - `osmand`
-* Gett - `gett`
-* Naver Map - `navermap`
-* 2GIS - `dgis`
-* Liftago - `liftago`
+- Apple Maps – `apple-maps`
+- Google Maps – `google-maps`
+- Citymapper – `citymapper`
+- Uber – `uber`
+- Lyft – `lyft`
+- The Transit App – `transit`
+- TruckMap – `truckmap`
+- Waze – `waze`
+- Yandex.Navi – `yandex`
+- Moovit – `moovit`
+- Yandex Taxi – `yandex-taxi`
+- Yandex Maps – `yandex-maps`
+- Kakao Map – `kakaomap`
+- Mapy.cz – `mapycz`
+- Maps.me – `maps-me`
+- OsmAnd - `osmand`
+- Gett - `gett`
+- Naver Map - `navermap`
+- 2GIS - `dgis`
+- Liftago - `liftago`
 
 </details>
 
@@ -188,7 +188,7 @@ You can do so by coping the `<queries>` statement below, and pasting it in the t
 ```
 
 If you're running into a 'unexpected element `<queries>` found in `<manifest>`' error, make sure you have an updated version of Gradle in your `android/build.gradle` file:
-  
+
 ```java
 classpath("com.android.tools.build:gradle:3.5.4")
 ```
@@ -203,7 +203,6 @@ More info [here](https://stackoverflow.com/a/67383641/1129689).
 [Read the instructions here](docs/expo.md) to make it work on iOS.
 
 </details>
-
 
 ## Usage
 
@@ -228,21 +227,20 @@ showLocation({
     naverCallerName: 'com.example.myapp' // to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android.
     // appTitles: { 'google-maps': 'My custom Google Maps title' } // optionally you can override default app titles
     // app: 'uber'  // optionally specify specific app to use
+    directionsMode: 'walk' // optional, accepted values are 'car', 'walk', 'public-transport' or 'bike'
 })
 ```
 
 Notes:
 
-* The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supports all apps except Waze.
-
+- The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supports all apps except Waze.
+- Works on google-maps and apple-maps (on the latter, `bike` mode will not work). Without setting `directionsMode`, the app will decide based on his own settings.
 
 ## More information
 
-* [Using this library with Expo](docs/expo.md)
-* [Alternative usage: styled popup](docs/popup.md)
-* [Adding support for new maps apps](docs/add-app.md)
-
-
+- [Using this library with Expo](docs/expo.md)
+- [Alternative usage: styled popup](docs/popup.md)
+- [Adding support for new maps apps](docs/add-app.md)
 
 <br /><br />
 
