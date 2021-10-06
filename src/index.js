@@ -129,21 +129,35 @@ export async function showLocation(options) {
     case 'google-maps':
       const googleDirectionMode = getDirectionsModeGoogleMaps();
       // Always using universal URL instead of URI scheme since the latter doesn't support all parameters (#155)
-      url = 'https://www.google.com/maps/dir/?api=1';
       if (useSourceDestiny) {
+        // Use "dir" as this will open up directions
+        url = 'https://www.google.com/maps/dir/?api=1';
         url += `&origin=${sourceLatLng}`;
-      }
-      if (!options.googleForceLatLon && title) {
-        url += `&destination=${encodedTitle}`;
+        if (!options.googleForceLatLon && title) {
+          url += `&destination=${encodedTitle}`;
+        } else {
+          url += `&destination=${latlng}`;
+        }
+
+        url += options.googlePlaceId
+          ? `&destination_place_id=${options.googlePlaceId}`
+          : '';
+
+        url += googleDirectionMode ? `&travelmode=${googleDirectionMode}` : '';
       } else {
-        url += `&destination=${latlng}`;
+        // Use "search" as this will open up a single marker
+        url = 'https://www.google.com/maps/search/?api=1';
+
+        if (!options.googleForceLatLon && title) {
+          url += `&query=${encodedTitle}`;
+        } else {
+          url += `&query=${latlng}`;
+        }
+
+        url += options.googlePlaceId
+          ? `&query_place_id=${options.googlePlaceId}`
+          : '';
       }
-
-      url += options.googlePlaceId
-        ? `&destination_place_id=${options.googlePlaceId}`
-        : '';
-
-      url += googleDirectionMode ? `&travelmode=${googleDirectionMode}` : '';
       break;
     case 'citymapper':
       url = `${prefixes.citymapper}directions?endcoord=${latlng}`;
