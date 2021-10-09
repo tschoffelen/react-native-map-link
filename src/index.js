@@ -17,7 +17,7 @@ import {askAppChoice, checkOptions} from './utils';
  *     sourceLongitude: number | undefined | null,
  *     alwaysIncludeGoogle: boolean | undefined | null,
  *     googleForceLatLon: boolean | undefined | null,
- *     googlePlaceId: number | undefined | null,
+ *     googlePlaceId: number | string | undefined | null,
  *     title: string | undefined | null,
  *     app: string | undefined | null
  *     dialogTitle: string | undefined | null
