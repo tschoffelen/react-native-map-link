@@ -85,7 +85,7 @@ describe('showLocation', () => {
           longitude,
           app: 'google-maps',
         },
-        'https://www.google.com/maps/dir/?api=1&destination=123,234',
+        'https://www.google.com/maps/search/?api=1&query=123,234',
       );
     });
 
