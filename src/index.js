@@ -129,7 +129,7 @@ export async function showLocation(options) {
     case 'google-maps':
       const googleDirectionMode = getDirectionsModeGoogleMaps();
       // Always using universal URL instead of URI scheme since the latter doesn't support all parameters (#155)
-      if (useSourceDestiny) {
+      if (useSourceDestiny || options.directionsMode) {
         // Use "dir" as this will open up directions
         url = 'https://www.google.com/maps/dir/?api=1';
         url += `&origin=${sourceLatLng}`;
