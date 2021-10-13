@@ -224,9 +224,9 @@ showLocation({
     dialogMessage: 'This is the amazing dialog Message', // optional (default: 'What app would you like to use?')
     cancelText: 'This is the cancel button text', // optional (default: 'Cancel')
     appsWhiteList: ['google-maps'], // optionally you can set which apps to show (default: will show all supported apps installed on device)
-    naverCallerName: 'com.example.myapp' // to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android.
-    // appTitles: { 'google-maps': 'My custom Google Maps title' } // optionally you can override default app titles
-    // app: 'uber'  // optionally specify specific app to use
+    naverCallerName: 'com.example.myapp', // to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android.
+    // appTitles: { 'google-maps': 'My custom Google Maps title' }, // optionally you can override default app titles
+    // app: 'uber',  // optionally specify specific app to use
     directionsMode: 'walk' // optional, accepted values are 'car', 'walk', 'public-transport' or 'bike'
 })
 ```
@@ -234,7 +234,7 @@ showLocation({
 Notes:
 
 - The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supports all apps except Waze.
-- Works on google-maps and apple-maps (on the latter, `bike` mode will not work). Without setting `directionsMode`, the app will decide based on his own settings.
+- `directionsMode` works on google-maps and apple-maps (on the latter, `bike` mode will not work). Without setting it, the app will decide based on his own settings.
 
 ## More information
 
