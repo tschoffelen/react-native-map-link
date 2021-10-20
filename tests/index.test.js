@@ -85,7 +85,31 @@ describe('showLocation', () => {
           longitude,
           app: 'google-maps',
         },
-        'https://www.google.com/maps/dir/?api=1&destination=123,234',
+        'https://www.google.com/maps/search/?api=1&query=123,234',
+      );
+    });
+
+    it('opens with correct url if source is not provided, and has title', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude: undefined,
+          longitude: undefined,
+          title: 'Taco Bell',
+          app: 'google-maps',
+        },
+        'https://www.google.com/maps/search/?api=1&query=Taco%20Bell',
+      );
+    });
+
+    it('opens with correct url if source is not provided, and has place id', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          googlePlaceId: 'ChIJ10bTGLWxEmsRFX2VrdMRW_A',
+          app: 'google-maps',
+        },
+        'https://www.google.com/maps/search/?api=1&query=123,234&query_place_id=ChIJ10bTGLWxEmsRFX2VrdMRW_A',
       );
     });
 
