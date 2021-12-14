@@ -132,7 +132,7 @@ export async function showLocation(options) {
       if (useSourceDestiny || options.directionsMode) {
         // Use "dir" as this will open up directions
         url = 'https://www.google.com/maps/dir/?api=1';
-        url += `&origin=${sourceLatLng}`;
+        url += sourceLatLng ? `&origin=${sourceLatLng}` : '';
         if (!options.googleForceLatLon && title) {
           url += `&destination=${encodedTitle}`;
         } else {
