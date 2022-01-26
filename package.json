@@ -29,7 +29,7 @@
   "homepage": "https://github.com/includable/react-native-map-link#readme",
   "dependencies": {
     "prop-types": "^15.7.2",
-    "react-native-modal": "^10.0.0"
+    "react-native-modal": "^13.0.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
