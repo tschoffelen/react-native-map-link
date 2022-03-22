@@ -45,7 +45,7 @@ interface PopupProps {
   style?: PopupStyleProp;
   modalProps?: object;
   options: Options;
-  appsWhiteList: string[];
+  appsWhiteList?: string[];
   appTitles?: {[key: string]: string};
 }
 
