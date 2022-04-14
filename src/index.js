@@ -198,10 +198,10 @@ export async function showLocation(options) {
       }
       break;
     case 'truckmap':
-      url = `https://truckmap.com/place/${lat},${lng}`
-      
+      url = `https://truckmap.com/place/${lat},${lng}`;
+
       if (useSourceDestiny) {
-        url = `https://truckmap.com/route/${sourceLat},${sourceLng}/${lat},${lng}`
+        url = `https://truckmap.com/route/${sourceLat},${sourceLng}/${lat},${lng}`;
       }
       break;
     case 'waze':
