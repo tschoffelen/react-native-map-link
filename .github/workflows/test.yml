@@ -1,0 +1,19 @@
+name: Unit tests
+
+on: [ push, pull_request ]
+
+jobs:
+  jest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+      - name: Install dependencies
+        run: yarn
+      - name: Run tests
+        run: yarn test

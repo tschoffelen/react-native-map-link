@@ -1,5 +1,6 @@
 /example
 /docs
+/tests
 greenkeeper.json
 .github
 .editorconfig
@@ -7,3 +8,5 @@ greenkeeper.json
 .vscode
 .travis.yml
 .eslintrc.json
+.prettierrc.json
+babel.config.js

@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { Button, StyleSheet, View } from 'react-native'
+import React, {Component} from 'react';
+import {Button, StyleSheet, View} from 'react-native';
 
-import { Popup, showLocation } from 'react-native-map-link'
+import {Popup, showLocation} from 'react-native-map-link';
 
 const options = {
   latitude: 38.8976763,
@@ -9,33 +9,58 @@ const options = {
   title: 'The White House',
   dialogTitle: 'This is the dialog Title',
   dialogMessage: 'This is the amazing dialog Message',
-  cancelText: 'This is the cancel button text'
-}
+  cancelText: 'This is the cancel button text',
+};
+
+const onFootOptions = {
+  ...options,
+  sourceLatitude: 38.8991792,
+  sourceLongitude: -77.0452072,
+  directionsMode: 'walk',
+};
 
 export default class App extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
-      isVisible: false
-    }
+      isVisible: false,
+    };
   }
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <Popup
           isVisible={this.state.isVisible}
-          onCancelPressed={() => this.setState({ isVisible: false })}
-          onAppPressed={() => this.setState({ isVisible: false })}
-          onBackButtonPressed={() => this.setState({ isVisible: false })}
+          onCancelPressed={() => this.setState({isVisible: false})}
+          onAppPressed={() => this.setState({isVisible: false})}
+          onBackButtonPressed={() => this.setState({isVisible: false})}
           options={options}
         />
 
-        <Button onPress={() => showLocation(options)} title='Show in Maps using action sheet'/>
-        <Button onPress={() => { this.setState({ isVisible: true }) }} title='Show in Maps using Popup'/>
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={() => showLocation(options)}
+            title="Show in Maps using action sheet"
+          />
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={() => showLocation(onFootOptions)}
+            title="Show direction (on foot) in Maps using action sheet"
+          />
+        </View>
+
+        <Button
+          onPress={() => {
+            this.setState({isVisible: true});
+          }}
+          title="Show in Maps using Popup"
+        />
       </View>
-    )
+    );
   }
 }
 
@@ -44,6 +69,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff'
-  }
-})
+    backgroundColor: '#fff',
+    paddingHorizontal: 15,
+  },
+  buttonContainer: {
+    marginBottom: 20,
+  },
+});

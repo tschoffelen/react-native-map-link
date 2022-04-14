@@ -1,6 +1,6 @@
 {
   "name": "react-native-map-link",
-  "version": "2.7.3",
+  "version": "2.9.1",
   "description": "Open the map app of the user's choice with a specific location",
   "main": "index.js",
   "repository": {
@@ -8,7 +8,8 @@
     "url": "git+https://github.com/includable/react-native-map-link.git"
   },
   "scripts": {
-    "test": "eslint src --fix"
+    "lint": "eslint src --max-warnings=0 && eslint tests --max-warnings=0",
+    "test": "jest"
   },
   "keywords": [
     "react-native",
@@ -27,20 +28,30 @@
   },
   "homepage": "https://github.com/includable/react-native-map-link#readme",
   "dependencies": {
-    "prop-types": "^15.7.2",
-    "react-native-modal": "^10.0.0"
+    "prop-types": "^15.8.1",
+    "react-native-modal": "^13.0.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-native": ">=0.40.0"
   },
   "devDependencies": {
-    "eslint": "^6.2.2",
-    "eslint-config-standard": "^14.0.1",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-standard": "^4.0.1"
+    "@babel/core": "^7.17.5",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/eslint-plugin": "^7.16.5",
+    "@babel/runtime": "^7.17.2",
+    "@react-native-community/eslint-config": "^3.0.1",
+    "babel-jest": "^27.5.1",
+    "eslint": "^8.10.0",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "jest": "^27.5.1",
+    "metro-react-native-babel-preset": "^0.69.0",
+    "react-native": "^0.67.3"
+  },
+  "jest": {
+    "preset": "react-native",
+    "setupFiles": [
+      "./tests/setup.js"
+    ]
   }
 }

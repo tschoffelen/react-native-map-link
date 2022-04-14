@@ -2,10 +2,10 @@
  * React Native Map Link
  */
 
-import { Linking } from 'react-native'
+import {Linking} from 'react-native';
 
-import { isIOS, generatePrefixes, generateTitles } from './constants'
-import { askAppChoice, checkOptions } from './utils'
+import {generatePrefixes, generateTitles, isIOS} from './constants';
+import {askAppChoice, checkOptions} from './utils';
 
 /**
  * Open a maps app, or let the user choose what app to open, with the given location.
@@ -17,7 +17,7 @@ import { askAppChoice, checkOptions } from './utils'
  *     sourceLongitude: number | undefined | null,
  *     alwaysIncludeGoogle: boolean | undefined | null,
  *     googleForceLatLon: boolean | undefined | null,
- *     googlePlaceId: number | undefined | null,
+ *     googlePlaceId: number | string | undefined | null,
  *     title: string | undefined | null,
  *     app: string | undefined | null
  *     dialogTitle: string | undefined | null
@@ -25,34 +25,48 @@ import { askAppChoice, checkOptions } from './utils'
  *     cancelText: string | undefined | null
  *     appsWhiteList: array | undefined | null
  *     appTitles: object | undefined | null
+ *     naverCallerName: string | undefined
+ *     directionsMode: 'car' | 'walk' | 'public-transport' | 'bike' | undefined
  * }} options
  */
-export async function showLocation (options) {
-  const prefixes = generatePrefixes(options)
-  checkOptions(options, prefixes)
+export async function showLocation(options) {
+  const prefixes = generatePrefixes(options);
+  checkOptions(options, prefixes);
 
-  let useSourceDestiny = false
-  let sourceLat
-  let sourceLng
-  let sourceLatLng
+  let useSourceDestiny = false;
+  let sourceLat;
+  let sourceLng;
+  let sourceLatLng;
 
-  if (('sourceLatitude' in options) && ('sourceLongitude' in options)) {
-    useSourceDestiny = true
-    sourceLat = parseFloat(options.sourceLatitude)
-    sourceLng = parseFloat(options.sourceLongitude)
-    sourceLatLng = `${sourceLat},${sourceLng}`
+  if ('sourceLatitude' in options && 'sourceLongitude' in options) {
+    useSourceDestiny = true;
+    sourceLat = parseFloat(options.sourceLatitude);
+    sourceLng = parseFloat(options.sourceLongitude);
+    sourceLatLng = `${sourceLat},${sourceLng}`;
   }
 
-  const lat = parseFloat(options.latitude)
-  const lng = parseFloat(options.longitude)
-  const latlng = `${lat},${lng}`
-  const title = options.title && options.title.length ? options.title : null
-  const encodedTitle = encodeURIComponent(title)
-  let app = options.app && options.app.length ? options.app : null
-  const dialogTitle = options.dialogTitle && options.dialogTitle.length ? options.dialogTitle : 'Open in Maps'
-  const dialogMessage = options.dialogMessage && options.dialogMessage.length ? options.dialogMessage : 'What app would you like to use?'
-  const cancelText = options.cancelText && options.cancelText.length ? options.cancelText : 'Cancel'
-  const appsWhiteList = options.appsWhiteList && options.appsWhiteList.length ? options.appsWhiteList : null
+  const lat = parseFloat(options.latitude);
+  const lng = parseFloat(options.longitude);
+  const latlng = `${lat},${lng}`;
+  const title = options.title && options.title.length ? options.title : null;
+  const encodedTitle = encodeURIComponent(title);
+  let app = options.app && options.app.length ? options.app : null;
+  const dialogTitle =
+    options.dialogTitle && options.dialogTitle.length
+      ? options.dialogTitle
+      : 'Open in Maps';
+  const dialogMessage =
+    options.dialogMessage && options.dialogMessage.length
+      ? options.dialogMessage
+      : 'What app would you like to use?';
+  const cancelText =
+    options.cancelText && options.cancelText.length
+      ? options.cancelText
+      : 'Cancel';
+  const appsWhiteList =
+    options.appsWhiteList && options.appsWhiteList.length
+      ? options.appsWhiteList
+      : null;
 
   if (!app) {
     app = await askAppChoice({
@@ -61,114 +75,220 @@ export async function showLocation (options) {
       cancelText,
       appsWhiteList,
       prefixes,
-      appTitles: generateTitles(options.appTitles)
+      appTitles: generateTitles(options.appTitles),
     });
   }
 
-  let url = null
+  let url = null;
+
+  const getDirectionsModeAppleMaps = () => {
+    switch (options.directionsMode) {
+      case 'car':
+        return 'd';
+
+      case 'walk':
+        return 'w';
+
+      case 'public-transport':
+        return 'r';
+
+      default:
+        return undefined;
+    }
+  };
+
+  const getDirectionsModeGoogleMaps = () => {
+    switch (options.directionsMode) {
+      case 'car':
+        return 'driving';
+
+      case 'walk':
+        return 'walking';
+
+      case 'public-transport':
+        return 'transit';
+
+      case 'bike':
+        return 'bicycling';
+
+      default:
+        return undefined;
+    }
+  };
 
   switch (app) {
     case 'apple-maps':
-      url = prefixes['apple-maps']
-      url = (useSourceDestiny) ? `${url}?saddr=${sourceLatLng}&daddr=${latlng}` : `${url}?ll=${latlng}`
-      url += `&q=${title ? `${encodedTitle}&address=${encodedTitle}` : 'Location'}`
-      break
+      const appleDirectionMode = getDirectionsModeAppleMaps();
+      url = prefixes['apple-maps'];
+      url = useSourceDestiny
+        ? `${url}?saddr=${sourceLatLng}&daddr=${latlng}`
+        : `${url}?sll=${latlng}`;
+      url += `&q=${title ? encodedTitle : 'Location'}`;
+      url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
+      break;
     case 'google-maps':
-      url = prefixes['google-maps']
+      const googleDirectionMode = getDirectionsModeGoogleMaps();
+      // Always using universal URL instead of URI scheme since the latter doesn't support all parameters (#155)
+      if (useSourceDestiny || options.directionsMode) {
+        // Use "dir" as this will open up directions
+        url = 'https://www.google.com/maps/dir/?api=1';
+        url += sourceLatLng ? `&origin=${sourceLatLng}` : '';
+        if (!options.googleForceLatLon && title) {
+          url += `&destination=${encodedTitle}`;
+        } else {
+          url += `&destination=${latlng}`;
+        }
 
-      if (options.googleForceLatLon && title) {
-        url += `?q=loc:${lat},+${lng}+(${encodedTitle})`
-      } else if (title) {
-        url += `?q=${encodedTitle}`
+        url += options.googlePlaceId
+          ? `&destination_place_id=${options.googlePlaceId}`
+          : '';
+
+        url += googleDirectionMode ? `&travelmode=${googleDirectionMode}` : '';
       } else {
-        url += `?q=${latlng}`
-      }
+        // Use "search" as this will open up a single marker
+        url = 'https://www.google.com/maps/search/?api=1';
 
-      url += (isIOS) ? '&api=1' : ''
-      url += (options.googlePlaceId) ? `&query_place_id=${options.googlePlaceId}` : ''
-      url += (useSourceDestiny) ? `&saddr=${sourceLatLng}&daddr=${latlng}` : `&ll=${latlng}`
-      break
+        if (!options.googleForceLatLon && title) {
+          url += `&query=${encodedTitle}`;
+        } else {
+          url += `&query=${latlng}`;
+        }
+
+        url += options.googlePlaceId
+          ? `&query_place_id=${options.googlePlaceId}`
+          : '';
+      }
+      break;
     case 'citymapper':
-      url = `${prefixes.citymapper}directions?endcoord=${latlng}`
+      url = `${prefixes.citymapper}directions?endcoord=${latlng}`;
 
       if (title) {
-        url += `&endname=${encodedTitle}`
+        url += `&endname=${encodedTitle}`;
       }
 
       if (useSourceDestiny) {
-        url += `&startcoord=${sourceLatLng}`
+        url += `&startcoord=${sourceLatLng}`;
       }
-      break
+      break;
     case 'uber':
-      url = `${prefixes.uber}?action=setPickup&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}`
+      url = `${prefixes.uber}?action=setPickup&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}`;
 
       if (title) {
-        url += `&dropoff[nickname]=${encodedTitle}`
+        url += `&dropoff[nickname]=${encodedTitle}`;
       }
 
-      url += (useSourceDestiny) ? `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}` : '&pickup=my_location'
+      url += useSourceDestiny
+        ? `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}`
+        : '&pickup=my_location';
 
-      break
+      break;
     case 'lyft':
-      url = `${prefixes.lyft}ridetype?id=lyft&destination[latitude]=${lat}&destination[longitude]=${lng}`
+      url = `${prefixes.lyft}ridetype?id=lyft&destination[latitude]=${lat}&destination[longitude]=${lng}`;
 
       if (useSourceDestiny) {
-        url += `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}`
+        url += `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}`;
       }
 
-      break
+      break;
     case 'transit':
-      url = `${prefixes.transit}directions?to=${latlng}`
+      url = `${prefixes.transit}directions?to=${latlng}`;
 
       if (useSourceDestiny) {
-        url += `&from=${sourceLatLng}`
+        url += `&from=${sourceLatLng}`;
       }
-      break
+      break;
     case 'truckmap':
       url = `https://truckmap.com/place/${lat},${lng}`
       
       if (useSourceDestiny) {
         url = `https://truckmap.com/route/${sourceLat},${sourceLng}/${lat},${lng}`
       }
-      break
+      break;
     case 'waze':
-      url = `${prefixes.waze}?ll=${latlng}&navigate=yes`
+      url = `${prefixes.waze}?ll=${latlng}&navigate=yes`;
       if (title) {
-        url += `&q=${encodedTitle}`
+        url += `&q=${encodedTitle}`;
       }
-      break
+      break;
     case 'yandex':
-      url = `${prefixes.yandex}build_route_on_map?lat_to=${lat}&lon_to=${lng}`
+      url = `${prefixes.yandex}build_route_on_map?lat_to=${lat}&lon_to=${lng}`;
 
       if (useSourceDestiny) {
-        url += `&lat_from=${sourceLat}&lon_from=${sourceLng}`
+        url += `&lat_from=${sourceLat}&lon_from=${sourceLng}`;
       }
-      break
+      break;
     case 'moovit':
-      url = `${prefixes.moovit}directions?dest_lat=${lat}&dest_lon=${lng}`
+      url = `${prefixes.moovit}directions?dest_lat=${lat}&dest_lon=${lng}`;
 
       if (title) {
-        url += `&dest_name=${encodedTitle}`
+        url += `&dest_name=${encodedTitle}`;
       }
 
       if (useSourceDestiny) {
-        url += `&orig_lat=${sourceLat}&orig_lon=${sourceLng}`
+        url += `&orig_lat=${sourceLat}&orig_lon=${sourceLng}`;
       }
-      break
-    case 'yandex-maps':
-      url = `${prefixes['yandex-maps']}?pt=${lng},${lat}`
+      break;
+    case 'yandex-taxi':
+      url = `${prefixes['yandex-taxi']}route?end-lat=${lat}&end-lon=${lng}&appmetrica_tracking_id=1178268795219780156`;
 
-      break
+      break;
+    case 'yandex-maps':
+      url = `${prefixes['yandex-maps']}?pt=${lng},${lat}`;
+
+      break;
     case 'kakaomap':
-        url = `${prefixes.kakaomap}look?p=${latlng}`
-        
-        if (useSourceDestiny) {
-          url = `${prefixes.kakaomap}route?sp=${sourceLat},${sourceLng}&ep=${latlng}&by=CAR`
-        }
-        break
+      url = `${prefixes.kakaomap}look?p=${latlng}`;
+
+      if (useSourceDestiny) {
+        url = `${prefixes.kakaomap}route?sp=${sourceLat},${sourceLng}&ep=${latlng}&by=CAR`;
+      }
+      break;
+    case 'mapycz':
+      url = `${prefixes.mapycz}www.mapy.cz/zakladni?x=${lng}&y=${lat}&source=coor&id=${lng},${lat}`;
+
+      break;
+    case 'maps-me':
+      url = `${prefixes['maps-me']}route?sll=${sourceLat},${sourceLng}&saddr= &dll=${lat},${lng}&daddr=${title}&type=vehicle`;
+
+      break;
+    case 'osmand':
+      url = isIOS
+        ? `${prefixes.osmand}?lat=${lat}&lon=${lng}`
+        : `${prefixes.osmand}?q=${lat},${lng}`;
+
+      break;
+    case 'gett':
+      url = `${prefixes.gett}order?pickup=my_location&dropoff_latitude=${lat}&dropoff_longitude=${lng}`;
+
+      break;
+    case 'navermap':
+      url = `${prefixes.navermap}map?lat=${lat}&lng=${lng}&appname=${options.naverCallerName}`;
+
+      if (useSourceDestiny) {
+        url = `${prefixes.navermap}route?slat=${sourceLat}&slng=${sourceLng}&dlat=${lat}&dlng=${lng}&appname=${options.naverCallerName}`;
+      }
+      break;
+    case 'dgis':
+      url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/go`;
+
+      if (useSourceDestiny) {
+        url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/from/${sourceLng},${sourceLat}/go`;
+      }
+      break;
+    case 'liftago':
+      url = `${prefixes.liftago}order?destinationLat=${lat}&destinationLon=${lng}`;
+
+      if (title) {
+        url += `&destinationName=${encodedTitle}`;
+      }
+
+      if (useSourceDestiny) {
+        url += `&pickupLat=${sourceLat}&pickupLon=${sourceLng}`;
+      }
+      break;
   }
 
   if (url) {
-    return Linking.openURL(url).then(() => Promise.resolve(app))
+    return Linking.openURL(url).then(() => Promise.resolve(app));
   }
 }

@@ -2,13 +2,13 @@
  * React Native Map Link
  */
 
-import { Platform } from 'react-native'
+import {Platform} from 'react-native';
 
-export const isIOS = Platform.OS === 'ios'
+export const isIOS = Platform.OS === 'ios';
 
-export function generatePrefixes (options) {
+export function generatePrefixes(options) {
   return {
-    'apple-maps': isIOS ? 'http://maps.apple.com/' : 'applemaps://',
+    'apple-maps': isIOS ? 'maps://' : 'applemaps://',
     'google-maps': prefixForGoogleMaps(options.alwaysIncludeGoogle),
     citymapper: 'citymapper://',
     uber: 'uber://',
@@ -19,17 +19,25 @@ export function generatePrefixes (options) {
     yandex: 'yandexnavi://',
     moovit: 'moovit://',
     'yandex-maps': 'yandexmaps://maps.yandex.ru/',
-    kakaomap: 'kakaomap://'
-  }
+    'yandex-taxi': 'yandextaxi://',
+    kakaomap: 'kakaomap://',
+    mapycz: isIOS ? 'szn-mapy://' : 'mapycz://',
+    'maps-me': 'mapsme://',
+    osmand: isIOS ? 'osmandmaps://' : 'osmand.geo://',
+    gett: 'gett://',
+    navermap: options.naverCallerName ? 'nmap://' : 'nmap-disabled://',
+    dgis: 'dgis://2gis.ru/',
+    liftago: 'lftgpas://',
+  };
 }
 
-export function prefixForGoogleMaps (alwaysIncludeGoogle) {
+export function prefixForGoogleMaps(alwaysIncludeGoogle) {
   return isIOS && !alwaysIncludeGoogle
     ? 'comgooglemaps://'
-    : 'https://maps.google.com/'
+    : 'https://www.google.com/maps/';
 }
 
-export function generateTitles (titles) {
+export function generateTitles(titles) {
   return {
     'apple-maps': 'Apple Maps',
     'google-maps': 'Google Maps',
@@ -41,10 +49,18 @@ export function generateTitles (titles) {
     waze: 'Waze',
     yandex: 'Yandex.Navi',
     moovit: 'Moovit',
+    'yandex-taxi': 'Yandex Taxi',
     'yandex-maps': 'Yandex Maps',
     kakaomap: 'Kakao Maps',
-    ...(titles || {})
-  }
+    mapycz: 'Mapy.cz',
+    'maps-me': 'Maps Me',
+    osmand: 'OsmAnd',
+    gett: 'Gett',
+    navermap: 'Naver Map',
+    dgis: '2GIS',
+    liftago: 'Liftago',
+    ...(titles || {}),
+  };
 }
 
 export const icons = {
@@ -58,8 +74,16 @@ export const icons = {
   waze: require('./images/waze.png'),
   yandex: require('./images/yandex.png'),
   moovit: require('./images/moovit.png'),
+  'yandex-taxi': require('./images/yandex-taxi.png'),
   'yandex-maps': require('./images/yandex-maps.png'),
-  kakaomap: require('./images/kakao-map.png')
-}
+  kakaomap: require('./images/kakao-map.png'),
+  mapycz: require('./images/mapycz.png'),
+  'maps-me': require('./images/maps-me.png'),
+  osmand: require('./images/osmand.png'),
+  gett: require('./images/gett.png'),
+  navermap: require('./images/naver-map.png'),
+  dgis: require('./images/dgis.png'),
+  liftago: require('./images/liftago.png'),
+};
 
 export const appKeys = Object.keys(icons);
