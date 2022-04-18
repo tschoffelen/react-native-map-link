@@ -239,7 +239,7 @@ describe('showLocation', () => {
           longitude,
           app: 'truckmap',
         },
-        'http://truckmap.com/place/123,234',
+        'https://truckmap.com/place/123,234',
       );
     });
 
@@ -252,7 +252,7 @@ describe('showLocation', () => {
           sourceLongitude,
           app: 'truckmap',
         },
-        'http://truckmap.com/route/567,890/123,234',
+        'https://truckmap.com/route/567,890/123,234',
       );
     });
   });
