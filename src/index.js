@@ -286,6 +286,13 @@ export async function showLocation(options) {
         url += `&pickupLat=${sourceLat}&pickupLon=${sourceLng}`;
       }
       break;
+    case 'petalmaps':
+      url = `${prefixes.petalmaps}navigation?daddr=${lat},${lng}`;
+
+      if (useSourceDestiny) {
+        url += `&saddr=${sourceLat},${sourceLng}`;
+      }
+      break;
   }
 
   if (url) {

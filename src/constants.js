@@ -28,6 +28,7 @@ export function generatePrefixes(options) {
     navermap: options.naverCallerName ? 'nmap://' : 'nmap-disabled://',
     dgis: 'dgis://2gis.ru/',
     liftago: 'lftgpas://',
+    petalmaps: 'petalmaps://',
   };
 }
 
@@ -59,6 +60,7 @@ export function generateTitles(titles) {
     navermap: 'Naver Map',
     dgis: '2GIS',
     liftago: 'Liftago',
+    petalmaps: 'Petal Maps',
     ...(titles || {}),
   };
 }
@@ -84,6 +86,7 @@ export const icons = {
   navermap: require('./images/naver-map.png'),
   dgis: require('./images/dgis.png'),
   liftago: require('./images/liftago.png'),
+  petalmaps: require('./images/petalmaps.png'),
 };
 
 export const appKeys = Object.keys(icons);
