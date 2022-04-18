@@ -32,6 +32,7 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 - Naver Map - `navermap`
 - 2GIS - `dgis`
 - Liftago - `liftago`
+- Petal Maps - `petalmaps` (Android only)
 
 </details>
 
@@ -183,6 +184,10 @@ You can do so by coping the `<queries>` statement below, and pasting it in the t
   <intent>
     <action android:name="android.intent.action.VIEW" />
     <data android:scheme="lftgpas" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="petalmaps" />
   </intent>
 </queries>
 ```
