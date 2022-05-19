@@ -123,6 +123,7 @@ export async function showLocation(options) {
       url = useSourceDestiny
         ? `${url}?saddr=${sourceLatLng}&daddr=${latlng}`
         : `${url}?sll=${latlng}`;
+      !sourceLatLng &&  (url += `&q=${title ? encodedTitle : 'Location'}`);
       url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
       break;
     case 'google-maps':
