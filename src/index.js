@@ -122,8 +122,8 @@ export async function showLocation(options) {
       url = prefixes['apple-maps'];
       url = useSourceDestiny
         ? `${url}?saddr=${sourceLatLng}&daddr=${latlng}`
-        : `${url}?sll=${latlng}`;
-      !sourceLatLng &&  (url += `&q=${title ? encodedTitle : 'Location'}`);
+        : `${url}?ll=${latlng}`;
+      url += `&q=${title ? encodedTitle : 'Location'}`
       url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
       break;
     case 'google-maps':
