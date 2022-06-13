@@ -59,7 +59,7 @@ describe('showLocation', () => {
           longitude,
           app: 'apple-maps',
         },
-        'maps://?sll=123,234&q=Location',
+        'maps://?ll=123,234&q=Location',
       );
     });
 
