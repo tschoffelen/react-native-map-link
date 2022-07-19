@@ -49,7 +49,35 @@ interface PopupProps {
   appTitles?: {[key: string]: string};
 }
 
+type MapPrefix =
+  | 'apple-maps'
+  | 'google-maps'
+  | 'citymapper'
+  | 'uber'
+  | 'lyft'
+  | 'transit'
+  | 'truckmap'
+  | 'waze'
+  | 'yandex'
+  | 'moovit'
+  | 'yandex-maps'
+  | 'yandex-taxi'
+  | 'kakaomap'
+  | 'mapycz'
+  | 'maps-me'
+  | 'osmand'
+  | 'gett'
+  | 'navermap'
+  | 'dgis'
+  | 'liftago'
+  | 'petalmaps';
+type MapPrefixRecord = Record<MapPrefix, string>;
+
 export function showLocation(
   options: Options,
 ): Promise<string | undefined | null>;
 export class Popup extends React.Component<PopupProps> {}
+export function generatePrefixes(opts?: Partial<Options>): MapPrefixRecord;
+export function getAvailableApps(
+  prefixes: MapPrefixRecord,
+): Promise<MapPrefix[]>;
