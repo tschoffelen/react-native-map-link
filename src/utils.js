@@ -4,7 +4,7 @@
 
 import {Linking, ActionSheetIOS, Alert} from 'react-native';
 
-import {appKeys, isIOS} from './constants';
+import {appKeys, isIOS, generatePrefixes} from './constants';
 
 /**
  * Get available navigation apps.
@@ -21,6 +21,14 @@ export const getAvailableApps = async (prefixes) => {
   }
 
   return availableApps;
+};
+
+/**
+ * Returns array of available map apps
+ */
+export const getAvailableMapApps = async (options) => {
+  const prefixes = generatePrefixes(options);
+  return getAvailableApps(prefixes);
 };
 
 /**

@@ -77,7 +77,13 @@ export function showLocation(
   options: Options,
 ): Promise<string | undefined | null>;
 export class Popup extends React.Component<PopupProps> {}
-export function generatePrefixes(opts?: Partial<Options>): MapPrefixRecord;
-export function getAvailableApps(
-  prefixes: MapPrefixRecord,
+
+/**
+ * @desc Returns an array of available map apps.
+ * A string in this array can be passed to the `showLocation({ app })` option.
+ *
+ * Useful for building custom map selection UIs.
+ */
+export function getAvailableMapApps(
+  options: Pick<Options, 'alwaysIncludeGoogle' | 'naverCallerName'>,
 ): Promise<MapPrefix[]>;

@@ -3,6 +3,6 @@
  */
 
 import Popup from './src/components/Popup';
-import {showLocation, generatePrefixes, getAvailableApps} from './src';
+import {showLocation, getAvailableMapApps} from './src';
 
-export {showLocation, Popup, getAvailableApps, generatePrefixes};
+export {showLocation, Popup, getAvailableMapApps};
