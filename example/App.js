@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, StyleSheet, View} from 'react-native';
 
-import {Popup, showLocation} from 'react-native-map-link';
+import {Popup, showLocation, getApps} from 'react-native-map-link';
 
 const options = {
   latitude: 38.8976763,
@@ -26,6 +26,11 @@ export default class App extends Component {
     this.state = {
       isVisible: false,
     };
+
+    (async() => {
+      const result = await getApps(options)
+      console.log('result:', result)
+     })()
   }
 
   render() {

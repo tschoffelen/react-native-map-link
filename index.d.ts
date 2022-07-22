@@ -52,4 +52,12 @@ interface PopupProps {
 export function showLocation(
   options: Options,
 ): Promise<string | undefined | null>;
+
+
+export type GetAppResult = {id:string, name: string, icon: NodeRequire, open: () => Promise<void>}
+export function getApps(
+  options: Options,
+  select?:string[]
+): Promise<GetAppsResult[]>;
+
 export class Popup extends React.Component<PopupProps> {}

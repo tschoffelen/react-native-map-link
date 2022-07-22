@@ -4,8 +4,8 @@
 
 import {Linking} from 'react-native';
 
-import {generatePrefixes, generateTitles, isIOS} from './constants';
-import {askAppChoice, checkOptions} from './utils';
+import {generatePrefixes, generateTitles, isIOS, icons} from './constants';
+import {askAppChoice, checkOptions, getAvailableApps} from './utils';
 
 /**
  * Open a maps app, or let the user choose what app to open, with the given location.
@@ -298,4 +298,27 @@ export async function showLocation(options) {
   if (url) {
     return Linking.openURL(url).then(() => Promise.resolve(app));
   }
+}
+
+
+export async function getApps(options, select){
+  let apps = await getAvailableApps(generatePrefixes(options));
+  if (select && select.length) {
+    checkNotSupportedApps(select);
+    apps = apps.filter((appName) =>
+    select.includes(appName),
+    );
+  }
+
+  const titles = generateTitles();
+  const open = (app) => {
+   return showLocation({...options, app});
+  }
+
+  let list = []
+  for(app of apps){
+    list.push({id: app, name: titles[app], icon: icons[app], open: async () => open(app)})
+  }
+
+  return list
 }
