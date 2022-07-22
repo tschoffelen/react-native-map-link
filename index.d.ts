@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ViewStyle, StyleProp, ImageStyle, TextStyle} from 'react-native';
+import {ViewStyle, StyleProp, ImageStyle, TextStyle, ImageSourcePropType} from 'react-native';
 
 interface Options {
   latitude: number | string;
@@ -54,7 +54,7 @@ export function showLocation(
 ): Promise<string | undefined | null>;
 
 
-export type GetAppResult = {id:string, name: string, icon: NodeRequire, open: () => Promise<void>}
+export type GetAppResult = {id:string, name: string, icon: ImageSourcePropType, open: () => Promise<void>}
 export function getApps(
   options: Options,
   select?:string[]
