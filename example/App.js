@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, View, Image, Text} from 'react-native';
 
 import {Popup, showLocation, getApps} from 'react-native-map-link';
 
@@ -25,17 +25,28 @@ export default class App extends Component {
 
     this.state = {
       isVisible: false,
+      apps:[],
     };
+  }
 
-    (async() => {
-      const result = await getApps(options)
-      console.log('result:', result)
-     })()
+  async componentDidMount(){
+    const apps = await getApps(options)
+    this.setState(prevState, () => ({...prevState, apps}))
   }
 
   render() {
+    const {apps} = this.state
     return (
       <View style={styles.container}>
+
+        <View>
+          {apps.map(({icon, name, id, open}) => (
+            <Pressable key={id} onPress={open}>
+              <Image source={icon} />
+              <Text>{name}</Text>
+            </Pressable>
+          ))}
+        </View>
         <Popup
           isVisible={this.state.isVisible}
           onCancelPressed={() => this.setState({isVisible: false})}
