@@ -311,13 +311,13 @@ export async function getApps(options, select){
   }
 
   const titles = generateTitles();
-  const open = (app) => {
+  async function open(app){
    return showLocation({...options, app});
   }
 
   let list = []
   for(app of apps){
-    list.push({id: app, name: titles[app], icon: icons[app], open: async () => open(app)})
+    list.push({id: app, name: titles[app], icon: icons[app], open: open.bind(this, app)})
   }
 
   return list
