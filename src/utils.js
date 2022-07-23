@@ -11,14 +11,34 @@ import {appKeys, isIOS, generatePrefixes} from './constants';
  */
 export const getAvailableApps = async (prefixes) => {
   const availableApps = [];
+  const promises = [];
+
   for (const app in prefixes) {
     if (prefixes.hasOwnProperty(app)) {
-      const avail = await isAppInstalled(app, prefixes);
-      if (avail) {
-        availableApps.push(app);
-      }
+      promises.push(
+        new Promise(async (resolve) => {
+          try {
+            const isInstalled = await isAppInstalled(app, prefixes);
+
+            resolve({
+              app,
+              isInstalled,
+            });
+          } catch (error) {
+            resolve({
+              app,
+              isInstalled: false,
+            });
+          }
+        }),
+      );
     }
   }
+
+  const results = await Promise.all(promises);
+  results.forEach(
+    ({isInstalled, app}) => isInstalled && availableApps.push(app),
+  );
 
   return availableApps;
 };
