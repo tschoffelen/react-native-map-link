@@ -301,12 +301,12 @@ export async function showLocation(options) {
 }
 
 
-export async function getApps(options, select){
+export async function getApps(options){
   let apps = await getAvailableApps(generatePrefixes(options));
-  if (select && select.length) {
-    checkNotSupportedApps(select);
+  if ('appsWhiteList' in options && options.appsWhiteList.length) {
+    checkNotSupportedApps(options.appsWhiteList);
     apps = apps.filter((appName) =>
-    select.includes(appName),
+    options.appsWhiteList.includes(appName),
     );
   }
 
