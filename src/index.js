@@ -5,7 +5,12 @@
 import {Linking} from 'react-native';
 
 import {generatePrefixes, generateTitles, isIOS, icons} from './constants';
-import {askAppChoice, checkOptions, getAvailableApps} from './utils';
+import {
+  askAppChoice,
+  checkOptions,
+  getAvailableApps,
+  checkNotSupportedApps,
+} from './utils';
 
 /**
  * Open a maps app, or let the user choose what app to open, with the given location.
@@ -300,25 +305,27 @@ export async function showLocation(options) {
   }
 }
 
-
-export async function getApps(options){
+export async function getApps(options) {
   let apps = await getAvailableApps(generatePrefixes(options));
   if ('appsWhiteList' in options && options.appsWhiteList.length) {
     checkNotSupportedApps(options.appsWhiteList);
-    apps = apps.filter((appName) =>
-    options.appsWhiteList.includes(appName),
-    );
+    apps = apps.filter((appName) => options.appsWhiteList.includes(appName));
   }
 
   const titles = generateTitles();
-  async function open(app){
-   return showLocation({...options, app});
+  async function open(app) {
+    return showLocation({...options, app});
   }
 
-  let list = []
-  for(app of apps){
-    list.push({id: app, name: titles[app], icon: icons[app], open: open.bind(this, app)})
+  let list = [];
+  for (const app of apps) {
+    list.push({
+      id: app,
+      name: titles[app],
+      icon: icons[app],
+      open: open.bind(this, app),
+    });
   }
 
-  return list
+  return list;
 }
