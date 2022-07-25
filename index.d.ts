@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ViewStyle, StyleProp, ImageStyle, TextStyle} from 'react-native';
+import {ViewStyle, StyleProp, ImageStyle, TextStyle, ImageSourcePropType} from 'react-native';
 
 interface Options {
   latitude: number | string;
@@ -52,4 +52,12 @@ interface PopupProps {
 export function showLocation(
   options: Options,
 ): Promise<string | undefined | null>;
+
+
+export type GetAppResult = {id:string, name: string, icon: ImageSourcePropType, open: () => Promise<void>}
+export function getApps(
+  options: Options,
+  select?:string[]
+): Promise<GetAppsResult[]>;
+
 export class Popup extends React.Component<PopupProps> {}

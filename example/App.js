@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, View, Image, Text} from 'react-native';
 
-import {Popup, showLocation} from 'react-native-map-link';
+import {Popup, showLocation, getApps} from 'react-native-map-link';
 
 const options = {
   latitude: 38.8976763,
@@ -25,12 +25,28 @@ export default class App extends Component {
 
     this.state = {
       isVisible: false,
+      apps:[],
     };
   }
 
+  async componentDidMount(){
+    const apps = await getApps(options)
+    this.setState(prevState, () => ({...prevState, apps}))
+  }
+
   render() {
+    const {apps} = this.state
     return (
       <View style={styles.container}>
+
+        <View>
+          {apps.map(({icon, name, id, open}) => (
+            <Pressable key={id} onPress={open}>
+              <Image source={icon} />
+              <Text>{name}</Text>
+            </Pressable>
+          ))}
+        </View>
         <Popup
           isVisible={this.state.isVisible}
           onCancelPressed={() => this.setState({isVisible: false})}
