@@ -312,7 +312,7 @@ export async function getApps(options) {
     apps = apps.filter((appName) => options.appsWhiteList.includes(appName));
   }
 
-  const titles = generateTitles();
+  const titles = generateTitles(options.appTitles);
   async function open(app) {
     return showLocation({...options, app});
   }

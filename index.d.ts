@@ -1,21 +1,64 @@
 import * as React from 'react';
-import {ViewStyle, StyleProp, ImageStyle, TextStyle, ImageSourcePropType} from 'react-native';
+import {
+  ViewStyle,
+  StyleProp,
+  ImageStyle,
+  TextStyle,
+  ImageSourcePropType,
+} from 'react-native';
 
-interface Options {
+/** id for map application. this is the id that is passed to the `app` option */
+export type MapId =
+  | 'apple-maps'
+  | 'google-maps'
+  | 'citymapper'
+  | 'uber'
+  | 'lyft'
+  | 'transit'
+  | 'truckmap'
+  | 'waze'
+  | 'yandex'
+  | 'moovit'
+  | 'yandex-maps'
+  | 'yandex-taxi'
+  | 'kakaomap'
+  | 'mapycz'
+  | 'maps-me'
+  | 'osmand'
+  | 'gett'
+  | 'navermap'
+  | 'dgis'
+  | 'liftago'
+  | 'petalmaps';
+
+/** options shared across different types */
+interface SharedOptions {
+  /** optionally you can set which apps to show (default: will show all supported apps installed on device) */
+  appsWhiteList?: MapId[];
+  /** custom titles to display for each app instead of using default titles. */
+  appTitles?: Partial<Record<MapId, string>>;
+}
+
+interface Options extends SharedOptions {
   latitude: number | string;
   longitude: number | string;
+  /** optionally specify starting location for directions */
   sourceLatitude?: number;
+  /** not optional if `sourceLatitude` is specified */
   sourceLongitude?: number;
+  /** optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false) */
   alwaysIncludeGoogle?: boolean;
   googleForceLatLon?: boolean;
   googlePlaceId?: string;
   title?: string;
-  app?: string;
+  /** optionally specify specific app to use */
+  app?: MapId;
+  /** optional (default: 'Open in Maps') */
   dialogTitle?: string;
+  /** optional (default: 'What app would you like to use?') */
   dialogMessage?: string;
   cancelText?: string;
-  appsWhiteList?: string[];
-  appTitles?: {[key: string]: string};
+  /** to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android. */
   naverCallerName?: string;
   directionsMode?: 'car' | 'walk' | 'public-transport' | 'bike';
 }
@@ -34,7 +77,7 @@ interface PopupStyleProp {
   activityIndicatorContainer?: StyleProp<ViewStyle>;
 }
 
-interface PopupProps {
+interface PopupProps extends SharedOptions {
   isVisible: boolean;
   showHeader?: boolean;
   customHeader?: React.ReactNode;
@@ -45,19 +88,39 @@ interface PopupProps {
   style?: PopupStyleProp;
   modalProps?: object;
   options: Options;
-  appsWhiteList?: string[];
-  appTitles?: {[key: string]: string};
 }
 
+/**
+ * Link users to their desired map app.
+ *
+ * If an `app` option is passed, it will directly link to that map app,
+ * else it will prompt user to select map app.
+ *
+ * Prompts via `ActionSheetIOS` on iOS & `Alert.alert` on Android.
+ *
+ * If these prompts don't meet your UI use case, checkout the `Popup` component,
+ * or use the `getApps` function to build a custom UI.
+ */
 export function showLocation(
   options: Options,
 ): Promise<string | undefined | null>;
 
+export type GetAppResult = {
+  id: MapId;
+  name: string;
+  icon: ImageSourcePropType;
+  /** function to link user to map app */
+  open: () => Promise<void>;
+};
 
-export type GetAppResult = {id:string, name: string, icon: ImageSourcePropType, open: () => Promise<void>}
-export function getApps(
-  options: Options,
-  select?:string[]
-): Promise<GetAppsResult[]>;
+/**
+ * Get array of map apps on users device.
+ *
+ * Useful for building custom UIs.
+ */
+export function getApps(options: Options): Promise<GetAppResult[]>;
 
+/**
+ * A styled popup component that displays icons in the app list
+ */
 export class Popup extends React.Component<PopupProps> {}
