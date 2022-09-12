@@ -84,7 +84,7 @@ interface PopupProps extends SharedOptions {
   customFooter?: React.ReactNode;
   onCancelPressed: () => void;
   onBackButtonPressed: () => void;
-  onAppPressed: () => void;
+  onAppPressed: (appName: MapId) => void;
   style?: PopupStyleProp;
   modalProps?: object;
   options: Options;
