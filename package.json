@@ -1,6 +1,6 @@
 {
   "name": "react-native-map-link",
-  "version": "2.10.1",
+  "version": "2.10.2",
   "description": "Open the map app of the user's choice with a specific location",
   "main": "index.js",
   "repository": {
