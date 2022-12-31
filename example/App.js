@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, StyleSheet, View, Image, Text} from 'react-native';
+import {Button, StyleSheet, View, Image, Text, Pressable} from 'react-native';
 
 import {Popup, showLocation, getApps} from 'react-native-map-link';
 
