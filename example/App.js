@@ -31,7 +31,7 @@ export default class App extends Component {
 
   async componentDidMount(){
     const apps = await getApps(options)
-    this.setState(prevState, () => ({...prevState, apps}))
+    this.setState((prevState) => ({...prevState, apps}))
   }
 
   render() {
