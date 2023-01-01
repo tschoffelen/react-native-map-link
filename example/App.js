@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, StyleSheet, View, Image, Text} from 'react-native';
+import {Button, StyleSheet, View, Image, Text, Pressable} from 'react-native';
 
 import {Popup, showLocation, getApps} from 'react-native-map-link';
 
@@ -31,7 +31,7 @@ export default class App extends Component {
 
   async componentDidMount(){
     const apps = await getApps(options)
-    this.setState(prevState, () => ({...prevState, apps}))
+    this.setState((prevState) => ({...prevState, apps}))
   }
 
   render() {
