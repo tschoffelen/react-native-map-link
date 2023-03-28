@@ -49,6 +49,7 @@ interface Options extends SharedOptions {
   /** optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false) */
   alwaysIncludeGoogle?: boolean;
   googleForceLatLon?: boolean;
+  appleIgnoreLatLon?: boolean;
   googlePlaceId?: string;
   title?: string;
   /** optionally specify specific app to use */
