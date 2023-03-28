@@ -130,7 +130,8 @@ export async function showLocation(options) {
       } else if (!options.appleIgnoreLatLon) {
         url = `${url}?ll=${latlng}`
       }
-      url += `&q=${title ? encodedTitle : 'Location'}`;
+      url += useSourceDestiny || !options.appleIgnoreLatLon ? '&' : '?'
+      url += `q=${title ? encodedTitle : 'Location'}`;
       url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
       break;
     case 'google-maps':

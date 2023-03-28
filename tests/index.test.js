@@ -63,6 +63,19 @@ describe('showLocation', () => {
       );
     });
 
+    it('opens with correct url if source is not provided, and has title', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          appleIgnoreLatLon: true,
+          title: 'Taco Bell',
+          app: 'apple-maps',
+        },
+        'maps://?q=Taco%20Bell',
+      );
+    });
+
     it('opens with correct url if source is provided', () => {
       verifyThatSettingsLeadToUrl(
         {
