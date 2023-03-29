@@ -126,11 +126,11 @@ export async function showLocation(options) {
       const appleDirectionMode = getDirectionsModeAppleMaps();
       url = prefixes['apple-maps'];
       if (useSourceDestiny) {
-        url = `${url}?saddr=${sourceLatLng}&daddr=${latlng}`
+        url = `${url}?saddr=${sourceLatLng}&daddr=${latlng}`;
       } else if (!options.appleIgnoreLatLon) {
-        url = `${url}?ll=${latlng}`
+        url = `${url}?ll=${latlng}`;
       }
-      url += useSourceDestiny || !options.appleIgnoreLatLon ? '&' : '?'
+      url += useSourceDestiny || !options.appleIgnoreLatLon ? '&' : '?';
       url += `q=${title ? encodedTitle : 'Location'}`;
       url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
       break;
