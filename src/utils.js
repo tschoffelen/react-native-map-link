@@ -60,11 +60,15 @@ export function isAppInstalled(app, prefixes) {
     // Check if Android app is installed, expecially imporatant to Moovit based on: https://moovit.com/developers/deeplinking/
     // Important: only valid for Android
     if (!isIOS && ANDROID_APP_PACKAGES[app]) {
-      const packageInstalledResultPromise = Share.isPackageInstalled(ANDROID_APP_PACKAGES[app]);
+      const packageInstalledResultPromise = Share.isPackageInstalled(
+        ANDROID_APP_PACKAGES[app],
+      );
       const appInstalledResultPromise = Linking.canOpenURL(prefixes[app]);
-      Promise.all([packageInstalledResultPromise, appInstalledResultPromise]).then((results) => {
-        resolve(!!results[0].isInstalled || !!results[1]);
-      }).catch(() => resolve(false));
+      Promise.all([packageInstalledResultPromise, appInstalledResultPromise])
+        .then((results) => {
+          resolve(!!results[0].isInstalled || !!results[1]);
+        })
+        .catch(() => resolve(false));
     } else {
       Linking.canOpenURL(prefixes[app])
         .then((result) => {

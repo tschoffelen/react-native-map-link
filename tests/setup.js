@@ -1,5 +1,3 @@
-import Share from 'react-native-share';
-
 jest.mock('react-native/Libraries/Linking/Linking', () => ({
   canOpenURL: jest.fn((url) => {
     return Promise.resolve(url.includes('https://') || url.includes('uber://'));

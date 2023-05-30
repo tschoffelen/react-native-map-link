@@ -34,7 +34,7 @@ export function generatePrefixes(options) {
 
 export const ANDROID_APP_PACKAGES = {
   moovit: 'com.tranzmate',
-}
+};
 
 export function prefixForGoogleMaps(alwaysIncludeGoogle) {
   return isIOS && !alwaysIncludeGoogle
