@@ -32,6 +32,10 @@ export function generatePrefixes(options) {
   };
 }
 
+export const APP_PACKAGES = {
+  moovit: 'com.tranzmate',
+}
+
 export function prefixForGoogleMaps(alwaysIncludeGoogle) {
   return isIOS && !alwaysIncludeGoogle
     ? 'comgooglemaps://'
