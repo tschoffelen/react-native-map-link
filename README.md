@@ -46,6 +46,13 @@ npm i -S react-native-map-link         # or yarn add react-native-map-link
 
 ### 2. Post-install steps
 
+As `react-native-share` is used as dependency for checking if Android package is installed you need to:
+
+```shell
+cd ios
+pod install
+```
+
 Based on the platforms your app supports, you also need to:
 
 <details>
