@@ -5524,6 +5524,11 @@ react-native-modal@^13.0.1:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
 
+react-native-share@^8.2.2:
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-8.2.2.tgz#987d6f164afe57b089950dca42e0555f19045d27"
+  integrity sha512-kVCI/cT0GnuYUTXe6mAimrjrnt4VWoRfrWqJZjFeoYFqAyOEfos84RC4eZlZnOT5eVtmTXRIkor5vgSkKOlZhw==
+
 react-native@^0.67.3:
   version "0.67.3"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.67.3.tgz#ee8bafb644afbe511a4a2c8e9c144a9720d06dd8"
