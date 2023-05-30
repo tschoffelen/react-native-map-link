@@ -3,8 +3,9 @@
  */
 
 import {Linking, ActionSheetIOS, Alert} from 'react-native';
+import Share from 'react-native-share';
 
-import {appKeys, isIOS} from './constants';
+import {appKeys, isIOS, APP_PACKAGES} from './constants';
 
 /**
  * Get available navigation apps.
@@ -56,11 +57,19 @@ export function isAppInstalled(app, prefixes) {
       return resolve(false);
     }
 
-    Linking.canOpenURL(prefixes[app])
-      .then((result) => {
-        resolve(!!result);
-      })
-      .catch(() => resolve(false));
+    if (!isIOS && APP_PACKAGES[app]) {
+      const packageInstalledResultPromise = Share.isPackageInstalled(APP_PACKAGES[app]);
+      const appInstalledResultPromise = Linking.canOpenURL(prefixes[app]);
+      Promise.all([packageInstalledResultPromise, appInstalledResultPromise]).then((values) => {
+        resolve(!!values[0].isInstalled || !!values[1]);
+      }).catch(() => resolve(false));
+    } else {
+      Linking.canOpenURL(prefixes[app])
+        .then((result) => {
+          resolve(!!result);
+        })
+        .catch(() => resolve(false));
+    }
   });
 }
 
