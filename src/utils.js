@@ -62,8 +62,8 @@ export function isAppInstalled(app, prefixes) {
     if (!isIOS && ANDROID_APP_PACKAGES[app]) {
       const packageInstalledResultPromise = Share.isPackageInstalled(ANDROID_APP_PACKAGES[app]);
       const appInstalledResultPromise = Linking.canOpenURL(prefixes[app]);
-      Promise.all([packageInstalledResultPromise, appInstalledResultPromise]).then((values) => {
-        resolve(!!values[0].isInstalled || !!values[1]);
+      Promise.all([packageInstalledResultPromise, appInstalledResultPromise]).then((results) => {
+        resolve(!!results[0].isInstalled || !!results[1]);
       }).catch(() => resolve(false));
     } else {
       Linking.canOpenURL(prefixes[app])
