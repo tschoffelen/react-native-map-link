@@ -5,7 +5,7 @@
 import {Linking, ActionSheetIOS, Alert} from 'react-native';
 import Share from 'react-native-share';
 
-import {appKeys, isIOS, APP_PACKAGES} from './constants';
+import {appKeys, isIOS, ANDROID_APP_PACKAGES} from './constants';
 
 /**
  * Get available navigation apps.
@@ -57,8 +57,10 @@ export function isAppInstalled(app, prefixes) {
       return resolve(false);
     }
 
-    if (!isIOS && APP_PACKAGES[app]) {
-      const packageInstalledResultPromise = Share.isPackageInstalled(APP_PACKAGES[app]);
+    // Check if Android app is installed, expecially imporatant to Moovit based on: https://moovit.com/developers/deeplinking/
+    // Important: only valid for Android
+    if (!isIOS && ANDROID_APP_PACKAGES[app]) {
+      const packageInstalledResultPromise = Share.isPackageInstalled(ANDROID_APP_PACKAGES[app]);
       const appInstalledResultPromise = Linking.canOpenURL(prefixes[app]);
       Promise.all([packageInstalledResultPromise, appInstalledResultPromise]).then((values) => {
         resolve(!!values[0].isInstalled || !!values[1]);

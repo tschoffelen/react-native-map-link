@@ -32,7 +32,7 @@ export function generatePrefixes(options) {
   };
 }
 
-export const APP_PACKAGES = {
+export const ANDROID_APP_PACKAGES = {
   moovit: 'com.tranzmate',
 }
 
