@@ -17,7 +17,7 @@ export function generatePrefixes(options) {
     truckmap: 'truckmap://',
     waze: 'waze://',
     yandex: 'yandexnavi://',
-    moovit: 'moovit://',
+    moovit: isIOS ? 'moovit://' : 'moovit://directions',
     'yandex-maps': 'yandexmaps://maps.yandex.ru/',
     'yandex-taxi': 'yandextaxi://',
     kakaomap: 'kakaomap://',
@@ -31,10 +31,6 @@ export function generatePrefixes(options) {
     petalmaps: 'petalmaps://',
   };
 }
-
-export const ANDROID_APP_PACKAGES = {
-  moovit: 'com.tranzmate',
-};
 
 export function prefixForGoogleMaps(alwaysIncludeGoogle) {
   return isIOS && !alwaysIncludeGoogle

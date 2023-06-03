@@ -1,15 +1,6 @@
 import {showLocation} from '../src/index';
 import {Linking} from 'react-native';
 
-jest.mock('react-native', () => ({
-  Linking: {
-    openURL: jest.fn(),
-  },
-  Platform: {
-    OS: 'ios',
-  },
-}));
-
 describe('showLocation', () => {
   const latitude = 123;
   const longitude = 234;
