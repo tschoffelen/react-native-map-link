@@ -17,7 +17,7 @@ export function generatePrefixes(options) {
     truckmap: 'truckmap://',
     waze: 'waze://',
     yandex: 'yandexnavi://',
-    moovit: 'moovit://',
+    moovit: 'moovit://directions',
     'yandex-maps': 'yandexmaps://maps.yandex.ru/',
     'yandex-taxi': 'yandextaxi://',
     kakaomap: 'kakaomap://',

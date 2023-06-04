@@ -226,7 +226,7 @@ export async function showLocation(options) {
       }
       break;
     case 'moovit':
-      url = `${prefixes.moovit}directions?dest_lat=${lat}&dest_lon=${lng}`;
+      url = `${prefixes.moovit}?dest_lat=${lat}&dest_lon=${lng}`;
 
       if (title) {
         url += `&dest_name=${encodedTitle}`;
