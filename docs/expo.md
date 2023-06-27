@@ -1,15 +1,16 @@
-# Usage in Expo apps
+# Usage in Expo Apps
 
-In theory, since this library does not contain any native iOS or Android code, it should work out of the box with Expo
-apps.
+These instructions are provided to help you configure your Expo app to work with this library. When using Expo there are two workflows: managed and bare. The instructions for each are slightly different.
 
-However, on iOS, Apple won't allow apps to open other apps or check if they are installed without first specifying
-upfront which apps your app will interact with. You usually do this by adding a `LSApplicationQueriesSchemes` key to
-your Info.plist. In an Expo app you won't be able to directly edit Info.plist, but you can do so in a different way:
+# iOS
 
-## Editing app.json
+## Bare Workflow
 
-Simply add the following to your Expo app's `app.json` file:
+See [iOS directions](https://github.com/includable/react-native-map-link#iOSPostInstall).
+
+## Managed Workflow
+
+Add the following to your Expo app's config file. This file is typically named `app.json`, `app.config.js`, or `app.config.ts`.
 
 ```js
 "ios": {
@@ -90,9 +91,9 @@ module.exports = function androidManifestPlugin(config) {
 
 ## Rebuild your app
 
-**Don't forget to rebuild your app after making this change.**
+**Don't forget to rebuild your app after making these changes.**
 
-You can usually do so by running `expo build:ios`.
+You can usually do so by running `expo build`.
 
 Also note that this will only work when building your
 own [standalone app](https://docs.expo.io/versions/latest/distribution/building-standalone-apps), not when starting your

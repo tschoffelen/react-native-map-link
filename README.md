@@ -48,7 +48,7 @@ npm i -S react-native-map-link         # or yarn add react-native-map-link
 
 Based on the platforms your app supports, you also need to:
 
-<details>
+<details id="iOSPostInstall">
 <summary><strong>iOS – Update Info.plist</strong></summary>
 
 To allow your app to detect if any of the directions apps are installed, an extra step is required on iOS. Your app needs to provide the `LSApplicationQueriesSchemes` key inside `ios/{my-project}/Info.plist` to specify the URL schemes with which the app can interact.
@@ -84,7 +84,7 @@ Using Expo? [Read the instructions](docs/expo.md) to make it work on iOS.
 
 </details>
 
-<details>
+<details id="androidPostInstall">
 <summary><strong>Android – Update AndroidManifest.xml</strong></summary>
 
 When switching to Android 11/Android SDK 30 (i.e. using Expo SDK 41), this library doesn't work out of the box anymore. The reason is the new [Package Visibilty](https://developer.android.com/training/package-visibility) security feature. We'll have to update our `AndroidManifest.xml` to explicitly allow querying for other apps.
@@ -205,7 +205,7 @@ More info [here](https://stackoverflow.com/a/67383641/1129689).
 <details>
 <summary><strong>Expo – Update app.json</strong></summary>
 
-[Read the instructions here](docs/expo.md) to make it work on iOS.
+[Read the instructions here](docs/expo.md)
 
 </details>
 
