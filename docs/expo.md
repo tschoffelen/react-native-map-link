@@ -39,6 +39,54 @@ Simply add the following to your Expo app's `app.json` file:
 }
 ```
 
+# Android
+
+## Bare Workflow
+
+See [Android directions](https://github.com/includable/react-native-map-link#androidPostInstall).
+
+## Managed Workflow
+
+Utilize the plugin system to add app `intent`s to Expo `prebuild` step.
+
+### 1. Create a plugin under `src/plugins` named `android-manifest.plugin.js`.
+
+### 2. Add the following code to the plugin file.
+
+```js
+const {withAndroidManifest} = require('@expo/config-plugins');
+
+const supportedApps = ['geo', 'waze'];
+const mapAppIntents = supportedApps.map((app) => {
+  return {
+    action: {
+      $: {'android:name': 'android.intent.action.VIEW'},
+    },
+    data: {
+      $: {'android:scheme': app},
+    },
+  };
+});
+
+module.exports = function androidManifestPlugin(config) {
+  return withAndroidManifest(config, async (config) => {
+    const androidManifest = config.modResults.manifest;
+    const existingIntent = androidManifest.queries[0].intent;
+
+    androidManifest.queries[0].intent = existingIntent.concat(mapAppIntents);
+
+    return config;
+  });
+};
+```
+
+### 3. Add the plugin to your app's config file to have it run during prebuild.
+
+```json
+{
+  "plugins": ["./src/plugins/android-manifest.plugin.js"]
+}
+```
 
 ## Rebuild your app
 
