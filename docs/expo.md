@@ -89,6 +89,24 @@ module.exports = function androidManifestPlugin(config) {
 }
 ```
 
+### 4. Confirm AndroidManifest.xml has been updated.
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.app">
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="geo" />
+    </intent>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="waze" />
+    </intent>
+  </queries>
+  <!-- Rest of Manifest -->
+</manifest>
+```
+
 ## Rebuild your app
 
 **Don't forget to rebuild your app after making these changes.**
