@@ -1,15 +1,16 @@
-# Usage in Expo apps
+# Usage in Expo Apps
 
-In theory, since this library does not contain any native iOS or Android code, it should work out of the box with Expo
-apps.
+These instructions are provided to help you configure your Expo app to work with this library. When using Expo there are two workflows: managed and bare. The instructions for each are slightly different.
 
-However, on iOS, Apple won't allow apps to open other apps or check if they are installed without first specifying
-upfront which apps your app will interact with. You usually do this by adding a `LSApplicationQueriesSchemes` key to
-your Info.plist. In an Expo app you won't be able to directly edit Info.plist, but you can do so in a different way:
+# iOS
 
-## Editing app.json
+## Bare Workflow
 
-Simply add the following to your Expo app's `app.json` file:
+See [iOS directions](https://github.com/includable/react-native-map-link#iOSPostInstall).
+
+## Managed Workflow
+
+Add the following to your Expo app's config file. This file is typically named `app.json`, `app.config.js`, or `app.config.ts`.
 
 ```js
 "ios": {
@@ -39,12 +40,78 @@ Simply add the following to your Expo app's `app.json` file:
 }
 ```
 
+# Android
+
+## Bare Workflow
+
+See [Android directions](https://github.com/includable/react-native-map-link#androidPostInstall).
+
+## Managed Workflow
+
+Utilize the plugin system to add app `intent`s to Expo `prebuild` step.
+
+### 1. Create a plugin under `src/plugins` named `android-manifest.plugin.js`.
+
+### 2. Add the following code to the plugin file.
+
+```js
+const {withAndroidManifest} = require('@expo/config-plugins');
+
+const supportedApps = ['geo', 'waze'];
+const mapAppIntents = supportedApps.map((app) => {
+  return {
+    action: {
+      $: {'android:name': 'android.intent.action.VIEW'},
+    },
+    data: {
+      $: {'android:scheme': app},
+    },
+  };
+});
+
+module.exports = function androidManifestPlugin(config) {
+  return withAndroidManifest(config, async (config) => {
+    const androidManifest = config.modResults.manifest;
+    const existingIntent = androidManifest.queries[0].intent;
+
+    androidManifest.queries[0].intent = existingIntent.concat(mapAppIntents);
+
+    return config;
+  });
+};
+```
+
+### 3. Add the plugin to your app's config file to have it run during prebuild.
+
+```json
+{
+  "plugins": ["./src/plugins/android-manifest.plugin.js"]
+}
+```
+
+### 4. Confirm AndroidManifest.xml has been updated.
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.app">
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="geo" />
+    </intent>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="waze" />
+    </intent>
+  </queries>
+  <!-- Rest of Manifest -->
+</manifest>
+```
 
 ## Rebuild your app
 
-**Don't forget to rebuild your app after making this change.**
+**Don't forget to rebuild your app after making these changes.**
 
-You can usually do so by running `expo build:ios`.
+You can usually do so by running `expo build`.
 
 Also note that this will only work when building your
 own [standalone app](https://docs.expo.io/versions/latest/distribution/building-standalone-apps), not when starting your
