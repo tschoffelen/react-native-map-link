@@ -43,7 +43,7 @@ export async function showLocation(options) {
   let sourceLng;
   let sourceLatLng;
 
-  if (options.sourceLatitude !== undefined && options.sourceLongitude !== undefined) {
+  if (options.sourceLatitude != null && options.sourceLongitude != null) {
     useSourceDestiny = true;
     sourceLat = parseFloat(options.sourceLatitude);
     sourceLng = parseFloat(options.sourceLongitude);
