@@ -131,7 +131,10 @@ export async function showLocation(options) {
       } else if (!options.appleIgnoreLatLon) {
         url = `${url}?ll=${latlng}`;
       }
-      url += useSourceDestiny || options.directionsMode || !options.appleIgnoreLatLon ? '&' : '?';
+      url +=
+        useSourceDestiny || options.directionsMode || !options.appleIgnoreLatLon
+          ? '&'
+          : '?';
       url += `q=${title ? encodedTitle : 'Location'}`;
       url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
       break;
