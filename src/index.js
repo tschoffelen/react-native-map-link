@@ -125,12 +125,13 @@ export async function showLocation(options) {
     case 'apple-maps':
       const appleDirectionMode = getDirectionsModeAppleMaps();
       url = prefixes['apple-maps'];
-      if (useSourceDestiny) {
-        url = `${url}?saddr=${sourceLatLng}&daddr=${latlng}`;
+      if (useSourceDestiny || options.directionsMode) {
+        url = `${url}?daddr=${latlng}`;
+        url += sourceLatLng ? `&saddr=${sourceLatLng}` : '';
       } else if (!options.appleIgnoreLatLon) {
         url = `${url}?ll=${latlng}`;
       }
-      url += useSourceDestiny || !options.appleIgnoreLatLon ? '&' : '?';
+      url += useSourceDestiny || options.directionsMode || !options.appleIgnoreLatLon ? '&' : '?';
       url += `q=${title ? encodedTitle : 'Location'}`;
       url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
       break;
