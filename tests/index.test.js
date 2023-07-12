@@ -67,6 +67,18 @@ describe('showLocation', () => {
       );
     });
 
+    it('opens with correct url if source is not provided, and has directionsMode', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          directionsMode: 'car',
+          app: 'apple-maps',
+        },
+        'maps://?daddr=123,234&q=Location&dirflg=d',
+      );
+    });
+
     it('opens with correct url if source is provided', () => {
       verifyThatSettingsLeadToUrl(
         {
@@ -76,7 +88,7 @@ describe('showLocation', () => {
           sourceLongitude,
           app: 'apple-maps',
         },
-        'maps://?saddr=567,890&daddr=123,234&q=Location',
+        'maps://?daddr=123,234&saddr=567,890&q=Location',
       );
     });
   });
@@ -114,6 +126,18 @@ describe('showLocation', () => {
           app: 'google-maps',
         },
         'https://www.google.com/maps/search/?api=1&query=123,234&query_place_id=ChIJ10bTGLWxEmsRFX2VrdMRW_A',
+      );
+    });
+
+    it('opens with correct url if source is not provided, and has directionsMode', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          directionsMode: 'car',
+          app: 'google-maps',
+        },
+        'https://www.google.com/maps/dir/?api=1&destination=123,234&travelmode=driving',
       );
     });
 
