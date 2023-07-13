@@ -76,7 +76,7 @@ describe('showLocation', () => {
           sourceLongitude: 0,
           app: 'apple-maps',
         },
-        'maps://?saddr=0,0&daddr=123,234&q=Location',
+        'maps://?daddr=123,234&saddr=0,0&q=Location',
       );
     });
 
