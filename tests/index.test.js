@@ -54,6 +54,32 @@ describe('showLocation', () => {
       );
     });
 
+    it('opens with correct url if source is set to undefined', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          sourceLatitude: undefined,
+          sourceLongitude: undefined,
+          app: 'apple-maps',
+        },
+        'maps://?ll=123,234&q=Location',
+      );
+    });
+
+    it('opens with correct url if source is set to 0,0', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          sourceLatitude: 0,
+          sourceLongitude: 0,
+          app: 'apple-maps',
+        },
+        'maps://?daddr=123,234&saddr=0,0&q=Location',
+      );
+    });
+
     it('opens with correct url if source is not provided, and has title', () => {
       verifyThatSettingsLeadToUrl(
         {
@@ -102,6 +128,32 @@ describe('showLocation', () => {
           app: 'google-maps',
         },
         'https://www.google.com/maps/search/?api=1&query=123,234',
+      );
+    });
+
+    it('opens with correct url if source is set to undefined', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          sourceLatitude: undefined,
+          sourceLongitude: undefined,
+          app: 'google-maps',
+        },
+        'https://www.google.com/maps/search/?api=1&query=123,234',
+      );
+    });
+
+    it('opens with correct url if source is set to 0,0', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          sourceLatitude: 0,
+          sourceLongitude: 0,
+          app: 'google-maps',
+        },
+        'https://www.google.com/maps/dir/?api=1&origin=0,0&destination=123,234',
       );
     });
 
