@@ -240,6 +240,7 @@ Notes:
 
 - The `sourceLatitude/sourceLongitude` options only work if you specify both. Currently supports all apps except Waze.
 - `directionsMode` works on google-maps and apple-maps (on the latter, `bike` mode will not work). Without setting it, the app will decide based on his own settings.
+- If you set `directionsMode` but do not set `sourceLatitude` and `sourceLongitude`, google-maps and apple-maps will still enter directions mode, and use the current location as starting point.
 
 ### Or
 
