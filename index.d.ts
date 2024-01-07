@@ -22,6 +22,7 @@ export type MapId =
   | 'yandex-maps'
   | 'yandex-taxi'
   | 'kakaomap'
+  | 'tmap'
   | 'mapycz'
   | 'maps-me'
   | 'osmand'

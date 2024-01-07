@@ -28,6 +28,7 @@ Add the following to your Expo app's config file. This file is typically named `
         "yandextaxi",
         "yandexmaps",
         "kakaomap",
+        "tmap",
         "szn-mapy",
         "mapsme",
         "osmandmaps",

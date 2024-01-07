@@ -25,6 +25,7 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 - Yandex Taxi – `yandex-taxi`
 - Yandex Maps – `yandex-maps`
 - Kakao Map – `kakaomap`
+- TMAP - `tmap`
 - Mapy.cz – `mapycz`
 - Maps.me – `maps-me`
 - OsmAnd - `osmand`
@@ -70,6 +71,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>yandextaxi</string>
     <string>yandexmaps</string>
     <string>kakaomap</string>
+    <string>tmap</string>
     <string>szn-mapy</string>
     <string>mapsme</string>
     <string>osmandmaps</string>
@@ -156,6 +158,10 @@ You can do so by coping the `<queries>` statement below, and pasting it in the t
   <intent>
     <action android:name="android.intent.action.VIEW" />
     <data android:scheme="kakaomap" />
+  </intent>
+    <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="tmap" />
   </intent>
   <intent>
     <action android:name="android.intent.action.VIEW" />
