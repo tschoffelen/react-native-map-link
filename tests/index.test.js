@@ -493,6 +493,32 @@ describe('showLocation', () => {
     });
   });
 
+  describe('tmap', () => {
+    it('opens with correct url if source is not provided', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          app: 'tmap',
+        },
+        'tmap://viewmap?x=234&y=123',
+      );
+    });
+
+    it('opens with correct url if source is provided', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          sourceLatitude,
+          sourceLongitude,
+          app: 'tmap',
+        },
+        'tmap://route?startx=890&starty=567&goalx=234&goaly=123',
+      );
+    });
+  });
+
   describe('mapycz', () => {
     it('opens with correct url if source is not provided', () => {
       verifyThatSettingsLeadToUrl(
