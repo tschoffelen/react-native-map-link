@@ -14,6 +14,7 @@ import {generatePrefixes, generateTitles} from '../../constants';
 import PopupFooter from './PopupFooter';
 import PopupHeader from './PopupHeader';
 import PopupBody from './PopupBody';
+import {showLocation} from '../..';
 
 interface PopupProps {
   isVisible: boolean;
@@ -43,6 +44,9 @@ interface PopupProps {
     appTitles?: Record<string, string>;
     alwaysIncludeGoogle?: boolean;
     naverCallerName?: string;
+    latitude: number;
+    longitude: number;
+    title?: string;
   };
   appsWhiteList?: string[];
   setIsVisible: (isVisible: boolean) => void;
@@ -93,6 +97,14 @@ const Popup: React.FC<PopupProps> = ({
     options.naverCallerName,
   ]);
 
+  const _onAppPressed = (app: string) => {
+    showLocation({
+      ...options,
+      app,
+    });
+    onAppPressed(app);
+  };
+
   return (
     <Modal
       visible={isVisible}
@@ -114,7 +126,7 @@ const Popup: React.FC<PopupProps> = ({
             isLoading={isLoading}
             style={style}
             titles={titles}
-            onAppPressed={onAppPressed}
+            onAppPressed={_onAppPressed}
           />
           <PopupFooter
             customFooter={customFooter}
