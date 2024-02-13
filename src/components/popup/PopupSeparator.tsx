@@ -1,11 +1,13 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ViewStyle} from 'react-native';
 import {colorsPopup} from '../../constants';
 
 const PopupSeparator = ({
   style: {separatorStyle: styleSeparator},
 }: {
-  style: any;
+  style: {
+    separatorStyle?: ViewStyle;
+  };
 }) => {
   return <View style={[styles.separatorStyle, styleSeparator]} />;
 };

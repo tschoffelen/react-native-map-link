@@ -1,5 +1,14 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+  ImageStyle,
+} from 'react-native';
 import {colorsPopup, icons} from '../../constants';
 
 const PopupItem = ({
@@ -12,13 +21,15 @@ const PopupItem = ({
   onAppPressed,
   titles,
 }: {
-  item: any;
-  style: any;
+  item: string;
+  style: {
+    itemContainer?: ViewStyle;
+    image?: ImageStyle;
+    itemText?: TextStyle;
+  };
   onAppPressed: (app: string) => void;
-  titles: any;
+  titles: Record<string, string>;
 }) => {
-  console.log('step 1')
-  console.log({item})
   return (
     <TouchableOpacity
       key={item}

@@ -1,6 +1,6 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
-import { colorsPopup } from '../../constants';
+import React from 'react';
+import {StyleSheet, Text, View, ViewStyle, TextStyle} from 'react-native';
+import {colorsPopup} from '../../constants';
 
 const PopupHeader = ({
   showHeader = true,
@@ -14,8 +14,15 @@ const PopupHeader = ({
 }: {
   showHeader: boolean;
   customHeader?: JSX.Element;
-  style: any;
-  options: any;
+  style: {
+    headerContainer?: ViewStyle;
+    titleText?: TextStyle;
+    subtitleText?: TextStyle;
+  };
+  options: {
+    dialogTitle?: string;
+    dialogMessage?: string;
+  };
 }) => {
   if (!showHeader) {
     return null;
@@ -41,7 +48,7 @@ const PopupHeader = ({
       ) : null}
     </View>
   );
-}
+};
 
 export default PopupHeader;
 
@@ -62,6 +69,5 @@ const styles = StyleSheet.create({
     color: colorsPopup.lightGray,
     textAlign: 'center',
     marginTop: 10,
-  }
+  },
 });
-

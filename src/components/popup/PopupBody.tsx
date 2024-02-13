@@ -1,7 +1,14 @@
 import React from 'react';
-import {ActivityIndicator, FlatList, StyleSheet} from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+  ImageStyle,
+} from 'react-native';
 import PopupItem from './PopupItem';
 import PopupSeparator from './PopupSeparator';
+import PopupFlatList from './PopupFlatList';
 
 const PopupBody = ({
   isLoading,
@@ -17,12 +24,17 @@ const PopupBody = ({
   titles,
 }: {
   isLoading: boolean;
-  style: any;
-  apps: any;
+  style: {
+    activityIndicatorContainer?: ViewStyle;
+    separatorStyle?: ViewStyle;
+    itemContainer?: ViewStyle;
+    image?: ImageStyle;
+    itemText?: TextStyle;
+  };
+  apps: string[];
   onAppPressed: (app: string) => void;
-  titles: any;
+  titles: Record<string, string>;
 }) => {
-  console.log('step 1')
   if (isLoading) {
     return (
       <ActivityIndicator
@@ -33,22 +45,19 @@ const PopupBody = ({
       />
     );
   }
-  console.log('step 2')
-  console.log({apps})
+
   return (
-    <FlatList
-      ItemSeparatorComponent={() => (
+    <PopupFlatList
+      separator={
         <PopupSeparator style={{separatorStyle: styleSeparatorStyle}} />
-      )}
+      }
       data={apps}
       renderItem={({item}) => (
         <PopupItem
           style={{
-            style: {
-              itemContainer: styleItemContainer,
-              image: styleImage,
-              itemText: styleItemText,
-            },
+            itemContainer: styleItemContainer,
+            image: styleImage,
+            itemText: styleItemText,
           }}
           item={item}
           onAppPressed={onAppPressed}

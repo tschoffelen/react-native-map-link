@@ -32,11 +32,7 @@ export type MapId =
   | 'liftago'
   | 'petalmaps';
 
-export type DirectionMode =
-  | 'car'
-  | 'walk'
-  | 'public-transport'
-  | 'bike';
+export type DirectionMode = 'car' | 'walk' | 'public-transport' | 'bike';
 
 /** options shared across different types */
 export interface SharedOptions {
@@ -120,7 +116,7 @@ export interface ShowLocationProps {
   dialogTitle?: string | null;
   dialogMessage?: string | null;
   cancelText?: string | null;
-  appsWhiteList?: any[] | null;
+  appsWhiteList?: string[] | null;
   appTitles?: Record<string, string>;
   naverCallerName?: string;
   directionsMode?: 'car' | 'walk' | 'public-transport' | 'bike' | undefined;
@@ -129,6 +125,6 @@ export interface ShowLocationProps {
 export interface GetAppsProps extends ShowLocationProps {
   // Add any additional props specific to the getApps function
   alwaysIncludeGoogle?: boolean;
-  appsWhiteList?: any[] | null;
+  appsWhiteList?: string[] | null;
   naverCallerName?: string;
 }

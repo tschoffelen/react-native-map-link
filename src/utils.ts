@@ -2,46 +2,13 @@ import {Linking, ActionSheetIOS, Alert} from 'react-native';
 
 import {appKeys, isIOS} from './constants';
 
-// export const getAvailableApps = async (
-//   prefixes: Record<string, string>,
-// ): Promise<string[]> => {
-//   const availableApps: string[] = [];
-//   const promises: Promise<void>[] = [];
-
-//   console.log({prefixes})
-//   for (const app in prefixes) {
-//     console.log({app})
-//     if (prefixes.hasOwnProperty(app)) {
-//       promises.push(
-//         new Promise<void>(async (resolve) => {
-//           try {
-//             const isInstalled = await isAppInstalled(app, prefixes);
-//             console.log({isInstalled})
-//             if (isInstalled) {
-//               availableApps.push(app);
-//             }
-
-//             resolve();
-//           } catch (error) {
-//             resolve();
-//           }
-//         }),
-//       );
-//     }
-//   }
-
-//   await Promise.all(promises);
-
-//   return availableApps;
-// };
-
 export const getAvailableApps = async (
   prefixes: Record<string, string>,
 ): Promise<string[]> => {
   const availableApps: string[] = [];
 
   await Promise.all(
-    Object.entries(prefixes).map(async ([app, prefix]) => {
+    Object.entries(prefixes).map(async ([app, _]) => {
       try {
         const isInstalled = await isAppInstalled(app, prefixes);
         if (isInstalled) {
@@ -50,12 +17,11 @@ export const getAvailableApps = async (
       } catch (error) {
         console.error(`Error checking if ${app} is installed:`, error);
       }
-    })
+    }),
   );
 
   return availableApps;
 };
-
 
 export const isAppInstalled = (
   app: string,
@@ -72,7 +38,7 @@ export const isAppInstalled = (
       })
       .catch(() => resolve(false));
   });
-}
+};
 
 export const isSupportedApp = (app: string): boolean => {
   return appKeys.includes(app);
@@ -156,7 +122,7 @@ export const askAppChoice = ({
       onDismiss: () => resolve(null),
     });
   });
-}
+};
 
 export const getDirectionsModeAppleMaps = (
   directionsMode: 'car' | 'walk' | 'public-transport' | 'bike' | undefined,
@@ -236,7 +202,7 @@ export const checkOptions = ({
   if (appTitles && typeof appTitles !== 'object') {
     throw new MapsException('Option `appTitles` should be of type `object`.');
   }
-}
+};
 
 export const generateMapUrl = ({
   app,

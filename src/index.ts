@@ -8,8 +8,7 @@ import {
   checkNotSupportedApps,
   generateMapUrl,
 } from './utils';
-import { GetAppsProps, GetAppsResponse, MapId, ShowLocationProps } from './type';
-
+import {GetAppsProps, GetAppsResponse, MapId, ShowLocationProps} from './type';
 
 export const showLocation = async ({
   latitude,
@@ -29,7 +28,7 @@ export const showLocation = async ({
   appTitles,
   naverCallerName,
   directionsMode,
-}: ShowLocationProps ) => {
+}: ShowLocationProps) => {
   const prefixes = generatePrefixes({
     alwaysIncludeGoogle,
     naverCallerName,
@@ -97,7 +96,7 @@ export const showLocation = async ({
     });
   }
 
-  let url = generateMapUrl({
+  const url = generateMapUrl({
     app,
     directionsMode,
     appleIgnoreLatLon,
@@ -127,7 +126,7 @@ export async function getApps({
   appTitles,
   naverCallerName,
   ...rest
-}: GetAppsProps ): Promise<GetAppsResponse[]> {
+}: GetAppsProps): Promise<GetAppsResponse[]> {
   let apps = await getAvailableApps(
     generatePrefixes({alwaysIncludeGoogle, naverCallerName}),
   );

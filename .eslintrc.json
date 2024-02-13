@@ -3,12 +3,15 @@
   "env": {
     "jest": true
   },
-  "parser": "@babel/eslint-parser",
-  "extends": "@react-native-community",
-  "plugins": ["@babel"],
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "@react-native-community",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["@typescript-eslint"],
   "settings": {
     "react": {
-      "version": "16.8"
+      "version": "18.2"
     }
   }
 }

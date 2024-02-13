@@ -1,5 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Modal, Dimensions, ModalProps} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Modal,
+  Dimensions,
+  ModalProps,
+  ViewStyle,
+  TextStyle,
+  ImageStyle,
+} from 'react-native';
 import {getAvailableApps, checkNotSupportedApps} from '../../utils';
 import {generatePrefixes, generateTitles} from '../../constants';
 import PopupFooter from './PopupFooter';
@@ -14,24 +23,24 @@ interface PopupProps {
   onAppPressed: (app: string) => void;
   onCancelPressed: () => void;
   style?: {
-    container?: any;
-    itemContainer?: any;
-    image?: any;
-    itemText?: any;
-    headerContainer?: any;
-    titleText?: any;
-    subtitleText?: any;
-    cancelButtonContainer?: any;
-    cancelButtonText?: any;
-    separatorStyle?: any;
-    activityIndicatorContainer?: any;
+    container?: ViewStyle;
+    itemContainer?: ViewStyle;
+    image?: ImageStyle;
+    itemText?: TextStyle;
+    headerContainer?: ViewStyle;
+    titleText?: TextStyle;
+    subtitleText?: TextStyle;
+    cancelButtonContainer?: ViewStyle;
+    cancelButtonText?: TextStyle;
+    separatorStyle?: ViewStyle;
+    activityIndicatorContainer?: ViewStyle;
   };
   modalProps?: ModalProps;
   options: {
     dialogTitle?: string;
     dialogMessage?: string;
     cancelText?: string;
-    appTitles?: any;
+    appTitles?: Record<string, string>;
     alwaysIncludeGoogle?: boolean;
     naverCallerName?: string;
   };
@@ -60,11 +69,12 @@ const Popup: React.FC<PopupProps> = ({
 
   useEffect(() => {
     const loadApps = async () => {
-      let appsData = await getAvailableApps(generatePrefixes({
-        alwaysIncludeGoogle: options.alwaysIncludeGoogle,
-        naverCallerName: options.naverCallerName,
-      }));
-      console.log({appsData});
+      let appsData = await getAvailableApps(
+        generatePrefixes({
+          alwaysIncludeGoogle: options.alwaysIncludeGoogle,
+          naverCallerName: options.naverCallerName,
+        }),
+      );
       if (appsWhiteList && appsWhiteList.length) {
         checkNotSupportedApps(appsWhiteList);
         appsData = appsData.filter((appName) =>
@@ -76,7 +86,12 @@ const Popup: React.FC<PopupProps> = ({
     };
     loadApps();
     setTitles(generateTitles(options.appTitles));
-  }, []);
+  }, [
+    appsWhiteList,
+    options.alwaysIncludeGoogle,
+    options.appTitles,
+    options.naverCallerName,
+  ]);
 
   return (
     <Modal
@@ -87,32 +102,30 @@ const Popup: React.FC<PopupProps> = ({
       }}
       {...modalProps}>
       <View style={[styles.container, style.container]}>
-          <View style={styles.modalView}>
-        <PopupHeader
-          showHeader={showHeader}
-          customHeader={customHeader}
-          style={style}
-          options={options}
-        />
-        <PopupBody
-          apps={apps}
-          isLoading={isLoading}
-          style={style}
-          titles={titles}
-          onAppPressed={onAppPressed}
-        />
-        <PopupFooter
-          customFooter={customFooter}
-          onCancelPressed={onCancelPressed}
-          style={{
-            style: {
+        <View style={styles.modalView}>
+          <PopupHeader
+            showHeader={showHeader}
+            customHeader={customHeader}
+            style={style}
+            options={options}
+          />
+          <PopupBody
+            apps={apps}
+            isLoading={isLoading}
+            style={style}
+            titles={titles}
+            onAppPressed={onAppPressed}
+          />
+          <PopupFooter
+            customFooter={customFooter}
+            onCancelPressed={onCancelPressed}
+            style={{
               cancelButtonContainer: style.cancelButtonContainer,
               cancelButtonText: style.cancelButtonText,
-            },
-          }}
-          options={options}
-        />
-      </View>
+            }}
+            options={options}
+          />
+        </View>
       </View>
     </Modal>
   );
