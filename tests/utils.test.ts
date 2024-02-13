@@ -42,10 +42,6 @@ describe('getDirectionsModeGoogleMaps', () => {
   it('should return the correct Google Maps mode for bike', () => {
     expect(getDirectionsModeGoogleMaps('bike')).toBe('bicycling');
   });
-
-  // it('should return undefined for an unknown mode', () => {
-  //   expect(getDirectionsModeGoogleMaps('unknown')).toBeUndefined();
-  // });
 });
 
 describe('getDirectionsModeAppleMaps', () => {
@@ -60,8 +56,4 @@ describe('getDirectionsModeAppleMaps', () => {
   it('should return the correct Apple Maps mode for public transport', () => {
     expect(getDirectionsModeAppleMaps('public-transport')).toBe('r');
   });
-
-  // it('should return undefined for an unknown mode', () => {
-  //   expect(getDirectionsModeAppleMaps('unknown')).toBeUndefined();
-  // });
 });
