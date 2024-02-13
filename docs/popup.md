@@ -14,7 +14,7 @@ import { Popup } from 'react-native-map-link';
     onCancelPressed={() => this.setState({ isVisible: false })}
     onAppPressed={() => this.setState({ isVisible: false })}
     onBackButtonPressed={() => this.setState({ isVisible: false })}
-    modalProps={{ // you can put all react-native-modal props inside.
+    modalProps={{ // you can put all modal props inside.
         animationIn: 'slideInUp'
     }}
     appsWhiteList={[ /* Array of apps (apple-maps, google-maps, etc...) that you want
@@ -25,7 +25,7 @@ import { Popup } from 'react-native-map-link';
 />
 ```
 
-The Popup component uses <a href="https://github.com/react-native-community/react-native-modal">react-native-modal</a>. So you can pass all react-native-modal properties inside "modalProps" to modify styling and animations.
+The Popup component uses <a href="https://reactnative.dev/docs/modal">react native modal</a>. So you can pass all react native modal properties inside "modalProps" to modify styling and animations.
 
 Also, you can customize the styling of the popup by passing an object like this in the `style` prop of the `Popup` component:
 

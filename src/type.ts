@@ -32,15 +32,21 @@ export type MapId =
   | 'liftago'
   | 'petalmaps';
 
+export type DirectionMode =
+  | 'car'
+  | 'walk'
+  | 'public-transport'
+  | 'bike';
+
 /** options shared across different types */
-interface SharedOptions {
+export interface SharedOptions {
   /** optionally you can set which apps to show (default: will show all supported apps installed on device) */
   appsWhiteList?: MapId[];
   /** custom titles to display for each app instead of using default titles. */
   appTitles?: Partial<Record<MapId, string>>;
 }
 
-interface Options extends SharedOptions {
+export interface MapLinkOptions extends SharedOptions {
   latitude: number | string;
   longitude: number | string;
   /** optionally specify starting location for directions */
@@ -62,10 +68,10 @@ interface Options extends SharedOptions {
   cancelText?: string;
   /** to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android. */
   naverCallerName?: string;
-  directionsMode?: 'car' | 'walk' | 'public-transport' | 'bike';
+  directionsMode?: DirectionMode;
 }
 
-interface PopupStyleProp {
+export interface PopupStyleProp {
   container?: StyleProp<ViewStyle>;
   itemContainer?: StyleProp<ViewStyle>;
   image?: StyleProp<ImageStyle>;
@@ -79,7 +85,7 @@ interface PopupStyleProp {
   activityIndicatorContainer?: StyleProp<ViewStyle>;
 }
 
-interface PopupProps extends SharedOptions {
+export interface PopupProps extends SharedOptions {
   isVisible: boolean;
   showHeader?: boolean;
   customHeader?: React.ReactNode;
@@ -89,25 +95,10 @@ interface PopupProps extends SharedOptions {
   onAppPressed: (appName: MapId) => void;
   style?: PopupStyleProp;
   modalProps?: object;
-  options: Options;
+  options: MapLinkOptions;
 }
 
-/**
- * Link users to their desired map app.
- *
- * If an `app` option is passed, it will directly link to that map app,
- * else it will prompt user to select map app.
- *
- * Prompts via `ActionSheetIOS` on iOS & `Alert.alert` on Android.
- *
- * If these prompts don't meet your UI use case, checkout the `Popup` component,
- * or use the `getApps` function to build a custom UI.
- */
-export function showLocation(
-  options: Options,
-): Promise<string | undefined | null>;
-
-export type GetAppResult = {
+export type GetAppsResponse = {
   id: MapId;
   name: string;
   icon: ImageSourcePropType;
@@ -115,14 +106,29 @@ export type GetAppResult = {
   open: () => Promise<void>;
 };
 
-/**
- * Get array of map apps on users device.
- *
- * Useful for building custom UIs.
- */
-export function getApps(options: Options): Promise<GetAppResult[]>;
+export interface ShowLocationProps {
+  latitude: number | string;
+  longitude: number | string;
+  sourceLatitude?: number | null;
+  sourceLongitude?: number | null;
+  appleIgnoreLatLon?: boolean;
+  alwaysIncludeGoogle?: boolean;
+  googleForceLatLon?: boolean;
+  googlePlaceId?: number | string;
+  title?: string | null;
+  app?: string | null;
+  dialogTitle?: string | null;
+  dialogMessage?: string | null;
+  cancelText?: string | null;
+  appsWhiteList?: any[] | null;
+  appTitles?: Record<string, string>;
+  naverCallerName?: string;
+  directionsMode?: 'car' | 'walk' | 'public-transport' | 'bike' | undefined;
+}
 
-/**
- * A styled popup component that displays icons in the app list
- */
-export class Popup extends React.Component<PopupProps> {}
+export interface GetAppsProps extends ShowLocationProps {
+  // Add any additional props specific to the getApps function
+  alwaysIncludeGoogle?: boolean;
+  appsWhiteList?: any[] | null;
+  naverCallerName?: string;
+}
