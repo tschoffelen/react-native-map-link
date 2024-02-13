@@ -154,7 +154,7 @@ export async function getApps({
       id: app as MapId,
       name: titles[app],
       icon: icons[app],
-      open: open.bind(this, app),
+      open: () => open(app),
     });
   }
 

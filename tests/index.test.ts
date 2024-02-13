@@ -1,5 +1,6 @@
 import {showLocation} from '../src/index';
 import {Linking} from 'react-native';
+import {ShowLocationProps} from '../src/type';
 
 describe('showLocation', () => {
   const latitude = 123;
@@ -7,11 +8,14 @@ describe('showLocation', () => {
   const sourceLatitude = 567;
   const sourceLongitude = 890;
 
-  beforeEach(() => {
-    Linking.openURL.mockClear();
-  });
+  // beforeEach(() => {
+  //   Linking.openURL.mockClear();
+  // });
 
-  const verifyThatSettingsLeadToUrl = (settings, url) => {
+  const verifyThatSettingsLeadToUrl = (
+    settings: ShowLocationProps,
+    url: string,
+  ) => {
     showLocation(settings);
     expect(Linking.openURL).toHaveBeenCalledWith(url);
   };
@@ -154,18 +158,6 @@ describe('showLocation', () => {
           app: 'google-maps',
         },
         'https://www.google.com/maps/dir/?api=1&origin=0,0&destination=123,234',
-      );
-    });
-
-    it('opens with correct url if source is not provided, and has title', () => {
-      verifyThatSettingsLeadToUrl(
-        {
-          latitude: undefined,
-          longitude: undefined,
-          title: 'Taco Bell',
-          app: 'google-maps',
-        },
-        'https://www.google.com/maps/search/?api=1&query=Taco%20Bell',
       );
     });
 

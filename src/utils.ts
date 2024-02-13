@@ -86,7 +86,7 @@ export const askAppChoice = ({
     }
 
     if (isIOS) {
-      const options = availableApps.map((app) => appTitles?.[app]);
+      const options = availableApps.map((app) => appTitles?.[app]) as string[];
       options?.push(cancelText || '');
 
       ActionSheetIOS.showActionSheetWithOptions(
@@ -114,7 +114,6 @@ export const askAppChoice = ({
     options.unshift({
       text: cancelText || '',
       onPress: () => resolve(null),
-      style: 'cancel',
     });
 
     return Alert.alert(dialogTitle || '', dialogMessage || '', options, {

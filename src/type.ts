@@ -99,7 +99,7 @@ export type GetAppsResponse = {
   name: string;
   icon: ImageSourcePropType;
   /** function to link user to map app */
-  open: () => Promise<void>;
+  open: () => Promise<string | null | undefined>;
 };
 
 export interface ShowLocationProps {
