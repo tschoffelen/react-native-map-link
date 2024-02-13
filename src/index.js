@@ -10,6 +10,8 @@ import {
   checkOptions,
   getAvailableApps,
   checkNotSupportedApps,
+  getDirectionsModeAppleMaps,
+  getDirectionsModeGoogleMaps,
 } from './utils';
 
 /**
@@ -86,44 +88,11 @@ export async function showLocation(options) {
 
   let url = null;
 
-  const getDirectionsModeAppleMaps = () => {
-    switch (options.directionsMode) {
-      case 'car':
-        return 'd';
-
-      case 'walk':
-        return 'w';
-
-      case 'public-transport':
-        return 'r';
-
-      default:
-        return undefined;
-    }
-  };
-
-  const getDirectionsModeGoogleMaps = () => {
-    switch (options.directionsMode) {
-      case 'car':
-        return 'driving';
-
-      case 'walk':
-        return 'walking';
-
-      case 'public-transport':
-        return 'transit';
-
-      case 'bike':
-        return 'bicycling';
-
-      default:
-        return undefined;
-    }
-  };
-
   switch (app) {
     case 'apple-maps':
-      const appleDirectionMode = getDirectionsModeAppleMaps();
+      const appleDirectionMode = getDirectionsModeAppleMaps(
+        options.directionsMode,
+      );
       url = prefixes['apple-maps'];
       if (useSourceDestiny || options.directionsMode) {
         url = `${url}?daddr=${latlng}`;
@@ -139,7 +108,9 @@ export async function showLocation(options) {
       url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
       break;
     case 'google-maps':
-      const googleDirectionMode = getDirectionsModeGoogleMaps();
+      const googleDirectionMode = getDirectionsModeGoogleMaps(
+        options.directionsMode,
+      );
       // Always using universal URL instead of URI scheme since the latter doesn't support all parameters (#155)
       if (useSourceDestiny || options.directionsMode) {
         // Use "dir" as this will open up directions

@@ -170,6 +170,27 @@ export function askAppChoice({
   });
 }
 
+export const getDirectionsModeAppleMaps = (directionsMode) => {
+  const modeMap = {
+    car: 'd',
+    walk: 'w',
+    'public-transport': 'r',
+  };
+
+  return modeMap[directionsMode] || undefined;
+};
+
+export const getDirectionsModeGoogleMaps = (directionsMode) => {
+  const modeMap = {
+    car: 'driving',
+    walk: 'walking',
+    'public-transport': 'transit',
+    bike: 'bicycling',
+  };
+
+  return modeMap[directionsMode] || undefined;
+};
+
 /**
  * Check if options are valid and well passed
  *
