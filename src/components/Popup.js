@@ -19,6 +19,7 @@ import Modal from 'react-native-modal';
 import {getAvailableApps, checkNotSupportedApps} from '../utils';
 import {showLocation} from '../index';
 import {generateTitles, icons, generatePrefixes} from '../constants';
+import ItemSeparator from './ItemSeparator';
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
 
@@ -94,11 +95,14 @@ export default class Popup extends React.Component {
   _renderApps() {
     return (
       <FlatList
-        ItemSeparatorComponent={() => (
-          <View
-            style={[styles.separatorStyle, this.props.style.separatorStyle]}
+        ItemSeparatorComponent={
+          <ItemSeparator
+            separatorStyle={[
+              styles.separatorStyle,
+              this.props.style.separatorStyle,
+            ]}
           />
-        )}
+        }
         data={this.state.apps}
         renderItem={this._renderAppItem}
         keyExtractor={(item) => item}
