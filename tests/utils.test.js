@@ -1,4 +1,8 @@
-import {isAppInstalled} from '../src/utils.js';
+import {
+  getDirectionsModeAppleMaps,
+  getDirectionsModeGoogleMaps,
+  isAppInstalled,
+} from '../src/utils.js';
 import {generatePrefixes} from '../src/constants.js';
 
 describe('app installed check', () => {
@@ -19,5 +23,45 @@ describe('app installed check', () => {
         generatePrefixes({alwaysIncludeGoogle: true}),
       ),
     ).resolves.toBeTruthy();
+  });
+});
+
+describe('getDirectionsModeGoogleMaps', () => {
+  it('should return the correct Google Maps mode for car', () => {
+    expect(getDirectionsModeGoogleMaps('car')).toBe('driving');
+  });
+
+  it('should return the correct Google Maps mode for walk', () => {
+    expect(getDirectionsModeGoogleMaps('walk')).toBe('walking');
+  });
+
+  it('should return the correct Google Maps mode for public transport', () => {
+    expect(getDirectionsModeGoogleMaps('public-transport')).toBe('transit');
+  });
+
+  it('should return the correct Google Maps mode for bike', () => {
+    expect(getDirectionsModeGoogleMaps('bike')).toBe('bicycling');
+  });
+
+  it('should return undefined for an unknown mode', () => {
+    expect(getDirectionsModeGoogleMaps('unknown')).toBeUndefined();
+  });
+});
+
+describe('getDirectionsModeAppleMaps', () => {
+  it('should return the correct Apple Maps mode for car', () => {
+    expect(getDirectionsModeAppleMaps('car')).toBe('d');
+  });
+
+  it('should return the correct Apple Maps mode for walk', () => {
+    expect(getDirectionsModeAppleMaps('walk')).toBe('w');
+  });
+
+  it('should return the correct Apple Maps mode for public transport', () => {
+    expect(getDirectionsModeAppleMaps('public-transport')).toBe('r');
+  });
+
+  it('should return undefined for an unknown mode', () => {
+    expect(getDirectionsModeAppleMaps('unknown')).toBeUndefined();
   });
 });
