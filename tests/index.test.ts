@@ -8,10 +8,6 @@ describe('showLocation', () => {
   const sourceLatitude = 567;
   const sourceLongitude = 890;
 
-  // beforeEach(() => {
-  //   Linking.openURL.mockClear();
-  // });
-
   const verifyThatSettingsLeadToUrl = (
     settings: ShowLocationProps,
     url: string,
