@@ -7,3 +7,6 @@ example/yarn.lock
 # Jest
 #
 .jest/
+
+# ts outDir
+lib/
