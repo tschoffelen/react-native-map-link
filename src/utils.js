@@ -254,7 +254,7 @@ export function checkOptions(options, prefixes) {
   }
 }
 
-class MapsException {
+export class MapsException {
   constructor(message) {
     this.message = message;
     this.name = 'MapsException';
