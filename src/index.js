@@ -288,7 +288,7 @@ export async function showLocation(options) {
       break;
     case 'yandex-taxi':
       if (fullAddress) {
-        throw new MapsException(`yandex-taxi does not support passing the fullAddress.`);
+        throw new MapsException(`yandex-taxi does not support passing the fullAddress or has not been implemented yet.`);
       } else {
         url = `${prefixes['yandex-taxi']}route?end-lat=${lat}&end-lon=${lng}&appmetrica_tracking_id=1178268795219780156`;
       }
@@ -304,7 +304,7 @@ export async function showLocation(options) {
       break;
     case 'kakaomap':
       if (fullAddress) {
-        url = `${prefixes.kakaomap}`;
+        url = `${prefixes.kakaomap}route?ep=${fullAddress}`;
       } else {
         url = `${prefixes.kakaomap}look?p=${latlng}`;
   
@@ -315,16 +315,20 @@ export async function showLocation(options) {
 
       break;
     case 'tmap':
-      url = `${prefixes.tmap}viewmap?x=${lng}&y=${lat}`;
-
-      if (useSourceDestiny) {
-        url = `${prefixes.tmap}route?startx=${sourceLng}&starty=${sourceLat}&goalx=${lng}&goaly=${lat}`;
+      if (fullAddress) {
+        url = `${prefixes.tmap}search?name=${fullAddress}`;
+      } else {
+        url = `${prefixes.tmap}viewmap?x=${lng}&y=${lat}`;
+  
+        if (useSourceDestiny) {
+          url = `${prefixes.tmap}route?startx=${sourceLng}&starty=${sourceLat}&goalx=${lng}&goaly=${lat}`;
+        }
       }
 
       break;
     case 'mapycz':
       if (fullAddress) {
-        url = `${prefixes.mapycz}`;  
+        url = `${prefixes.mapycz}www.mapy.cz/zakladni?q=${fullAddress}`;
       } else {
         url = `${prefixes.mapycz}www.mapy.cz/zakladni?x=${lng}&y=${lat}&source=coor&id=${lng},${lat}`;
       }
@@ -332,7 +336,7 @@ export async function showLocation(options) {
       break;
     case 'maps-me':
       if (fullAddress) {
-        url = `${prefixes['maps-me']}`;
+        url = `${prefixes['maps-me']}?q=${fullAddress}`;
       } else {
         url = `${prefixes['maps-me']}route?sll=${sourceLat},${sourceLng}&saddr= &dll=${lat},${lng}&daddr=${title}&type=vehicle`;
       }
@@ -340,7 +344,7 @@ export async function showLocation(options) {
       break;
     case 'osmand':
       if (fullAddress) {
-        url = `${prefixes.osmand}?`
+        url = `${prefixes.osmand}show_map?addr=${fullAddress}`
       } else {
         url = isIOS
           ? `${prefixes.osmand}?lat=${lat}&lon=${lng}`
@@ -350,7 +354,7 @@ export async function showLocation(options) {
       break;
     case 'gett':
       if (fullAddress) {
-        url = `${prefixes.gett}`;
+        throw new MapsException(`gett does not support passing the fullAddress or has not been implemented yet.`);
       } else {
         url = `${prefixes.gett}order?pickup=my_location&dropoff_latitude=${lat}&dropoff_longitude=${lng}`;
       }
@@ -358,7 +362,7 @@ export async function showLocation(options) {
       break;
     case 'navermap':
       if (fullAddress) {
-        url = `${prefixes.navermap}`;
+        url = `${prefixes.navermap}search?query=${fullAddress}`;
       } else {
         url = `${prefixes.navermap}map?lat=${lat}&lng=${lng}&appname=${options.naverCallerName}`;
   
@@ -370,7 +374,7 @@ export async function showLocation(options) {
       break;
     case 'dgis':
       if (fullAddress) {
-        url = `${prefixes.dgis}`;
+        url = `${prefixes.dgis}?q=${fullAddress}`;
       } else {
         url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/go`;
 
@@ -382,7 +386,7 @@ export async function showLocation(options) {
       break;
     case 'liftago':
       if (fullAddress) {
-        url = `${prefixes.liftago}`;
+        throw new MapsException(`liftago does not support passing the fullAddress or has not been implemented yet.`);
       } else {
         url = `${prefixes.liftago}order?destinationLat=${lat}&destinationLon=${lng}`;
 
