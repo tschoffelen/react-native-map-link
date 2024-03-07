@@ -1,6 +1,6 @@
 {
   "name": "react-native-map-link",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Open the map app of the user's choice with a specific location.",
   "source": "src/index",
   "main": "lib/index.js",
@@ -9,10 +9,11 @@
     "url": "git+https://github.com/includable/react-native-map-link.git"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
+    "build": "npm run copy-images && tsc --project tsconfig.build.json",
     "lint": "eslint src --max-warnings=0 && eslint tests --max-warnings=0",
     "release": "semantic-release",
     "test": "jest",
+    "copy-images": "mkdir -p ./lib/images && cp -r ./src/images ./lib",
     "tscheck": "tsc --noEmit"
   },
   "keywords": [

@@ -13,12 +13,15 @@ import {
 export {
   showLocation,
   getApps,
-  Popup,
+  Popup
+};
+
+export type {
   GetAppsResponse,
   MapId,
   SharedOptions,
   MapLinkOptions,
   PopupStyleProp,
   PopupProps,
-  DirectionMode,
+  DirectionMode
 };
