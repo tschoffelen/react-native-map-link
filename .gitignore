@@ -3,3 +3,10 @@ node_modules
 .vscode
 package-lock.json
 example/yarn.lock
+
+# Jest
+#
+.jest/
+
+# ts outDir
+lib/

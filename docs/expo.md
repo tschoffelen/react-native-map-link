@@ -2,7 +2,7 @@
 
 These instructions are provided to help you configure your Expo app to work with this library. When using Expo there are two workflows: managed and bare. The instructions for each are slightly different.
 
-# iOS
+# IOS
 
 ## Bare Workflow
 

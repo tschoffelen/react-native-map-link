@@ -1,15 +1,19 @@
 {
   "name": "react-native-map-link",
-  "version": "2.11.4",
+  "version": "3.0.0",
   "description": "Open the map app of the user's choice with a specific location",
-  "main": "index.js",
+  "source": "src/index",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/includable/react-native-map-link.git"
   },
   "scripts": {
+    "build": "tsc --project tsconfig.build.json",
     "lint": "eslint src --max-warnings=0 && eslint tests --max-warnings=0",
-    "test": "jest"
+    "release": "semantic-release",
+    "test": "jest",
+    "tscheck": "tsc --noEmit"
   },
   "keywords": [
     "react-native",
@@ -27,31 +31,59 @@
     "url": "https://github.com/includable/react-native-map-link/issues"
   },
   "homepage": "https://github.com/includable/react-native-map-link#readme",
-  "dependencies": {
-    "prop-types": "^15.8.1",
-    "react-native-modal": "^13.0.1"
-  },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-native": ">=0.40.0"
   },
+  "files": [
+    "lib"
+  ],
   "devDependencies": {
-    "@babel/core": "^7.17.5",
-    "@babel/eslint-parser": "^7.17.0",
-    "@babel/eslint-plugin": "^7.16.5",
-    "@babel/runtime": "^7.17.2",
-    "@react-native-community/eslint-config": "^3.0.1",
-    "babel-jest": "^27.5.1",
-    "eslint": "^8.10.0",
+    "@babel/core": "^7.23.9",
+    "@babel/eslint-parser": "^7.23.10",
+    "@babel/eslint-plugin": "^7.23.5",
+    "@babel/runtime": "^7.23.9",
+    "@react-native-community/eslint-config": "^3.2.0",
+    "@types/jest": "^29.5.12",
+    "@types/react": "^18.2.55",
+    "@types/react-native": "^0.73.0",
+    "@types/react-test-renderer": "^18.0.7",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "babel-jest": "^29.7.0",
+    "clsx": "^2.1.0",
+    "eslint": "^8.56.0",
     "eslint-plugin-flowtype": "^8.0.3",
-    "jest": "^27.5.1",
-    "metro-react-native-babel-preset": "^0.69.0",
-    "react-native": "^0.67.3"
+    "eslint-plugin-jest": "^27.6.3",
+    "eslint-plugin-prettier": "5.0.0",
+    "jest": "^29.7.0",
+    "metro-react-native-babel-preset": "^0.77.0",
+    "prettier": "^3.2.5",
+    "react-native": "^0.73.4",
+    "react-native-typescript-transformer": "^1.2.13",
+    "semantic-release": "^23.0.2",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.3"
   },
   "jest": {
     "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+      "\\.(ts|tsx)$": "ts-jest"
+    },
     "setupFiles": [
-      "./tests/setup.js"
-    ]
+      "./tests/setup.ts"
+    ],
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/"
+    ],
+    "cacheDirectory": ".jest/cache"
   }
 }

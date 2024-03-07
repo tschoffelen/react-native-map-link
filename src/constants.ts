@@ -1,15 +1,17 @@
-/**
- * React Native Map Link
- */
-
 import {Platform} from 'react-native';
 
-export const isIOS = Platform.OS === 'ios';
+export const isIOS: boolean = Platform.OS === 'ios';
 
-export function generatePrefixes(options) {
+export const generatePrefixes = ({
+  alwaysIncludeGoogle,
+  naverCallerName,
+}: {
+  alwaysIncludeGoogle?: boolean;
+  naverCallerName?: string;
+}): Record<string, string> => {
   return {
     'apple-maps': isIOS ? 'maps://' : 'applemaps://',
-    'google-maps': prefixForGoogleMaps(options.alwaysIncludeGoogle),
+    'google-maps': prefixForGoogleMaps(alwaysIncludeGoogle),
     citymapper: 'citymapper://',
     uber: 'uber://',
     lyft: 'lyft://',
@@ -26,20 +28,22 @@ export function generatePrefixes(options) {
     'maps-me': 'mapsme://',
     osmand: isIOS ? 'osmandmaps://' : 'osmand.geo://',
     gett: 'gett://',
-    navermap: options.naverCallerName ? 'nmap://' : 'nmap-disabled://',
+    navermap: naverCallerName ? 'nmap://' : 'nmap-disabled://',
     dgis: 'dgis://2gis.ru/',
     liftago: 'lftgpas://',
     petalmaps: 'petalmaps://',
   };
-}
+};
 
-export function prefixForGoogleMaps(alwaysIncludeGoogle) {
+export const prefixForGoogleMaps = (alwaysIncludeGoogle?: boolean): string => {
   return isIOS && !alwaysIncludeGoogle
     ? 'comgooglemaps://'
     : 'https://www.google.com/maps/';
-}
+};
 
-export function generateTitles(titles) {
+export const generateTitles = (
+  titles?: Record<string, string>,
+): Record<string, string> => {
   return {
     'apple-maps': 'Apple Maps',
     'google-maps': 'Google Maps',
@@ -65,9 +69,9 @@ export function generateTitles(titles) {
     petalmaps: 'Petal Maps',
     ...(titles || {}),
   };
-}
+};
 
-export const icons = {
+export const icons: Record<string, number> = {
   'apple-maps': require('./images/apple-maps.png'),
   'google-maps': require('./images/google-maps.png'),
   citymapper: require('./images/citymapper.png'),
@@ -92,4 +96,11 @@ export const icons = {
   petalmaps: require('./images/petalmaps.png'),
 };
 
-export const appKeys = Object.keys(icons);
+export const appKeys: string[] = Object.keys(icons);
+
+export const colorsPopup = {
+  black: '#464646',
+  gray: '#BBC4CC',
+  lightGray: '#ACBBCB',
+  lightBlue: '#ECF2F8',
+};
