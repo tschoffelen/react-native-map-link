@@ -1,14 +1,26 @@
 import {Linking} from 'react-native';
 
 import {generatePrefixes, generateTitles, icons} from './constants';
+import {GetAppsProps, GetAppsResponse, MapId, ShowLocationProps} from './type';
 import {
   askAppChoice,
-  checkOptions,
-  getAvailableApps,
   checkNotSupportedApps,
+  checkOptions,
   generateMapUrl,
+  getAvailableApps,
 } from './utils';
-import {GetAppsProps, GetAppsResponse, MapId, ShowLocationProps} from './type';
+
+export type {
+  DirectionMode,
+  GetAppsProps,
+  GetAppsResponse,
+  MapId,
+  MapLinkOptions,
+  PopupProps,
+  PopupStyleProp,
+  SharedOptions,
+  ShowLocationProps,
+} from './type';
 
 export const showLocation = async ({
   latitude,
