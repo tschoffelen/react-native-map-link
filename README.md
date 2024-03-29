@@ -38,7 +38,8 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 </details>
 
 <br /><p align="center">
-  <img src="./docs/example.png" alt="Example screenshot" width="320" />
+<img src="./docs/example.png" alt="Example screenshot" width="320" />
+
 </p>
 
 ## Installation
@@ -219,7 +220,19 @@ More info [here](https://stackoverflow.com/a/67383641/1129689).
 
 </details>
 
-## Usage
+## Simple example
+
+```js
+import {showLocation} from 'react-native-map-link';
+
+showLocation({
+  latitude: 38.8976763,
+  longitude: -77.0387185,
+  title: 'Your destination',
+});
+```
+
+## Full usage
 
 Using the `showLocation` function will shown an action sheet on iOS and an alert on Android, without any custom styling:
 
@@ -240,8 +253,8 @@ showLocation({
   cancelText: 'This is the cancel button text', // optional (default: 'Cancel')
   appsWhiteList: ['google-maps'], // optionally you can set which apps to show (default: will show all supported apps installed on device)
   naverCallerName: 'com.example.myapp', // to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android.
-  appTitles: { 'google-maps': 'My custom Google Maps title' }, // optionally you can override default app titles
-  app: 'uber',  // optionally specify specific app to use
+  appTitles: {'google-maps': 'My custom Google Maps title'}, // optionally you can override default app titles
+  app: 'uber', // optionally specify specific app to use
   directionsMode: 'walk', // optional, accepted values are 'car', 'walk', 'public-transport' or 'bike'
 });
 ```
