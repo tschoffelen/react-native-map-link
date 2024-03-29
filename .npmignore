@@ -1,12 +1,12 @@
 /example
 /docs
 /tests
-greenkeeper.json
 .github
 .editorconfig
 .idea
 .vscode
-.travis.yml
+.jest
+.expo
 .eslintrc.json
 .prettierrc.json
 babel.config.js
