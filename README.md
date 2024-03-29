@@ -10,7 +10,7 @@ An easy way to open a location in a map app of the user's choice, based on the a
 on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and a dozen other apps.
 
 <details>
-<summary>Full list of supported apps</summary>
+<summary><strong>Full list of supported apps</strong></summary>
 
 - Apple Maps – `apple-maps`
 - Google Maps – `google-maps`
@@ -37,12 +37,16 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 
 </details>
 
+<br /><p align="center">
+  <img src="./docs/example.png" alt="Example screenshot" width="320" />
+</p>
+
 ## Installation
 
 ### 1. Install the package
 
 ```shell
-npm i -S react-native-map-link         # or yarn add react-native-map-link
+npm i -S react-native-map-link      # or yarn add react-native-map-link
 ```
 
 ### 2. Post-install steps
