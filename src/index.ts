@@ -22,6 +22,8 @@ export type {
   ShowLocationProps,
 } from './type';
 
+export {Popup} from './components/popup/Popup';
+
 export const showLocation = async ({
   latitude,
   longitude,

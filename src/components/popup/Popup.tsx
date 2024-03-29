@@ -54,7 +54,7 @@ interface PopupProps {
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
 
-const Popup: React.FC<PopupProps> = ({
+export const Popup: React.FC<PopupProps> = ({
   isVisible,
   showHeader = true,
   customHeader,
@@ -168,5 +168,3 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
-
-export default Popup;

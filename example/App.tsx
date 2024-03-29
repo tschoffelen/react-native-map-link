@@ -1,7 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Button, Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import {getApps, GetAppsResponse, Popup, showLocation} from 'react-native-map-link';
-import { ShowLocationProps } from 'react-native-map-link/src/type';
+import {
+  getApps,
+  GetAppsResponse,
+  Popup,
+  showLocation,
+  ShowLocationProps,
+} from 'react-native-map-link';
 
 const options = {
   latitude: 38.8976763,
@@ -57,9 +62,7 @@ export default function App() {
         availableApps.map(({icon, name, id, open}) => (
           <Pressable key={id} onPress={open}>
             <Image source={icon} />
-            <Text style={{
-              textAlign: 'center',
-            }}>{name}</Text>
+            <Text style={styles.option}>{name}</Text>
           </Pressable>
         ))
       ) : (
@@ -95,5 +98,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 15,
-  }
+  },
+  option: {
+    textAlign: 'center',
+  },
 });
