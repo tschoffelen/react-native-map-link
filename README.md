@@ -34,6 +34,7 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 - 2GIS - `dgis`
 - Liftago - `liftago`
 - Petal Maps - `petalmaps` (Android only)
+- Sygic - `sygic`
 
 </details>
 
@@ -84,6 +85,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>nmap</string>
     <string>dgis</string>
     <string>lftgpas</string>
+    <string>sygic</string>
 </array>
 ```
 
@@ -200,6 +202,10 @@ You can do so by coping the `<queries>` statement below, and pasting it in the t
     <action android:name="android.intent.action.VIEW" />
     <data android:scheme="petalmaps" />
   </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="com.sygic.aura" />
+  </intent>
 </queries>
 ```
 
@@ -262,8 +268,9 @@ showLocation({
 Notes:
 
 - The `sourceLatitude` / `sourceLongitude` options only work if you specify both. Currently supports all apps except Waze.
-- `directionsMode` works on google-maps and apple-maps (on the latter, `bike` mode will not work). Without setting it, the app will decide based on his own settings.
+- `directionsMode` works on google-maps, apple-maps and sygic (on apple-maps, `bike` mode will not work, while on sygic, only `walk` and `car` will work). Without setting it, the app will decide based on his own settings.
 - If you set `directionsMode` but do not set `sourceLatitude` and `sourceLongitude`, google-maps and apple-maps will still enter directions mode, and use the current location as starting point.
+-
 
 ### Or
 
