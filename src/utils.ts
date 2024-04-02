@@ -149,6 +149,19 @@ export const getDirectionsModeGoogleMaps = (
   return modeMap[directionsMode || ''] || undefined;
 };
 
+export const getDirectionsModeSygic = (
+  directionsMode: 'car' | 'walk' | 'public-transport' | 'bike' | undefined,
+): string | undefined => {
+  const modeMap: Record<string, string> = {
+    car: 'drive',
+    walk: 'walk',
+    'public-transport': 'show',
+    bike: 'show',
+  };
+
+  return modeMap[directionsMode || ''] || undefined;
+};
+
 export const checkOptions = ({
   latitude,
   longitude,
@@ -424,6 +437,11 @@ export const generateMapUrl = ({
       if (useSourceDestiny) {
         url += `&saddr=${sourceLat},${sourceLng}`;
       }
+      break;
+    case 'sygic':
+      const sygicDirectionsMode = getDirectionsModeSygic(directionsMode);
+      url = `${prefixes.sygic}coordinate|${lng}|${lat}|`;
+      url += sygicDirectionsMode ? `${sygicDirectionsMode}` : '';
       break;
   }
 

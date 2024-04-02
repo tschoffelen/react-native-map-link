@@ -32,6 +32,7 @@ export const generatePrefixes = ({
     dgis: 'dgis://2gis.ru/',
     liftago: 'lftgpas://',
     petalmaps: 'petalmaps://',
+    sygic: 'com.sygic.aura://',
   };
 };
 
@@ -67,6 +68,7 @@ export const generateTitles = (
     dgis: '2GIS',
     liftago: 'Liftago',
     petalmaps: 'Petal Maps',
+    sygic: 'Sygic',
     ...(titles || {}),
   };
 };
@@ -94,6 +96,7 @@ export const icons: Record<string, number> = {
   dgis: require('./images/dgis.png'),
   liftago: require('./images/liftago.png'),
   petalmaps: require('./images/petalmaps.png'),
+  sygic: require('./images/sygic.png'),
 };
 
 export const appKeys: string[] = Object.keys(icons);
