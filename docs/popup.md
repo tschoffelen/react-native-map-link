@@ -17,9 +17,6 @@ import { Popup } from 'react-native-map-link';
     modalProps={{ // you can put all modal props inside.
         animationIn: 'slideInUp'
     }}
-    appsWhiteList={[ /* Array of apps (apple-maps, google-maps, etc...) that you want
-    to show in the popup, if is undefined or an empty array it will show all supported apps installed on device.*/ ]}
-    appTitles: {{ /* Optional: you can override app titles. */ }}
     options={{ /* See `showLocation` method above, this accepts the same options. */ }}
     style={{ /* Optional: you can override default style by passing your values. */ }}
 />

@@ -1,18 +1,19 @@
 import {Linking, ActionSheetIOS, Alert} from 'react-native';
 
 import {appKeys, isIOS} from './constants';
+import type {MapId} from './type';
 
 export const getAvailableApps = async (
   prefixes: Record<string, string>,
-): Promise<string[]> => {
-  const availableApps: string[] = [];
+): Promise<MapId[]> => {
+  const availableApps: MapId[] = [];
 
   await Promise.all(
-    Object.entries(prefixes).map(async ([app, _]) => {
+    Object.keys(prefixes).map(async (app) => {
       try {
         const isInstalled = await isAppInstalled(app, prefixes);
         if (isInstalled) {
-          availableApps.push(app);
+          availableApps.push(app as MapId);
         }
       } catch (error) {
         console.error(`Error checking if ${app} is installed:`, error);
@@ -71,7 +72,7 @@ export const askAppChoice = ({
   appsWhiteList: string[] | null | undefined;
   prefixes: Record<string, string>;
   appTitles: Record<string, string> | null | undefined;
-}): Promise<string | null> => {
+}): Promise<MapId | null> => {
   return new Promise(async (resolve) => {
     let availableApps = await getAvailableApps(prefixes);
 

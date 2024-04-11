@@ -15,14 +15,12 @@ export type {
   GetAppsProps,
   GetAppsResponse,
   MapId,
-  MapLinkOptions,
-  PopupProps,
-  PopupStyleProp,
   SharedOptions,
   ShowLocationProps,
 } from './type';
 
 export {Popup} from './components/popup/Popup';
+export type {PopupProps} from './components/popup/Popup';
 
 export const showLocation = async ({
   latitude,
@@ -151,7 +149,7 @@ export async function getApps({
   }
 
   const titles = generateTitles({...appTitles});
-  async function open(app: string) {
+  async function open(app: MapId) {
     return showLocation({
       ...rest,
       app,
@@ -165,7 +163,7 @@ export async function getApps({
   const list: GetAppsResponse[] = [];
   for (const app of apps) {
     list.push({
-      id: app as MapId,
+      id: app,
       name: titles[app],
       icon: icons[app],
       open: () => open(app),
