@@ -15,7 +15,7 @@ import { Popup } from 'react-native-map-link';
     onAppPressed={() => this.setState({ isVisible: false })}
     onBackButtonPressed={() => this.setState({ isVisible: false })}
     modalProps={{ // you can put all modal props inside.
-        animationIn: 'slideInUp'
+        animationType: 'slide' 
     }}
     options={{ /* See `showLocation` method above, this accepts the same options. */ }}
     style={{ /* Optional: you can override default style by passing your values. */ }}
