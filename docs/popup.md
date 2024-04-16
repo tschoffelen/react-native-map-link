@@ -15,7 +15,7 @@ import { Popup } from 'react-native-map-link';
     onAppPressed={() => this.setState({ isVisible: false })}
     onBackButtonPressed={() => this.setState({ isVisible: false })}
     modalProps={{ // you can put all modal props inside.
-        animationIn: 'slideInUp'
+        animationType: 'slide' 
     }}
     appsWhiteList={[ /* Array of apps (apple-maps, google-maps, etc...) that you want
     to show in the popup, if is undefined or an empty array it will show all supported apps installed on device.*/ ]}
