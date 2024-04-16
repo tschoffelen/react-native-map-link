@@ -1,5 +1,6 @@
 import React from 'react';
-import {Text, TouchableOpacity, ViewStyle, TextStyle} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
+import type {TextStyle, ViewStyle} from 'react-native';
 
 const PopupFooter = ({
   customFooter,
@@ -10,14 +11,14 @@ const PopupFooter = ({
   },
   options,
 }: {
-  customFooter?: JSX.Element;
+  customFooter?: React.ReactNode;
   onCancelPressed: () => void;
   style: {
     cancelButtonContainer?: ViewStyle;
     cancelButtonText?: TextStyle;
   };
   options: {
-    cancelText?: string;
+    cancelText?: string | null;
   };
 }) => {
   if (customFooter) {

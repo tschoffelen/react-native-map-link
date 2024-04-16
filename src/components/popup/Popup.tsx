@@ -1,27 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  Modal,
-  Dimensions,
-  ModalProps,
-  ViewStyle,
-  TextStyle,
-  ImageStyle,
-} from 'react-native';
+import {StyleSheet, View, Modal, Dimensions} from 'react-native';
+import type {ImageStyle, ModalProps, ViewStyle, TextStyle} from 'react-native';
 import {getAvailableApps, checkNotSupportedApps} from '../../utils';
 import {generatePrefixes, generateTitles} from '../../constants';
+import type {MapId, ShowLocationProps} from '../../type';
 import PopupFooter from './PopupFooter';
 import PopupHeader from './PopupHeader';
 import PopupBody from './PopupBody';
 import {showLocation} from '../..';
 
-interface PopupProps {
+export interface PopupProps {
   isVisible: boolean;
+  setIsVisible: (isVisible: boolean) => void;
   showHeader?: boolean;
-  customHeader?: JSX.Element;
-  customFooter?: JSX.Element;
-  onAppPressed: (app: string) => void;
+  customHeader?: React.ReactNode;
+  customFooter?: React.ReactNode;
+  onAppPressed: (app: MapId) => void;
   onCancelPressed: () => void;
   style?: {
     container?: ViewStyle;
@@ -37,19 +31,7 @@ interface PopupProps {
     activityIndicatorContainer?: ViewStyle;
   };
   modalProps?: ModalProps;
-  options: {
-    dialogTitle?: string;
-    dialogMessage?: string;
-    cancelText?: string;
-    appTitles?: Record<string, string>;
-    alwaysIncludeGoogle?: boolean;
-    naverCallerName?: string;
-    latitude: number;
-    longitude: number;
-    title?: string;
-  };
-  appsWhiteList?: string[];
-  setIsVisible: (isVisible: boolean) => void;
+  options: ShowLocationProps;
 }
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
@@ -64,10 +46,9 @@ export const Popup: React.FC<PopupProps> = ({
   style = {},
   modalProps,
   options,
-  appsWhiteList,
   setIsVisible,
 }) => {
-  const [apps, setApps] = useState<string[]>([]);
+  const [apps, setApps] = useState<MapId[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [titles, setTitles] = useState<{[key: string]: string}>({});
 
@@ -79,10 +60,10 @@ export const Popup: React.FC<PopupProps> = ({
           naverCallerName: options.naverCallerName,
         }),
       );
-      if (appsWhiteList && appsWhiteList.length) {
-        checkNotSupportedApps(appsWhiteList);
+      if (options.appsWhiteList && options.appsWhiteList.length) {
+        checkNotSupportedApps(options.appsWhiteList);
         appsData = appsData.filter((appName) =>
-          appsWhiteList.includes(appName),
+          options.appsWhiteList?.includes(appName),
         );
       }
       setApps(appsData);
@@ -91,13 +72,13 @@ export const Popup: React.FC<PopupProps> = ({
     loadApps();
     setTitles(generateTitles(options.appTitles));
   }, [
-    appsWhiteList,
     options.alwaysIncludeGoogle,
     options.appTitles,
+    options.appsWhiteList,
     options.naverCallerName,
   ]);
 
-  const _onAppPressed = (app: string) => {
+  const _onAppPressed = (app: MapId) => {
     showLocation({
       ...options,
       app,

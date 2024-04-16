@@ -1,5 +1,7 @@
 import React from 'react';
 import {FlatList} from 'react-native';
+import type {ListRenderItem} from 'react-native';
+import type {MapId} from '../../type';
 
 const PopupFlatList = ({
   separator,
@@ -7,10 +9,10 @@ const PopupFlatList = ({
   renderItem,
   keyExtractor,
 }: {
-  separator: JSX.Element;
-  data: string[];
-  renderItem: ({item}: {item: string}) => JSX.Element;
-  keyExtractor: (item: string) => string;
+  separator: React.ReactNode;
+  data: MapId[];
+  renderItem: ListRenderItem<MapId>;
+  keyExtractor: (item: MapId) => string;
 }) => {
   return (
     <FlatList

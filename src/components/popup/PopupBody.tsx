@@ -1,11 +1,7 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-  ImageStyle,
-} from 'react-native';
+import {ActivityIndicator, StyleSheet} from 'react-native';
+import type {ImageStyle, TextStyle, ViewStyle} from 'react-native';
+import type {MapId} from '../../type';
 import PopupItem from './PopupItem';
 import PopupSeparator from './PopupSeparator';
 import PopupFlatList from './PopupFlatList';
@@ -31,8 +27,8 @@ const PopupBody = ({
     image?: ImageStyle;
     itemText?: TextStyle;
   };
-  apps: string[];
-  onAppPressed: (app: string) => void;
+  apps: MapId[];
+  onAppPressed: (app: MapId) => void;
   titles: Record<string, string>;
 }) => {
   if (isLoading) {

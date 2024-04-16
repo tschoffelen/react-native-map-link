@@ -1,4 +1,5 @@
 import {Platform} from 'react-native';
+import type {MapId} from './type';
 
 export const isIOS: boolean = Platform.OS === 'ios';
 
@@ -8,7 +9,7 @@ export const generatePrefixes = ({
 }: {
   alwaysIncludeGoogle?: boolean;
   naverCallerName?: string;
-}): Record<string, string> => {
+}): Record<MapId, string> => {
   return {
     'apple-maps': isIOS ? 'maps://' : 'applemaps://',
     'google-maps': prefixForGoogleMaps(alwaysIncludeGoogle),

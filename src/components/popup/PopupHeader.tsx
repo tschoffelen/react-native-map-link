@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, ViewStyle, TextStyle} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import type {TextStyle, ViewStyle} from 'react-native';
 import {colorsPopup} from '../../constants';
 
 const PopupHeader = ({
@@ -13,15 +14,15 @@ const PopupHeader = ({
   options,
 }: {
   showHeader: boolean;
-  customHeader?: JSX.Element;
+  customHeader?: React.ReactNode;
   style: {
     headerContainer?: ViewStyle;
     titleText?: TextStyle;
     subtitleText?: TextStyle;
   };
   options: {
-    dialogTitle?: string;
-    dialogMessage?: string;
+    dialogTitle?: string | null;
+    dialogMessage?: string | null;
   };
 }) => {
   if (!showHeader) {
