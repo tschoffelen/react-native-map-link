@@ -19,6 +19,7 @@ export interface PopupProps {
   onCancelPressed: () => void;
   style?: {
     container?: ViewStyle;
+    modalView?: ViewStyle;
     itemContainer?: ViewStyle;
     image?: ImageStyle;
     itemText?: TextStyle;
@@ -95,7 +96,7 @@ export const Popup: React.FC<PopupProps> = ({
       }}
       {...modalProps}>
       <View style={[styles.container, style.container]}>
-        <View style={styles.modalView}>
+        <View style={[styles.modalView, style.modalView]}>
           <PopupHeader
             showHeader={showHeader}
             customHeader={customHeader}
@@ -112,10 +113,7 @@ export const Popup: React.FC<PopupProps> = ({
           <PopupFooter
             customFooter={customFooter}
             onCancelPressed={onCancelPressed}
-            style={{
-              cancelButtonContainer: style.cancelButtonContainer,
-              cancelButtonText: style.cancelButtonText,
-            }}
+            style={style}
             options={options}
           />
         </View>
