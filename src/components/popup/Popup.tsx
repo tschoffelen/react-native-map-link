@@ -89,11 +89,12 @@ export const Popup: React.FC<PopupProps> = ({
 
   return (
     <Modal
-      visible={isVisible}
       animationType="slide"
       onRequestClose={() => {
         setIsVisible(false);
       }}
+      transparent={true}
+      visible={isVisible}
       {...modalProps}>
       <View style={[styles.container, style.container]}>
         <View style={[styles.modalView, style.modalView]}>
@@ -124,14 +125,13 @@ export const Popup: React.FC<PopupProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    maxHeight: SCREEN_HEIGHT * 0.6,
+    backgroundColor: 'rgba(255,255,255,0.4)',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalView: {
+    maxHeight: SCREEN_HEIGHT * 0.6,
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
