@@ -37,7 +37,8 @@
     "react-native": ">=0.40.0"
   },
   "files": [
-    "lib"
+    "lib",
+    "app.plugin.js"
   ],
   "devDependencies": {
     "@babel/core": "^7.23.9",
