@@ -192,9 +192,7 @@ export const checkOptions = ({
     );
   }
   if (address && typeof address !== 'string') {
-    throw new MapsException(
-      'Option `address` should be of type `string`.',
-    );
+    throw new MapsException('Option `address` should be of type `string`.');
   }
   if (title && typeof title !== 'string') {
     throw new MapsException('`title` should be of type `string`.');
@@ -423,7 +421,6 @@ export const generateMapUrl = ({
       } else {
         url = `${prefixes['yandex-taxi']}route?end-lat=${lat}&end-lon=${lng}&appmetrica_tracking_id=1178268795219780156`;
       }
-
       break;
     case 'yandex-maps':
       if (address) {
@@ -431,7 +428,6 @@ export const generateMapUrl = ({
       } else {
         url = `${prefixes['yandex-maps']}?pt=${lng},${lat}`;
       }
-
       break;
     case 'kakaomap':
       if (address) {
@@ -443,7 +439,6 @@ export const generateMapUrl = ({
           url = `${prefixes.kakaomap}route?sp=${sourceLat},${sourceLng}&ep=${latlng}&by=CAR`;
         }
       }
-
       break;
     case 'tmap':
       if (address) {
@@ -455,7 +450,6 @@ export const generateMapUrl = ({
           url = `${prefixes.tmap}route?startx=${sourceLng}&starty=${sourceLat}&goalx=${lng}&goaly=${lat}`;
         }
       }
-
       break;
     case 'mapycz':
       if (address) {
@@ -463,7 +457,6 @@ export const generateMapUrl = ({
       } else {
       url = `${prefixes.mapycz}www.mapy.cz/zakladni?x=${lng}&y=${lat}&source=coor&id=${lng},${lat}`;
       }
-
       break;
     case 'maps-me':
       if (address) {
@@ -471,7 +464,6 @@ export const generateMapUrl = ({
       } else {
         url = `${prefixes['maps-me']}route?sll=${sourceLat},${sourceLng}&saddr= &dll=${lat},${lng}&daddr=${title}&type=vehicle`;
       }
-
       break;
     case 'osmand':
       if (address) {
@@ -481,7 +473,6 @@ export const generateMapUrl = ({
           ? `${prefixes.osmand}?lat=${lat}&lon=${lng}`
           : `${prefixes.osmand}?q=${lat},${lng}`;
       }
-
       break;
     case 'gett':
       if (address) {
@@ -489,7 +480,6 @@ export const generateMapUrl = ({
       } else {
         url = `${prefixes.gett}order?pickup=my_location&dropoff_latitude=${lat}&dropoff_longitude=${lng}`;
       }
-
       break;
     case 'navermap':
       if (address) {
@@ -501,7 +491,6 @@ export const generateMapUrl = ({
           url = `${prefixes.navermap}route?slat=${sourceLat}&slng=${sourceLng}&dlat=${lat}&dlng=${lng}&appname=${naverCallerName}`;
         }
       }
-
       break;
     case 'dgis':
       if (address) {
@@ -513,7 +502,6 @@ export const generateMapUrl = ({
           url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/from/${sourceLng},${sourceLat}/go`;
         }
       }
-
       break;
     case 'liftago':
       if (address) {
@@ -529,7 +517,6 @@ export const generateMapUrl = ({
           url += `&pickupLat=${sourceLat}&pickupLon=${sourceLng}`;
         }
       }
-
       break;
     case 'petalmaps':
       if (address) {
