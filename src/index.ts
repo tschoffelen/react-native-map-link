@@ -80,7 +80,7 @@ export const showLocation = async ({
   }
 
   if (address) {
-    fullAddress = encodeURIComponent(address)
+    fullAddress = encodeURIComponent(address);
   }
 
   const lat = typeof latitude === 'string' ? parseFloat(latitude) : latitude;
