@@ -47,6 +47,9 @@ export type GetAppsResponse = {
 export interface ShowLocationProps {
   latitude: number | string;
   longitude: number | string;
+  /** optionally you can enter a full address that will be queried against the map app's API and return the initial results if not the actual matched result. */
+  /** latitude and longitude will be ignored if the address field is set */
+  address?: string | null;
   sourceLatitude?: number | null;
   sourceLongitude?: number | null;
   appleIgnoreLatLon?: boolean;

@@ -166,6 +166,7 @@ export const getDirectionsModeSygic = (
 export const checkOptions = ({
   latitude,
   longitude,
+  address,
   googleForceLatLon,
   googlePlaceId,
   title,
@@ -176,6 +177,7 @@ export const checkOptions = ({
 }: {
   latitude: number | string;
   longitude: number | string;
+  address?: string | null;
   googleForceLatLon?: boolean | null | undefined;
   googlePlaceId?: number | string | null | undefined;
   title?: string | null | undefined;
@@ -187,6 +189,11 @@ export const checkOptions = ({
   if (!latitude || !longitude) {
     throw new MapsException(
       '`showLocation` should contain keys `latitude` and `longitude`.',
+    );
+  }
+  if (address && typeof address !== 'string') {
+    throw new MapsException(
+      'Option `address` should be of type `string`.',
     );
   }
   if (title && typeof title !== 'string') {
@@ -230,6 +237,7 @@ export const generateMapUrl = ({
   sourceLat,
   sourceLng,
   sourceLatLng,
+  address,
   title,
   encodedTitle,
   prefixes,
@@ -247,6 +255,7 @@ export const generateMapUrl = ({
   sourceLat?: number;
   sourceLng?: number;
   sourceLatLng?: string;
+  address?: string | null;
   title?: string | null;
   encodedTitle?: string;
   prefixes: Record<string, string>;
@@ -258,14 +267,18 @@ export const generateMapUrl = ({
     case 'apple-maps':
       const appleDirectionMode = getDirectionsModeAppleMaps(directionsMode);
       url = prefixes['apple-maps'];
-      if (useSourceDestiny || directionsMode) {
-        url = `${url}?daddr=${latlng}`;
-        url += sourceLatLng ? `&saddr=${sourceLatLng}` : '';
-      } else if (!appleIgnoreLatLon) {
-        url = `${url}?ll=${latlng}`;
+      if (address) {
+        url = `${url}?address=${address}`;
+      } else {
+        if (useSourceDestiny || directionsMode) {
+          url = `${url}?daddr=${latlng}`;
+          url += sourceLatLng ? `&saddr=${sourceLatLng}` : '';
+        } else if (!appleIgnoreLatLon) {
+          url = `${url}?ll=${latlng}`;
+        }
       }
       url +=
-        useSourceDestiny || directionsMode || !appleIgnoreLatLon ? '&' : '?';
+        useSourceDestiny || directionsMode || address || !appleIgnoreLatLon ? '&' : '?';
       url += `q=${title ? encodedTitle : 'Location'}`;
       url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
       break;
@@ -286,162 +299,257 @@ export const generateMapUrl = ({
 
         url += googleDirectionMode ? `&travelmode=${googleDirectionMode}` : '';
       } else {
-        // Use "search" as this will open up a single marker
-        url = 'https://www.google.com/maps/search/?api=1';
-
-        if (!googleForceLatLon && title) {
-          url += `&query=${encodedTitle}`;
+        if (address) {
+          url = `https://www.google.com/maps/search/?q=${address}`;
         } else {
-          url += `&query=${latlng}`;
-        }
+          // Use "search" as this will open up a single marker
+          url = 'https://www.google.com/maps/search/?api=1';
 
-        url += googlePlaceId ? `&query_place_id=${googlePlaceId}` : '';
+          if (!googleForceLatLon && title) {
+            url += `&query=${encodedTitle}`;
+          } else {
+            url += `&query=${latlng}`;
+          }
+
+          url += googlePlaceId ? `&query_place_id=${googlePlaceId}` : '';
+        }
       }
       break;
     case 'citymapper':
-      url = `${prefixes.citymapper}directions?endcoord=${latlng}`;
+      if (address) {
+        url = `${prefixes.citymapper}directions?endname=${address}`;
+      } else {
+        url = `${prefixes.citymapper}directions?endcoord=${latlng}`;
 
-      if (title) {
-        url += `&endname=${encodedTitle}`;
-      }
+        if (title) {
+          url += `&endname=${encodedTitle}`;
+        }
 
-      if (useSourceDestiny) {
-        url += `&startcoord=${sourceLatLng}`;
+        if (useSourceDestiny) {
+          url += `&startcoord=${sourceLatLng}`;
+        }
       }
       break;
     case 'uber':
-      url = `${prefixes.uber}?action=setPickup&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}`;
+      if (address) {
+        url = `${prefixes.uber}?action=setPickup&pickup=my_location&dropoff=${address}`
+      } else {
+        url = `${prefixes.uber}?action=setPickup&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}`;
 
-      if (title) {
-        url += `&dropoff[nickname]=${encodedTitle}`;
+        if (title) {
+          url += `&dropoff[nickname]=${encodedTitle}`;
+        }
+
+        url += useSourceDestiny
+          ? `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}`
+          : '&pickup=my_location';
+
       }
-
-      url += useSourceDestiny
-        ? `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}`
-        : '&pickup=my_location';
-
       break;
     case 'lyft':
-      url = `${prefixes.lyft}ridetype?id=lyft&destination[latitude]=${lat}&destination[longitude]=${lng}`;
+      if (address) {
+        url = `${prefixes.lyft}ridetype?id=lyft&destination[address]=${address}`;
+      } else {
+        url = `${prefixes.lyft}ridetype?id=lyft&destination[latitude]=${lat}&destination[longitude]=${lng}`;
 
-      if (useSourceDestiny) {
-        url += `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}`;
+        if (useSourceDestiny) {
+          url += `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}`;
+        }
+
       }
-
       break;
     case 'transit':
-      url = `${prefixes.transit}directions?to=${latlng}`;
+      if (address) {
+        url = `${prefixes.transit}directions?destination=${address}`;
+      } else {
+        url = `${prefixes.transit}directions?to=${latlng}`;
+      }
 
       if (useSourceDestiny) {
         url += `&from=${sourceLatLng}`;
       }
       break;
     case 'truckmap':
-      url = `https://truckmap.com/place/${lat},${lng}`;
+      if (address) {
+        // Constructed from documentation from https://truckmap.com/solutions/developer
+        url = `https://truckmap.com/place/${address}`;
+      } else {
+        url = `https://truckmap.com/place/${lat},${lng}`;
 
-      if (useSourceDestiny) {
-        url = `https://truckmap.com/route/${sourceLat},${sourceLng}/${lat},${lng}`;
+        if (useSourceDestiny) {
+          url = `https://truckmap.com/route/${sourceLat},${sourceLng}/${lat},${lng}`;
+        }
       }
       break;
     case 'waze':
-      url = `${prefixes.waze}?ll=${latlng}&navigate=yes`;
-      if (title) {
-        url += `&q=${encodedTitle}`;
+      if (address) {
+        url = `${prefixes.waze}?q=${address}`
+      } else {
+        url = `${prefixes.waze}?ll=${latlng}&navigate=yes`;
+        if (title) {
+          url += `&q=${encodedTitle}`;
+        }
       }
       break;
     case 'yandex':
-      url = `${prefixes.yandex}build_route_on_map?lat_to=${lat}&lon_to=${lng}`;
+      if (address) {
+        url = `${prefixes.yandex}?text=${address}`;
+      } else {
+        url = `${prefixes.yandex}build_route_on_map?lat_to=${lat}&lon_to=${lng}`;
 
-      if (useSourceDestiny) {
-        url += `&lat_from=${sourceLat}&lon_from=${sourceLng}`;
+        if (useSourceDestiny) {
+          url += `&lat_from=${sourceLat}&lon_from=${sourceLng}`;
+        }
       }
       break;
     case 'moovit':
-      url = `${prefixes.moovit}?dest_lat=${lat}&dest_lon=${lng}`;
+      if (address) {
+        url = `${prefixes.moovit}?dest_name=${address}`;
+      } else {
+        url = `${prefixes.moovit}?dest_lat=${lat}&dest_lon=${lng}`;
 
-      if (title) {
-        url += `&dest_name=${encodedTitle}`;
-      }
+        if (title) {
+          url += `&dest_name=${encodedTitle}`;
+        }
 
-      if (useSourceDestiny) {
-        url += `&orig_lat=${sourceLat}&orig_lon=${sourceLng}`;
+        if (useSourceDestiny) {
+          url += `&orig_lat=${sourceLat}&orig_lon=${sourceLng}`;
+        }
       }
       break;
     case 'yandex-taxi':
-      url = `${prefixes['yandex-taxi']}route?end-lat=${lat}&end-lon=${lng}&appmetrica_tracking_id=1178268795219780156`;
+      if (address) {
+        throw new MapsException(`yandex-taxi does not support passing the address or has not been implemented yet.`);
+      } else {
+        url = `${prefixes['yandex-taxi']}route?end-lat=${lat}&end-lon=${lng}&appmetrica_tracking_id=1178268795219780156`;
+      }
 
       break;
     case 'yandex-maps':
-      url = `${prefixes['yandex-maps']}?pt=${lng},${lat}`;
+      if (address) {
+        url = `${prefixes['yandex-maps']}?text=${address}`;
+      } else {
+        url = `${prefixes['yandex-maps']}?pt=${lng},${lat}`;
+      }
 
       break;
     case 'kakaomap':
-      url = `${prefixes.kakaomap}look?p=${latlng}`;
+      if (address) {
+        url = `${prefixes.kakaomap}route?ep=${address}`;
+      } else {
+        url = `${prefixes.kakaomap}look?p=${latlng}`;
 
-      if (useSourceDestiny) {
-        url = `${prefixes.kakaomap}route?sp=${sourceLat},${sourceLng}&ep=${latlng}&by=CAR`;
+        if (useSourceDestiny) {
+          url = `${prefixes.kakaomap}route?sp=${sourceLat},${sourceLng}&ep=${latlng}&by=CAR`;
+        }
       }
+
       break;
     case 'tmap':
-      url = `${prefixes.tmap}viewmap?x=${lng}&y=${lat}`;
+      if (address) {
+        url = `${prefixes.tmap}search?name=${address}`;
+      } else {
+        url = `${prefixes.tmap}viewmap?x=${lng}&y=${lat}`;
 
-      if (useSourceDestiny) {
-        url = `${prefixes.tmap}route?startx=${sourceLng}&starty=${sourceLat}&goalx=${lng}&goaly=${lat}`;
+        if (useSourceDestiny) {
+          url = `${prefixes.tmap}route?startx=${sourceLng}&starty=${sourceLat}&goalx=${lng}&goaly=${lat}`;
+        }
       }
+
       break;
     case 'mapycz':
+      if (address) {
+        url = `${prefixes.mapycz}www.mapy.cz/zakladni?q=${address}`;
+      } else {
       url = `${prefixes.mapycz}www.mapy.cz/zakladni?x=${lng}&y=${lat}&source=coor&id=${lng},${lat}`;
+      }
 
       break;
     case 'maps-me':
-      url = `${prefixes['maps-me']}route?sll=${sourceLat},${sourceLng}&saddr= &dll=${lat},${lng}&daddr=${title}&type=vehicle`;
+      if (address) {
+        url = `${prefixes['maps-me']}?q=${address}`;
+      } else {
+        url = `${prefixes['maps-me']}route?sll=${sourceLat},${sourceLng}&saddr= &dll=${lat},${lng}&daddr=${title}&type=vehicle`;
+      }
 
       break;
     case 'osmand':
-      url = isIOS
-        ? `${prefixes.osmand}?lat=${lat}&lon=${lng}`
-        : `${prefixes.osmand}?q=${lat},${lng}`;
+      if (address) {
+        url = `${prefixes.osmand}show_map?addr=${address}`
+      } else {
+        url = isIOS
+          ? `${prefixes.osmand}?lat=${lat}&lon=${lng}`
+          : `${prefixes.osmand}?q=${lat},${lng}`;
+      }
 
       break;
     case 'gett':
-      url = `${prefixes.gett}order?pickup=my_location&dropoff_latitude=${lat}&dropoff_longitude=${lng}`;
+      if (address) {
+        throw new MapsException(`gett does not support passing the address or has not been implemented yet.`);
+      } else {
+        url = `${prefixes.gett}order?pickup=my_location&dropoff_latitude=${lat}&dropoff_longitude=${lng}`;
+      }
 
       break;
     case 'navermap':
-      url = `${prefixes.navermap}map?lat=${lat}&lng=${lng}&appname=${naverCallerName}`;
+      if (address) {
+        url = `${prefixes.navermap}search?query=${address}`;
+      } else {
+        url = `${prefixes.navermap}map?lat=${lat}&lng=${lng}&appname=${naverCallerName}`;
 
-      if (useSourceDestiny) {
-        url = `${prefixes.navermap}route?slat=${sourceLat}&slng=${sourceLng}&dlat=${lat}&dlng=${lng}&appname=${naverCallerName}`;
+        if (useSourceDestiny) {
+          url = `${prefixes.navermap}route?slat=${sourceLat}&slng=${sourceLng}&dlat=${lat}&dlng=${lng}&appname=${naverCallerName}`;
+        }
       }
+
       break;
     case 'dgis':
-      url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/go`;
+      if (address) {
+        url = `${prefixes.dgis}?q=${address}`;
+      } else {
+        url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/go`;
 
-      if (useSourceDestiny) {
-        url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/from/${sourceLng},${sourceLat}/go`;
+        if (useSourceDestiny) {
+          url = `${prefixes.dgis}routeSearch/to/${lng},${lat}/from/${sourceLng},${sourceLat}/go`;
+        }
       }
+
       break;
     case 'liftago':
-      url = `${prefixes.liftago}order?destinationLat=${lat}&destinationLon=${lng}`;
+      if (address) {
+        throw new MapsException(`liftago does not support passing the address or has not been implemented yet.`);
+      } else {
+        url = `${prefixes.liftago}order?destinationLat=${lat}&destinationLon=${lng}`;
 
-      if (title) {
-        url += `&destinationName=${encodedTitle}`;
+        if (title) {
+          url += `&destinationName=${encodedTitle}`;
+        }
+
+        if (useSourceDestiny) {
+          url += `&pickupLat=${sourceLat}&pickupLon=${sourceLng}`;
+        }
       }
 
-      if (useSourceDestiny) {
-        url += `&pickupLat=${sourceLat}&pickupLon=${sourceLng}`;
-      }
       break;
     case 'petalmaps':
-      url = `${prefixes.petalmaps}navigation?daddr=${lat},${lng}`;
+      if (address) {
+        // Got this from this documentation https://developer.huawei.com/consumer/en/doc/HMSCore-Guides/petal-maps-introduction-0000001059189679
+        url = `${prefixes.petalmaps}textSearch?text=${address}`;
+      } else {
+        url = `${prefixes.petalmaps}navigation?daddr=${lat},${lng}`;
 
-      if (useSourceDestiny) {
-        url += `&saddr=${sourceLat},${sourceLng}`;
+        if (useSourceDestiny) {
+          url += `&saddr=${sourceLat},${sourceLng}`;
+        }
       }
       break;
     case 'sygic':
       const sygicDirectionsMode = getDirectionsModeSygic(directionsMode);
-      url = `${prefixes.sygic}coordinate|${lng}|${lat}|`;
+      if (address) {
+        throw new MapsException(`sygic does not support passing the address or has not been implemented yet.`);
+      } else {
+        url = `${prefixes.sygic}coordinate|${lng}|${lat}|`;
+      }
       url += sygicDirectionsMode ? `${sygicDirectionsMode}` : '';
       break;
   }

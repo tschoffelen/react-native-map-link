@@ -293,7 +293,7 @@ Notes:
 - The `sourceLatitude` / `sourceLongitude` options only work if you specify both. Currently supports all apps except Waze.
 - `directionsMode` works on google-maps, apple-maps and sygic (on apple-maps, `bike` mode will not work, while on sygic, only `walk` and `car` will work). Without setting it, the app will decide based on its own settings.
 - If you set `directionsMode` but do not set `sourceLatitude` and `sourceLongitude`, google-maps and apple-maps will still enter directions mode, and use the current location as starting point.
-- If you want to query an address instead of passing the `latitude` and `longitude` fields, you can do this by leaving both of the required fields as empty strings and provide a full address to be queried.
+- If you want to query an address instead of passing the `latitude` and `longitude` fields, you can do this by leaving both of the required fields as empty strings and provide a full address to be queried. Just be aware that not all applications support this.
 
 ### Or
 

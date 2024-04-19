@@ -25,6 +25,7 @@ export type {PopupProps} from './components/popup/Popup';
 export const showLocation = async ({
   latitude,
   longitude,
+  address,
   sourceLatitude,
   sourceLongitude,
   appleIgnoreLatLon,
@@ -49,6 +50,7 @@ export const showLocation = async ({
   checkOptions({
     latitude,
     longitude,
+    address,
     googleForceLatLon,
     googlePlaceId,
     title: customTitle,
@@ -62,6 +64,7 @@ export const showLocation = async ({
   let sourceLat;
   let sourceLng;
   let sourceLatLng;
+  let fullAddress;
 
   if (sourceLatitude != null && sourceLongitude != null) {
     useSourceDestiny = true;
@@ -74,6 +77,10 @@ export const showLocation = async ({
         ? parseFloat(sourceLongitude)
         : sourceLongitude;
     sourceLatLng = `${sourceLat},${sourceLng}`;
+  }
+
+  if (address) {
+    fullAddress = encodeURIComponent(address)
   }
 
   const lat = typeof latitude === 'string' ? parseFloat(latitude) : latitude;
@@ -121,6 +128,7 @@ export const showLocation = async ({
     sourceLat,
     sourceLng,
     sourceLatLng,
+    address : fullAddress,
     title,
     encodedTitle,
     prefixes,
