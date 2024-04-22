@@ -514,7 +514,9 @@ export const generateMapUrl = ({
       break;
     case 'liftago':
       if (address) {
-        throw new MapsException('liftago does not support passing the address or has not been implemented yet.');
+        throw new MapsException(
+          'liftago does not support passing the address or has not been implemented yet.',
+        );
       } else {
         url = `${prefixes.liftago}order?destinationLat=${lat}&destinationLon=${lng}`;
 
@@ -542,7 +544,9 @@ export const generateMapUrl = ({
     case 'sygic':
       const sygicDirectionsMode = getDirectionsModeSygic(directionsMode);
       if (address) {
-        throw new MapsException('sygic does not support passing the address or has not been implemented yet.');
+        throw new MapsException(
+          'sygic does not support passing the address or has not been implemented yet.',
+        );
       } else {
         url = `${prefixes.sygic}coordinate|${lng}|${lat}|`;
       }
