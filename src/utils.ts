@@ -281,9 +281,9 @@ export const generateMapUrl = ({
         }
       }
       url +=
-        useSourceDestiny || directionsMode || address || !appleIgnoreLatLon 
-        ? '&'
-        : '?';
+        useSourceDestiny || directionsMode || address || !appleIgnoreLatLon
+          ? '&'
+          : '?';
       url += `q=${title ? encodedTitle : 'Location'}`;
       url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
       break;
