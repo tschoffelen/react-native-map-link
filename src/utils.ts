@@ -175,8 +175,8 @@ export const checkOptions = ({
   appTitles,
   appsWhiteList,
 }: {
-  latitude: number | string;
-  longitude: number | string;
+  latitude?: number | string;
+  longitude?: number | string;
   address?: string | null;
   googleForceLatLon?: boolean | null | undefined;
   googlePlaceId?: number | string | null | undefined;
@@ -193,6 +193,9 @@ export const checkOptions = ({
   }
   if (address && typeof address !== 'string') {
     throw new MapsException('Option `address` should be of type `string`.');
+  }
+  if(!latitude && !longitude && !address) {
+    throw new MapsException('Latitude & Longitude or Address is required. Both cannot be undefined.')
   }
   if (title && typeof title !== 'string') {
     throw new MapsException('`title` should be of type `string`.');
@@ -247,8 +250,8 @@ export const generateMapUrl = ({
   googleForceLatLon?: boolean;
   googlePlaceId: string | number | null | undefined;
   naverCallerName: string | null | undefined;
-  lat: number;
-  lng: number;
+  lat?: number;
+  lng?: number;
   latlng: string;
   sourceLat?: number;
   sourceLng?: number;
