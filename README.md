@@ -273,7 +273,6 @@ import {showLocation} from 'react-native-map-link';
 showLocation({
   address: '1600 Pennsylvania Avenue NW, Washington, DC 20500', // Required if replacing latitude and longitude
   title: 'The White House', // optional
-  googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
   alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
   dialogTitle: 'This is the dialog Title', // optional (default: 'Open in Maps')
   dialogMessage: 'This is the amazing dialog Message', // optional (default: 'What app would you like to use?')

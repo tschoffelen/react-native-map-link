@@ -195,7 +195,7 @@ export const checkOptions = ({
     throw new MapsException('Option `address` should be of type `string`.');
   }
   if(!latitude && !longitude && !address) {
-    throw new MapsException('Latitude & Longitude or Address is required. Both cannot be undefined.')
+    throw new MapsException('`latitude` & `longitude` or `address` is required. Both cannot be undefined.');
   }
   if (title && typeof title !== 'string') {
     throw new MapsException('`title` should be of type `string`.');
