@@ -250,7 +250,6 @@ showLocation({
   longitude: -77.0387185,
   sourceLatitude: -8.0870631, // optionally specify starting location for directions
   sourceLongitude: -34.8941619, // required if sourceLatitude is specified
-  address: '', // optional but can replace latitude and longitude if needed
   title: 'The White House', // optional 
   googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
   googlePlaceId: 'ChIJGVtI4by3t4kRr51d_Qm_x58', // optionally specify the google-place-id
@@ -272,8 +271,6 @@ Alternatively you can specify the `address` field and leave the latitude and lon
 import {showLocation} from 'react-native-map-link';
 
 showLocation({
-  latitude: '',
-  longitude: '',
   address: '1600 Pennsylvania Avenue NW, Washington, DC 20500', // Required if replacing latitude and longitude
   title: 'The White House', // optional
   googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
