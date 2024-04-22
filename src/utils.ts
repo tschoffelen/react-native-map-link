@@ -194,7 +194,7 @@ export const checkOptions = ({
   if (address && typeof address !== 'string') {
     throw new MapsException('Option `address` should be of type `string`.');
   }
-  if(!latitude && !longitude && !address) {
+  if (!latitude && !longitude && !address) {
     throw new MapsException('`latitude` & `longitude` or `address` is required. Both cannot be undefined.');
   }
   if (title && typeof title !== 'string') {

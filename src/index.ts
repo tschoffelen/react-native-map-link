@@ -128,7 +128,7 @@ export const showLocation = async ({
     sourceLat,
     sourceLng,
     sourceLatLng,
-    address : fullAddress,
+    address:fullAddress,
     title,
     encodedTitle,
     prefixes,
