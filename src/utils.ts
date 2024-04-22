@@ -281,7 +281,9 @@ export const generateMapUrl = ({
         }
       }
       url +=
-        useSourceDestiny || directionsMode || address || !appleIgnoreLatLon ? '&' : '?';
+        useSourceDestiny || directionsMode || address || !appleIgnoreLatLon 
+        ? '&'
+        : '?';
       url += `q=${title ? encodedTitle : 'Location'}`;
       url += appleDirectionMode ? `&dirflg=${appleDirectionMode}` : '';
       break;
@@ -335,7 +337,7 @@ export const generateMapUrl = ({
       break;
     case 'uber':
       if (address) {
-        url = `${prefixes.uber}?action=setPickup&pickup=my_location&dropoff=${address}`
+        url = `${prefixes.uber}?action=setPickup&pickup=my_location&dropoff=${address}`;
       } else {
         url = `${prefixes.uber}?action=setPickup&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}`;
 
@@ -346,7 +348,6 @@ export const generateMapUrl = ({
         url += useSourceDestiny
           ? `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}`
           : '&pickup=my_location';
-
       }
       break;
     case 'lyft':
@@ -358,7 +359,6 @@ export const generateMapUrl = ({
         if (useSourceDestiny) {
           url += `&pickup[latitude]=${sourceLat}&pickup[longitude]=${sourceLng}`;
         }
-
       }
       break;
     case 'transit':
@@ -386,7 +386,7 @@ export const generateMapUrl = ({
       break;
     case 'waze':
       if (address) {
-        url = `${prefixes.waze}?q=${address}`
+        url = `${prefixes.waze}?q=${address}`;
       } else {
         url = `${prefixes.waze}?ll=${latlng}&navigate=yes`;
         if (title) {
@@ -422,7 +422,9 @@ export const generateMapUrl = ({
       break;
     case 'yandex-taxi':
       if (address) {
-        throw new MapsException(`yandex-taxi does not support passing the address or has not been implemented yet.`);
+        throw new MapsException(
+          'yandex-taxi does not support passing the address or has not been implemented yet.',
+        );
       } else {
         url = `${prefixes['yandex-taxi']}route?end-lat=${lat}&end-lon=${lng}&appmetrica_tracking_id=1178268795219780156`;
       }
@@ -460,7 +462,7 @@ export const generateMapUrl = ({
       if (address) {
         url = `${prefixes.mapycz}www.mapy.cz/zakladni?q=${address}`;
       } else {
-      url = `${prefixes.mapycz}www.mapy.cz/zakladni?x=${lng}&y=${lat}&source=coor&id=${lng},${lat}`;
+        url = `${prefixes.mapycz}www.mapy.cz/zakladni?x=${lng}&y=${lat}&source=coor&id=${lng},${lat}`;
       }
       break;
     case 'maps-me':
@@ -472,7 +474,7 @@ export const generateMapUrl = ({
       break;
     case 'osmand':
       if (address) {
-        url = `${prefixes.osmand}show_map?addr=${address}`
+        url = `${prefixes.osmand}show_map?addr=${address}`;
       } else {
         url = isIOS
           ? `${prefixes.osmand}?lat=${lat}&lon=${lng}`
@@ -481,7 +483,9 @@ export const generateMapUrl = ({
       break;
     case 'gett':
       if (address) {
-        throw new MapsException(`gett does not support passing the address or has not been implemented yet.`);
+        throw new MapsException(
+          'gett does not support passing the address or has not been implemented yet.',
+        );
       } else {
         url = `${prefixes.gett}order?pickup=my_location&dropoff_latitude=${lat}&dropoff_longitude=${lng}`;
       }
@@ -510,7 +514,7 @@ export const generateMapUrl = ({
       break;
     case 'liftago':
       if (address) {
-        throw new MapsException(`liftago does not support passing the address or has not been implemented yet.`);
+        throw new MapsException('liftago does not support passing the address or has not been implemented yet.');
       } else {
         url = `${prefixes.liftago}order?destinationLat=${lat}&destinationLon=${lng}`;
 
@@ -538,7 +542,7 @@ export const generateMapUrl = ({
     case 'sygic':
       const sygicDirectionsMode = getDirectionsModeSygic(directionsMode);
       if (address) {
-        throw new MapsException(`sygic does not support passing the address or has not been implemented yet.`);
+        throw new MapsException('sygic does not support passing the address or has not been implemented yet.');
       } else {
         url = `${prefixes.sygic}coordinate|${lng}|${lat}|`;
       }
