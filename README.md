@@ -272,15 +272,7 @@ import {showLocation} from 'react-native-map-link';
 
 showLocation({
   address: '1600 Pennsylvania Avenue NW, Washington, DC 20500', // Required if replacing latitude and longitude
-  title: 'The White House', // optional
-  alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
-  dialogTitle: 'This is the dialog Title', // optional (default: 'Open in Maps')
-  dialogMessage: 'This is the amazing dialog Message', // optional (default: 'What app would you like to use?')
-  cancelText: 'This is the cancel button text', // optional (default: 'Cancel')
-  appsWhiteList: ['google-maps'], // optionally you can set which apps to show (default: will show all supported apps installed on device)
-  naverCallerName: 'com.example.myapp', // to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android.
-  appTitles: { 'google-maps': 'My custom Google Maps title' }, // optionally you can override default app titles
-  app: 'uber',  // optionally specify specific app to use
+  app: 'comgooglemaps',  // optionally specify specific app to use
 });
 ```
 
