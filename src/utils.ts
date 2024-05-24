@@ -305,7 +305,7 @@ export const generateMapUrl = ({
         url += googleDirectionMode ? `&travelmode=${googleDirectionMode}` : '';
       } else {
         if (address) {
-          url = `https://www.google.com/maps/search/?q=${address}`;
+          url = `https://www.google.com/maps/search/?api=1&query=${address}`;
         } else {
           // Use "search" as this will open up a single marker
           url = 'https://www.google.com/maps/search/?api=1';
