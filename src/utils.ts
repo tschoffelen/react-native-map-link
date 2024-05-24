@@ -186,18 +186,13 @@ export const checkOptions = ({
   prefixes: Record<string, string>;
   appsWhiteList: string[] | null | undefined;
 }): void => {
-  if (!latitude || !longitude) {
+  if ((!latitude && !longitude) || !address) {
     throw new MapsException(
-      '`showLocation` should contain keys `latitude` and `longitude`.',
+      '`latitude` & `longitude` or `address` is required. Both cannot be undefined.',
     );
   }
   if (address && typeof address !== 'string') {
     throw new MapsException('Option `address` should be of type `string`.');
-  }
-  if (!latitude && !longitude && !address) {
-    throw new MapsException(
-      '`latitude` & `longitude` or `address` is required. Both cannot be undefined.',
-    );
   }
   if (title && typeof title !== 'string') {
     throw new MapsException('`title` should be of type `string`.');
