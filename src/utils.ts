@@ -186,7 +186,7 @@ export const checkOptions = ({
   prefixes: Record<string, string>;
   appsWhiteList: string[] | null | undefined;
 }): void => {
-  if ((!latitude && !longitude) || !address) {
+  if (!(latitude && longitude) && !address) {
     throw new MapsException(
       '`latitude` & `longitude` or `address` is required. Both cannot be undefined.',
     );
