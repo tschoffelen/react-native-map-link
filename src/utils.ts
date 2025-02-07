@@ -63,6 +63,7 @@ export const askAppChoice = ({
   dialogMessage,
   cancelText,
   appsWhiteList,
+  appsBlackList,
   prefixes,
   appTitles,
 }: {
@@ -70,6 +71,7 @@ export const askAppChoice = ({
   dialogMessage: string | null | undefined;
   cancelText: string | null | undefined;
   appsWhiteList: string[] | null | undefined;
+  appsBlackList: string[] | null | undefined;
   prefixes: Record<string, string>;
   appTitles: Record<string, string> | null | undefined;
 }): Promise<MapId | null> => {
@@ -79,6 +81,12 @@ export const askAppChoice = ({
     if (appsWhiteList && appsWhiteList.length) {
       availableApps = availableApps.filter((appName) =>
         appsWhiteList.includes(appName),
+      );
+    }
+
+    if (appsBlackList && appsBlackList.length) {
+      availableApps = availableApps.filter(
+        (appName) => !appsBlackList.includes(appName),
       );
     }
 

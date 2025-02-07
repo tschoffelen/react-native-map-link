@@ -67,6 +67,11 @@ export const Popup: React.FC<PopupProps> = ({
           options.appsWhiteList?.includes(appName),
         );
       }
+      if (options.appsBlackList && options.appsBlackList.length) {
+        appsData = appsData.filter(
+          (appName) => !options.appsBlackList?.includes(appName),
+        );
+      }
       setApps(appsData);
       setIsLoading(false);
     };
@@ -76,6 +81,7 @@ export const Popup: React.FC<PopupProps> = ({
     options.alwaysIncludeGoogle,
     options.appTitles,
     options.appsWhiteList,
+    options.appsBlackList,
     options.naverCallerName,
   ]);
 

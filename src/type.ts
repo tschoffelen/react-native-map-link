@@ -62,6 +62,7 @@ export interface ShowLocationProps {
   dialogMessage?: string | null;
   cancelText?: string | null;
   appsWhiteList?: string[] | null;
+  appsBlackList?: string[] | null;
   appTitles?: Partial<Record<MapId, string>>;
   naverCallerName?: string;
   directionsMode?: DirectionMode;
