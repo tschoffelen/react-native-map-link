@@ -299,6 +299,8 @@ export const generateMapUrl = ({
         url += sourceLatLng ? `&origin=${sourceLatLng}` : '';
         if (!googleForceLatLon && title) {
           url += `&destination=${encodedTitle}`;
+        } else if (!googleForceLatLon && address) {
+          url += `&destination=${address}`;
         } else {
           url += `&destination=${latlng}`;
         }
