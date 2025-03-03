@@ -38,6 +38,7 @@ export const showLocation = async ({
   dialogMessage: customDialogMessage,
   cancelText: customCancelText,
   appsWhiteList: customAppsWhiteList,
+  appsBlackList: customAppsBlackList,
   appTitles,
   naverCallerName,
   directionsMode,
@@ -103,6 +104,10 @@ export const showLocation = async ({
     customAppsWhiteList && customAppsWhiteList.length
       ? customAppsWhiteList
       : null;
+  const appsBlackList =
+    customAppsBlackList && customAppsBlackList.length
+      ? customAppsBlackList
+      : null;
 
   if (!app) {
     app = await askAppChoice({
@@ -110,6 +115,7 @@ export const showLocation = async ({
       dialogMessage,
       cancelText,
       appsWhiteList,
+      appsBlackList,
       prefixes,
       appTitles: generateTitles(appTitles),
     });
@@ -143,6 +149,7 @@ export const showLocation = async ({
 export async function getApps({
   alwaysIncludeGoogle,
   appsWhiteList,
+  appsBlackList,
   appTitles,
   naverCallerName,
   ...rest
@@ -156,6 +163,10 @@ export async function getApps({
     apps = apps.filter((appName) => appsWhiteList!.includes(appName));
   }
 
+  if (appsBlackList && appsBlackList.length) {
+    apps = apps.filter((appName) => !appsBlackList!.includes(appName));
+  }
+
   const titles = generateTitles({...appTitles});
   async function open(app: MapId) {
     return showLocation({
@@ -163,6 +174,7 @@ export async function getApps({
       app,
       alwaysIncludeGoogle,
       appsWhiteList,
+      appsBlackList,
       appTitles,
       naverCallerName,
     });
