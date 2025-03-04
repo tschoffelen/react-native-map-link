@@ -40,7 +40,6 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 
 <br /><p align="center">
 <img src="./docs/example.png" alt="Example screenshot" width="320" />
-
 </p>
 
 ## Installation
