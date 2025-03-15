@@ -35,6 +35,7 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 - Liftago - `liftago`
 - Petal Maps - `petalmaps` (Android only)
 - Sygic - `sygic`
+- What Three Words - `w3w`
 
 </details>
 
@@ -85,6 +86,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>dgis</string>
     <string>lftgpas</string>
     <string>sygic</string>
+    <string>w3w</string>
 </array>
 ```
 
@@ -205,6 +207,10 @@ You can do so by coping the `<queries>` statement below, and pasting it in the t
     <action android:name="android.intent.action.VIEW" />
     <data android:scheme="com.sygic.aura" />
   </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="com.what3words.android" />
+  </intent>
 </queries>
 ```
 
@@ -249,7 +255,7 @@ showLocation({
   longitude: -77.0387185,
   sourceLatitude: -8.0870631, // optionally specify starting location for directions
   sourceLongitude: -34.8941619, // required if sourceLatitude is specified
-  title: 'The White House', // optional 
+  title: 'The White House', // optional
   googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
   googlePlaceId: 'ChIJGVtI4by3t4kRr51d_Qm_x58', // optionally specify the google-place-id
   alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
@@ -265,7 +271,7 @@ showLocation({
 });
 ```
 
-Alternatively you can specify the `address` field and leave the latitude and longitude properties as empty strings 
+Alternatively you can specify the `address` field and leave the latitude and longitude properties as empty strings
 
 ```js
 import {showLocation} from 'react-native-map-link';
@@ -273,6 +279,17 @@ import {showLocation} from 'react-native-map-link';
 showLocation({
   address: '1600 Pennsylvania Avenue NW, Washington, DC 20500', // Required if replacing latitude and longitude
   app: 'comgooglemaps',  // optionally specify specific app to use
+});
+```
+
+When using the whatThreeWords app, only the 3 words should be used in the `address` field instead of the `latitude` and `longitude` properties.
+
+```js
+import {showLocation} from 'react-native-map-link';
+
+showLocation({
+  address: 'daring.lion.race', // Required if using w3w provider
+  app: 'w3w',  // optionally specify specific app to use
 });
 ```
 
@@ -307,7 +324,7 @@ const Demo = () => {
       const result = await getApps({
         latitude: 38.8976763,
         longitude: -77.0387185,
-        address: '1600 Pennsylvania Avenue NW, Washington, DC 20500', // optional 
+        address: '1600 Pennsylvania Avenue NW, Washington, DC 20500', // optional
         title: 'The White House', // optional
         googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
         alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)

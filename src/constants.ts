@@ -34,6 +34,7 @@ export const generatePrefixes = ({
     liftago: 'lftgpas://',
     petalmaps: 'petalmaps://',
     sygic: 'com.sygic.aura://',
+    w3w: 'w3w://',
   };
 };
 
@@ -70,6 +71,7 @@ export const generateTitles = (
     liftago: 'Liftago',
     petalmaps: 'Petal Maps',
     sygic: 'Sygic',
+    w3w: 'What3Words',
     ...(titles || {}),
   };
 };
@@ -98,6 +100,7 @@ export const icons: Record<string, number> = {
   liftago: require('./images/liftago.png'),
   petalmaps: require('./images/petalmaps.png'),
   sygic: require('./images/sygic.png'),
+  w3w: require('./images/w3w.png'),
 };
 
 export const appKeys: string[] = Object.keys(icons);

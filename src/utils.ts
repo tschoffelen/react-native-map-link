@@ -557,6 +557,16 @@ export const generateMapUrl = ({
       }
       url += sygicDirectionsMode ? `${sygicDirectionsMode}` : '';
       break;
+    case 'w3w':
+      // w3w only supports passing the 3 word reference or the current user location
+      // https://developer.what3words.com/tutorial/mobile-linking-to-the-what3words-app#supported-uris
+      if (address) {
+        url = `${prefixes.w3w}show?threewords=${address}`;
+      } else {
+        url = `${prefixes.w3w}show?currentlocation`;
+      }
+
+      break;
   }
 
   return url;
