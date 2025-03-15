@@ -175,6 +175,7 @@ export const checkOptions = ({
   latitude,
   longitude,
   address,
+  words,
   googleForceLatLon,
   googlePlaceId,
   title,
@@ -186,6 +187,7 @@ export const checkOptions = ({
   latitude?: number | string;
   longitude?: number | string;
   address?: string | null;
+  words?: string | null;
   googleForceLatLon?: boolean | null | undefined;
   googlePlaceId?: number | string | null | undefined;
   title?: string | null | undefined;
@@ -201,6 +203,9 @@ export const checkOptions = ({
   }
   if (address && typeof address !== 'string') {
     throw new MapsException('Option `address` should be of type `string`.');
+  }
+  if (words && typeof words !== 'string') {
+    throw new MapsException('Option `words` should be of type `string`.');
   }
   if (title && typeof title !== 'string') {
     throw new MapsException('`title` should be of type `string`.');
@@ -244,6 +249,7 @@ export const generateMapUrl = ({
   sourceLng,
   sourceLatLng,
   address,
+  words,
   title,
   encodedTitle,
   prefixes,
@@ -262,6 +268,7 @@ export const generateMapUrl = ({
   sourceLng?: number;
   sourceLatLng?: string;
   address?: string | null;
+  words?: string | null;
   title?: string | null;
   encodedTitle?: string;
   prefixes: Record<string, string>;
@@ -560,8 +567,8 @@ export const generateMapUrl = ({
     case 'w3w':
       // w3w only supports passing the 3 word reference or the current user location
       // https://developer.what3words.com/tutorial/mobile-linking-to-the-what3words-app#supported-uris
-      if (address) {
-        url = `${prefixes.w3w}show?threewords=${address}`;
+      if (words) {
+        url = `${prefixes.w3w}show?threewords=${words}`;
       } else {
         url = `${prefixes.w3w}show?currentlocation`;
       }

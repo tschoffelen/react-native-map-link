@@ -649,8 +649,10 @@ describe('showLocation', () => {
     it('opens with correct url if address (w3w) is provided', () => {
       verifyThatSettingsLeadToUrl(
         {
+          latitude,
+          longitude,
           app: 'w3w',
-          address: 'test.three.words',
+          words: 'test.three.words',
         },
         'w3w://show?threewords=test.three.words',
       );
