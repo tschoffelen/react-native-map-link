@@ -634,4 +634,28 @@ describe('showLocation', () => {
       );
     });
   });
+  describe('w3w', () => {
+    it('opens with correct url if address is not provided', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          app: 'w3w',
+        },
+        'w3w://show?currentlocation',
+      );
+    });
+
+    it('opens with correct url if address (w3w) is provided', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          app: 'w3w',
+          words: 'test.three.words',
+        },
+        'w3w://show?threewords=test.three.words',
+      );
+    });
+  });
 });
