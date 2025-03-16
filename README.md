@@ -282,13 +282,15 @@ showLocation({
 });
 ```
 
-When using the whatThreeWords app, only the 3 words should be used in the `address` field instead of the `latitude` and `longitude` properties.
+When using the whatThreeWords app, the 3 words should be passed into the `words` field along with the `latitude` and `longitude` properties.
 
 ```js
 import {showLocation} from 'react-native-map-link';
 
 showLocation({
-  address: 'daring.lion.race', // Required if using w3w provider
+  latitude: 38.8976763,
+  longitude: -77.0387185,
+  words: 'rope.noses.canny', // Required if using w3w provider
   app: 'w3w',  // optionally specify specific app to use
 });
 ```
