@@ -24,7 +24,8 @@ export type MapId =
   | 'dgis'
   | 'liftago'
   | 'petalmaps'
-  | 'sygic';
+  | 'sygic'
+  | 'here';
 
 export type DirectionMode = 'car' | 'walk' | 'public-transport' | 'bike';
 
