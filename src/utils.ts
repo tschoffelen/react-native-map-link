@@ -557,6 +557,17 @@ export const generateMapUrl = ({
       }
       url += sygicDirectionsMode ? `${sygicDirectionsMode}` : '';
       break;
+    case 'here':
+      // the prefix "here-route://" is defined in the constants.ts file but Here recommends using the https-address for deep links
+      // so here-route:// is used only to detect if the app is installed and the https url is used for linking
+
+      if (address) {
+          url = `https://share.here.com/r/${(sourceLat && sourceLng) ? `${sourceLat},${sourceLng}/` : ''}${lat},${lng},${address}?m=d`;
+      }
+      else {
+          url = `https://share.here.com/r/${(sourceLat && sourceLng) ? `${sourceLat},${sourceLng}/` : ''}${lat},${lng}?m=d`;
+        }
+      break;
   }
 
   return url;
