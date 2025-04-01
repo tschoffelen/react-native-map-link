@@ -34,7 +34,7 @@ export const generatePrefixes = ({
     liftago: 'lftgpas://',
     petalmaps: 'petalmaps://',
     sygic: 'com.sygic.aura://',
-    here: "here-route://"
+    here: 'here-route://',
   };
 };
 

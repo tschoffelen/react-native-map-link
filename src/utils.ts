@@ -562,11 +562,10 @@ export const generateMapUrl = ({
       // so here-route:// is used only to detect if the app is installed and the https url is used for linking
 
       if (address) {
-          url = `https://share.here.com/r/${(sourceLat && sourceLng) ? `${sourceLat},${sourceLng}/` : ''}${lat},${lng},${address}?m=d`;
+        url = `https://share.here.com/r/${sourceLat && sourceLng ? `${sourceLat},${sourceLng}/` : ''}${lat},${lng},${address}?m=d`;
+      } else {
+        url = `https://share.here.com/r/${sourceLat && sourceLng ? `${sourceLat},${sourceLng}/` : ''}${lat},${lng}?m=d`;
       }
-      else {
-          url = `https://share.here.com/r/${(sourceLat && sourceLng) ? `${sourceLat},${sourceLng}/` : ''}${lat},${lng}?m=d`;
-        }
       break;
   }
 
