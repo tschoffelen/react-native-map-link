@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import {Platform, type ImageRequireSource} from 'react-native';
 import type {MapId} from './type';
 
 export const isIOS: boolean = Platform.OS === 'ios';
@@ -76,7 +76,7 @@ export const generateTitles = (
   };
 };
 
-export const icons: Record<string, number> = {
+export const icons: Record<string, ImageRequireSource> = {
   'apple-maps': require('./images/apple-maps.png'),
   'google-maps': require('./images/google-maps.png'),
   citymapper: require('./images/citymapper.png'),

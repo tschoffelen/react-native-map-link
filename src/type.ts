@@ -1,4 +1,4 @@
-import type {ImageSourcePropType} from 'react-native';
+import type {ImageRequireSource} from 'react-native';
 
 /** id for map application. this is the id that is passed to the `app` option */
 export type MapId =
@@ -40,7 +40,7 @@ export interface SharedOptions {
 export type GetAppsResponse = {
   id: MapId;
   name: string;
-  icon: ImageSourcePropType;
+  icon: ImageRequireSource;
   /** function to link user to map app */
   open: () => Promise<string | null | undefined>;
 };
