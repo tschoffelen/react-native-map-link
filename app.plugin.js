@@ -38,18 +38,36 @@ const intents = ['geo', 'waze'].map((app) => {
  * @type {import('@expo/config-plugins').ConfigPlugin}
  */
 module.exports = function withReactNativeMapLink(config) {
-  // eslint-disable-next-line no-shadow
   config = withAndroidManifest(config, async (config) => {
     let intent = config.modResults.manifest.queries[0].intent ?? [];
-    // @ts-expect-error unnecessary type gymnastics
-    config.modResults.manifest.queries[0].intent = intent.concat(intents);
+    intents.forEach((newIntent) => {
+      const newScheme = newIntent.data.$['android:scheme'];
+      const existing = intent.some((intentItem) => {
+        const existingScheme =
+          intentItem.data?.[0]?.$?.['android:scheme'] ||
+          intentItem.data?.$?.['android:scheme'];
+        return existingScheme === newScheme;
+      });
+      if (!existing) {
+        intent.push(newIntent);
+      }
+    });
+
+    config.modResults.manifest.queries[0].intent = intent;
     return config;
   });
 
-  // eslint-disable-next-line no-shadow
-  return withInfoPlist(config, (config) => {
-    config.modResults.LSApplicationQueriesSchemes =
-      config.modResults.LSApplicationQueriesSchemes?.concat(schemes) ?? schemes;
+  config = withInfoPlist(config, (config) => {
+    const existing = config.modResults.LSApplicationQueriesSchemes ?? [];
+    schemes.forEach((scheme) => {
+      if (!existing.includes(scheme)) {
+        existing.push(scheme);
+      }
+    });
+
+    config.modResults.LSApplicationQueriesSchemes = existing;
     return config;
   });
+
+  return config;
 };
