@@ -35,6 +35,7 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 - Liftago - `liftago`
 - Petal Maps - `petalmaps` (Android only)
 - Sygic - `sygic`
+- TomTom GO - `tomtomgo` (IOS only)
 
 </details>
 

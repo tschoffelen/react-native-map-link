@@ -634,4 +634,28 @@ describe('showLocation', () => {
       );
     });
   });
+  describe('tomtomgo', () => {
+    it('opens with correct url if source is not provided', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          app: 'tomtomgo',
+        },
+        'tomtomgo://x-callback-url/navigate?destination=123,234',
+      );
+    });
+    it('opens with correct url if source is provided', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          sourceLatitude,
+          sourceLongitude,
+          app: 'tomtomgo',
+        },
+        'tomtomgo://x-callback-url/navigate?destination=123,234',
+      );
+    });
+  });
 });

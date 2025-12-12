@@ -25,7 +25,8 @@ export type MapId =
   | 'liftago'
   | 'petalmaps'
   | 'sygic'
-  | 'here';
+  | 'here'
+  | 'tomtomgo';
 
 export type DirectionMode = 'car' | 'walk' | 'public-transport' | 'bike';
 
