@@ -9,6 +9,7 @@ const schemes = [
   'transit',
   'truckmap',
   'waze',
+  'tomtomgo',
   'yandexnavi',
   'moovit',
   'yandextaxi',
