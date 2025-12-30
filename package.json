@@ -65,7 +65,7 @@
     "react": "^18.2.0",
     "react-native": "^0.73.4",
     "react-native-typescript-transformer": "^1.2.13",
-    "semantic-release": "^23.0.2",
+    "semantic-release": "^25.0.2",
     "ts-jest": "^29.1.2",
     "typescript": "^5.3.3"
   },
