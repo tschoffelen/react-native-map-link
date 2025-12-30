@@ -567,6 +567,15 @@ export const generateMapUrl = ({
         url = `https://share.here.com/r/${sourceLat && sourceLng ? `${sourceLat},${sourceLng}/` : ''}${lat},${lng}?m=d`;
       }
       break;
+    case 'tomtomgo':
+      if (address) {
+        throw new MapsException(
+          'tomtomgo does not support passing the address or has not been implemented yet.',
+        );
+      } else {
+        url = `${prefixes.tomtomgo}x-callback-url/navigate?destination=${latlng}`;
+      }
+      break;
   }
 
   return url;
