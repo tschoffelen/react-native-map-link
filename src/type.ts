@@ -26,7 +26,8 @@ export type MapId =
   | 'petalmaps'
   | 'sygic'
   | 'here'
-  | 'tomtomgo';
+  | 'tomtomgo'
+  | 'dashtagmaps';
 
 export type DirectionMode = 'car' | 'walk' | 'public-transport' | 'bike';
 

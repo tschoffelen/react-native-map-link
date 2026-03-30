@@ -36,6 +36,7 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 - Petal Maps - `petalmaps` (Android only)
 - Sygic - `sygic`
 - TomTom GO - `tomtomgo` (IOS only)
+- DashTag Maps - `dashtagmaps`
 
 </details>
 
@@ -86,6 +87,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>dgis</string>
     <string>lftgpas</string>
     <string>sygic</string>
+    <string>dashtagmaps</string>
 </array>
 ```
 

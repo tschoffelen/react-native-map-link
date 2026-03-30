@@ -576,6 +576,20 @@ export const generateMapUrl = ({
         url = `${prefixes.tomtomgo}x-callback-url/navigate?destination=${latlng}`;
       }
       break;
+    case 'dashtagmaps':
+      if (address) {
+        throw new MapsException(
+          'dashtagmaps does not support passing the address or has not been implemented yet.',
+        );
+      } else {
+        const waypointName = title ? encodedTitle : 'Destination';
+        if (useSourceDestiny) {
+          url = `${prefixes.dashtagmaps}navigate?waypoints=${sourceLat},${sourceLng},Start|${lat},${lng},${waypointName}`;
+        } else {
+          url = `${prefixes.dashtagmaps}navigate?lat=${lat}&lon=${lng}&title=${waypointName}`;
+        }
+      }
+      break;
   }
 
   return url;
