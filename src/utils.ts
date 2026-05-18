@@ -576,6 +576,23 @@ export const generateMapUrl = ({
         url = `${prefixes.tomtomgo}x-callback-url/navigate?destination=${latlng}`;
       }
       break;
+    case 'truckerPath':
+      if (address) {
+        throw new MapsException(
+          'truckerPath does not support passing the address, only coordinates are supported.',
+        );
+      } else {
+        // Use official TruckerPath URL scheme from https://helpcenter.truckerpath.com/hc/en-us/articles/38761044344205
+        const startParam = isIOS ? 'saddr' : 's_addr';
+        const destParam = isIOS ? 'daddr' : 'd_addr';
+
+        url = `truckerpath://cal_route?${destParam}=${lat},${lng}`;
+
+        if (useSourceDestiny) {
+          url += `&${startParam}=${sourceLat},${sourceLng}`;
+        }
+      }
+      break;
   }
 
   return url;
