@@ -1,7 +1,7 @@
-import {Linking, ActionSheetIOS, Alert} from 'react-native';
+import { Linking, ActionSheetIOS, Alert } from 'react-native';
 
-import {appKeys, isIOS} from './constants';
-import type {MapId} from './type';
+import { appKeys, isIOS } from './constants';
+import type { MapId } from './type';
 
 export const getAvailableApps = async (
   prefixes: Record<string, string>,
@@ -218,8 +218,8 @@ export const checkOptions = ({
   if (app && !(app in prefixes)) {
     throw new MapsException(
       'Option `app` should be undefined, null, or one of the following: "' +
-        Object.keys(prefixes).join('", "') +
-        '".',
+      Object.keys(prefixes).join('", "') +
+      '".',
     );
   }
   if (appsWhiteList && appsWhiteList.length) {
@@ -574,6 +574,23 @@ export const generateMapUrl = ({
         );
       } else {
         url = `${prefixes.tomtomgo}x-callback-url/navigate?destination=${latlng}`;
+      }
+      break;
+    case 'truckerPath':
+      if (address && !lat && !lng) {
+        throw new MapsException(
+          'truckerPath does not support passing the address, only coordinates are supported.',
+        );
+      } else {
+        // Use official TruckerPath URL scheme from https://helpcenter.truckerpath.com/hc/en-us/articles/38761044344205
+        const startParam = isIOS ? 'saddr' : 's_addr';
+        const destParam = isIOS ? 'daddr' : 'd_addr';
+
+        url = `truckerpath://cal_route?${destParam}=${lat},${lng}`;
+
+        if (useSourceDestiny) {
+          url += `&${startParam}=${sourceLat},${sourceLng}`;
+        }
       }
       break;
   }
