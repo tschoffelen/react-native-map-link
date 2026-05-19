@@ -27,6 +27,7 @@ export type MapId =
   | 'sygic'
   | 'here'
   | 'tomtomgo'
+  | 'dashtagmaps'
   | 'truckerPath';
 
 export type DirectionMode = 'car' | 'walk' | 'public-transport' | 'bike';
