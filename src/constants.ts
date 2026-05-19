@@ -37,6 +37,7 @@ export const generatePrefixes = ({
     here: 'here-route://',
     tomtomgo: 'tomtomgo://',
     dashtagmaps: 'dashtagmaps://',
+    truckerPath: 'truckerpath://',
   };
 };
 
@@ -76,6 +77,7 @@ export const generateTitles = (
     here: 'Here We Go',
     tomtomgo: 'TomTom GO',
     dashtagmaps: 'DashTag Maps',
+    truckerPath: 'Trucker Path',
     ...(titles || {}),
   };
 };
@@ -107,6 +109,7 @@ export const icons: Record<string, ImageRequireSource> = {
   here: require('./images/here.png'),
   tomtomgo: require('./images/tomtomgo.png'),
   dashtagmaps: require('./images/dashtagmaps.png'),
+  truckerPath: require('./images/truckerpath.png'),
 };
 
 export const appKeys: string[] = Object.keys(icons);

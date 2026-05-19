@@ -7,19 +7,28 @@ Alternatively, it is possible to use a styled popup that displays icons in the a
 To use the library in that way, you can import the `Popup` component:
 
 ```js
-import { Popup } from 'react-native-map-link';
+import {Popup} from 'react-native-map-link';
 
 <Popup
-    isVisible={this.state.isVisible}
-    onCancelPressed={() => this.setState({ isVisible: false })}
-    onAppPressed={() => this.setState({ isVisible: false })}
-    onBackButtonPressed={() => this.setState({ isVisible: false })}
-    modalProps={{ // you can put all modal props inside.
-        animationType: 'slide' 
-    }}
-    options={{ /* See `showLocation` method above, this accepts the same options. */ }}
-    style={{ /* Optional: you can override default style by passing your values. */ }}
-/>
+  isVisible={this.state.isVisible}
+  onCancelPressed={() => this.setState({isVisible: false})}
+  onAppPressed={() => this.setState({isVisible: false})}
+  onBackButtonPressed={() => this.setState({isVisible: false})}
+  modalProps={{
+    // you can put all modal props inside.
+    animationType: 'slide',
+  }}
+  options={
+    {
+      /* See `showLocation` method above, this accepts the same options. */
+    }
+  }
+  style={
+    {
+      /* Optional: you can override default style by passing your values. */
+    }
+  }
+/>;
 ```
 
 The Popup component uses <a href="https://reactnative.dev/docs/modal">react native modal</a>. So you can pass all react native modal properties inside "modalProps" to modify styling and animations.

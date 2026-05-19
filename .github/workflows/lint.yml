@@ -6,17 +6,21 @@ jobs:
   eslint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use Node 22
-        uses: actions/setup-node@v4
+      - name: Check out repository code
+        uses: actions/checkout@v6
         with:
-          node-version: 22
-          cache: yarn
+          persist-credentials: false
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Enable corepack
+        run: corepack enable
 
       - name: Install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
 
       - name: Run linter
         run: yarn lint

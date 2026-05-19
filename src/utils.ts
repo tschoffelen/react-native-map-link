@@ -577,7 +577,7 @@ export const generateMapUrl = ({
       }
       break;
     case 'dashtagmaps':
-      if (address) {
+      if (address && !lat && !lng) {
         throw new MapsException(
           'dashtagmaps does not support passing the address or has not been implemented yet.',
         );
@@ -587,6 +587,20 @@ export const generateMapUrl = ({
           url = `${prefixes.dashtagmaps}navigate?waypoints=${sourceLat},${sourceLng},Start|${lat},${lng},${waypointName}`;
         } else {
           url = `${prefixes.dashtagmaps}navigate?lat=${lat}&lon=${lng}&title=${waypointName}`;
+    case 'truckerPath':
+      if (address && !lat && !lng) {
+        throw new MapsException(
+          'truckerPath does not support passing the address, only coordinates are supported.',
+        );
+      } else {
+        // Use official TruckerPath URL scheme from https://helpcenter.truckerpath.com/hc/en-us/articles/38761044344205
+        const startParam = isIOS ? 'saddr' : 's_addr';
+        const destParam = isIOS ? 'daddr' : 'd_addr';
+
+        url = `truckerpath://cal_route?${destParam}=${lat},${lng}`;
+
+        if (useSourceDestiny) {
+          url += `&${startParam}=${sourceLat},${sourceLng}`;
         }
       }
       break;
