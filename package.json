@@ -9,7 +9,7 @@
     "url": "git+https://github.com/tschoffelen/react-native-map-link.git"
   },
   "scripts": {
-    "lint": "eslint src --max-warnings=0 && eslint tests --max-warnings=0",
+    "lint": "eslint src --fix --max-warnings=0 && eslint tests --fix --max-warnings=0",
     "build": "npm run copy-images && tsc --project tsconfig.build.json",
     "test": "jest",
     "release": "semantic-release",
