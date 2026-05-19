@@ -20,7 +20,7 @@ jobs:
         run: corepack enable
 
       - name: Install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
 
       - name: Run linter
         run: yarn lint
