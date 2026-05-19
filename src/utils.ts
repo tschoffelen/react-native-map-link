@@ -587,6 +587,9 @@ export const generateMapUrl = ({
           url = `${prefixes.dashtagmaps}navigate?waypoints=${sourceLat},${sourceLng},Start|${lat},${lng},${waypointName}`;
         } else {
           url = `${prefixes.dashtagmaps}navigate?lat=${lat}&lon=${lng}&title=${waypointName}`;
+        }
+      }
+      break;
     case 'truckerPath':
       if (address && !lat && !lng) {
         throw new MapsException(
