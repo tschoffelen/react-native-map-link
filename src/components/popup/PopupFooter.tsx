@@ -27,7 +27,8 @@ const PopupFooter = ({
   return (
     <TouchableOpacity
       style={styleCancelButtonContainer}
-      onPress={onCancelPressed}>
+      onPress={onCancelPressed}
+    >
       <Text style={styleCancelButtonText}>
         {options.cancelText ? options.cancelText : 'Cancel'}
       </Text>

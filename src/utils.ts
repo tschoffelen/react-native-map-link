@@ -1,7 +1,7 @@
-import { Linking, ActionSheetIOS, Alert } from 'react-native';
+import {Linking, ActionSheetIOS, Alert} from 'react-native';
 
-import { appKeys, isIOS } from './constants';
-import type { MapId } from './type';
+import {appKeys, isIOS} from './constants';
+import type {MapId} from './type';
 
 export const getAvailableApps = async (
   prefixes: Record<string, string>,
@@ -218,8 +218,8 @@ export const checkOptions = ({
   if (app && !(app in prefixes)) {
     throw new MapsException(
       'Option `app` should be undefined, null, or one of the following: "' +
-      Object.keys(prefixes).join('", "') +
-      '".',
+        Object.keys(prefixes).join('", "') +
+        '".',
     );
   }
   if (appsWhiteList && appsWhiteList.length) {
