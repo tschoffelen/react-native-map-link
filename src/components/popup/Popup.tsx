@@ -101,8 +101,7 @@ export const Popup: React.FC<PopupProps> = ({
       }}
       transparent={true}
       visible={isVisible}
-      {...modalProps}
-    >
+      {...modalProps}>
       <View style={[styles.container, style.container]}>
         <View style={[styles.modalView, style.modalView]}>
           <PopupHeader

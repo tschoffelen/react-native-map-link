@@ -27,8 +27,7 @@ const PopupItem = ({
     <TouchableOpacity
       key={item}
       style={[styles.itemContainer, styleItemContainer]}
-      onPress={() => onAppPressed(item)}
-    >
+      onPress={() => onAppPressed(item)}>
       <View>
         <Image style={[styles.image, styleImage]} source={icons[item]} />
       </View>
