@@ -15,15 +15,18 @@ jobs:
       id-token: write
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           persist-credentials: false
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           cache: yarn
+
+      - name: Enable corepack
+        run: corepack enable && corepack install
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
