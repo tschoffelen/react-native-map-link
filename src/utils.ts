@@ -576,6 +576,18 @@ export const generateMapUrl = ({
         url = `${prefixes.tomtomgo}x-callback-url/navigate?destination=${latlng}`;
       }
       break;
+    case 'outmap':
+      if (address) {
+        throw new MapsException(
+          'outmap does not support passing the address, only coordinates are supported.',
+        );
+      } else {
+        url = `${prefixes.outmap}waypoint/@${latlng}`;
+        if (title) {
+          url += `?label=${encodedTitle}`;
+        }
+      }
+      break;
     case 'dashtagmaps':
       if (address && !lat && !lng) {
         throw new MapsException(

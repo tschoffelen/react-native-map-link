@@ -36,6 +36,7 @@ export const generatePrefixes = ({
     sygic: 'com.sygic.aura://',
     here: 'here-route://',
     tomtomgo: 'tomtomgo://',
+    outmap: 'outmap://',
     dashtagmaps: 'dashtagmaps://',
     truckerPath: 'truckerpath://',
   };
@@ -76,6 +77,7 @@ export const generateTitles = (
     sygic: 'Sygic',
     here: 'Here We Go',
     tomtomgo: 'TomTom GO',
+    outmap: 'Outmap',
     dashtagmaps: 'DashTag Maps',
     truckerPath: 'Trucker Path',
     ...(titles || {}),
@@ -108,6 +110,7 @@ export const icons: Record<string, ImageRequireSource> = {
   sygic: require('./images/sygic.png'),
   here: require('./images/here.png'),
   tomtomgo: require('./images/tomtomgo.png'),
+  outmap: require('./images/outmap.png'),
   dashtagmaps: require('./images/dashtagmaps.png'),
   truckerPath: require('./images/truckerpath.png'),
 };

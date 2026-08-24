@@ -658,4 +658,39 @@ describe('showLocation', () => {
       );
     });
   });
+  describe('outmap', () => {
+    it('opens with the correct url', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          app: 'outmap',
+        },
+        'outmap://waypoint/@123,234',
+      );
+    });
+
+    it('includes an encoded title as the location label', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          title: 'Trail head',
+          app: 'outmap',
+        },
+        'outmap://waypoint/@123,234?label=Trail%20head',
+      );
+    });
+
+    it('rejects address-only locations', async () => {
+      await expect(
+        showLocation({
+          address: '123 Main Street',
+          app: 'outmap',
+        }),
+      ).rejects.toThrow(
+        'outmap does not support passing the address, only coordinates are supported.',
+      );
+    });
+  });
 });
