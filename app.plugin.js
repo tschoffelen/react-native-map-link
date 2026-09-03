@@ -27,6 +27,7 @@ const schemes = [
   'sygic',
   'here-route',
   'dashtagmaps',
+  'quest',
 ];
 
 const intents = ['geo', 'waze'].map((app) => {

@@ -607,6 +607,11 @@ export const generateMapUrl = ({
         }
       }
       break;
+    case 'mapquest':
+      // MapQuest only exposes a search deep link (quest://search?q=TERM); there is no directions link.
+      // Prefer a human-readable search term and fall back to coordinates.
+      url = `${prefixes.mapquest}search?q=${address ? address : title ? encodedTitle : latlng}`;
+      break;
   }
 
   return url;
