@@ -658,4 +658,36 @@ describe('showLocation', () => {
       );
     });
   });
+  describe('mapquest', () => {
+    it('searches by title when a title is provided', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          title: 'Some Place',
+          app: 'mapquest',
+        },
+        'quest://search?q=Some%20Place',
+      );
+    });
+    it('searches by coordinates when no title is provided', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          app: 'mapquest',
+        },
+        'quest://search?q=123,234',
+      );
+    });
+    it('searches by address when an address is provided', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          address: '1 Main St',
+          app: 'mapquest',
+        },
+        'quest://search?q=1%20Main%20St',
+      );
+    });
+  });
 });

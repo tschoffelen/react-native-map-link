@@ -38,6 +38,7 @@ export const generatePrefixes = ({
     tomtomgo: 'tomtomgo://',
     dashtagmaps: 'dashtagmaps://',
     truckerPath: 'truckerpath://',
+    mapquest: 'quest://',
   };
 };
 
@@ -78,6 +79,7 @@ export const generateTitles = (
     tomtomgo: 'TomTom GO',
     dashtagmaps: 'DashTag Maps',
     truckerPath: 'Trucker Path',
+    mapquest: 'MapQuest',
     ...(titles || {}),
   };
 };
@@ -110,6 +112,7 @@ export const icons: Record<string, ImageRequireSource> = {
   tomtomgo: require('./images/tomtomgo.png'),
   dashtagmaps: require('./images/dashtagmaps.png'),
   truckerPath: require('./images/truckerpath.png'),
+  mapquest: require('./images/mapquest.png'),
 };
 
 export const appKeys: string[] = Object.keys(icons);

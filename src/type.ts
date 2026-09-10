@@ -28,7 +28,8 @@ export type MapId =
   | 'here'
   | 'tomtomgo'
   | 'dashtagmaps'
-  | 'truckerPath';
+  | 'truckerPath'
+  | 'mapquest';
 
 export type DirectionMode = 'car' | 'walk' | 'public-transport' | 'bike';
 
