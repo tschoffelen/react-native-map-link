@@ -194,7 +194,12 @@ export const checkOptions = ({
   prefixes: Record<string, string>;
   appsWhiteList: string[] | null | undefined;
 }): void => {
-  if (!(latitude && longitude) && !address) {
+  const hasCoordinates =
+    app === 'outmap'
+      ? latitude != null && longitude != null
+      : Boolean(latitude && longitude);
+
+  if (!hasCoordinates && !address) {
     throw new MapsException(
       '`latitude` & `longitude` or `address` is required. Both cannot be undefined.',
     );
@@ -577,7 +582,7 @@ export const generateMapUrl = ({
       }
       break;
     case 'outmap':
-      if (address) {
+      if (lat == null || lng == null) {
         throw new MapsException(
           'outmap does not support passing the address, only coordinates are supported.',
         );
