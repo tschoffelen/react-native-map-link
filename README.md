@@ -39,6 +39,7 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 - Outmap - `outmap` (iOS only)
 - DashTag Maps - `dashtagmaps`
 - Trucker Path - `truckerPath`
+- MapQuest - `mapquest`
 
 </details>
 
@@ -93,6 +94,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>outmap</string>
     <string>dashtagmaps</string>
     <string>truckerpath</string>
+    <string>quest</string>
 </array>
 ```
 
@@ -216,6 +218,10 @@ You can do so by coping the `<queries>` statement below, and pasting it in the t
   <intent>
     <action android:name="android.intent.action.VIEW" />
     <data android:scheme="truckerpath" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="quest" />
   </intent>
 </queries>
 ```
