@@ -27,6 +27,7 @@ export type MapId =
   | 'sygic'
   | 'here'
   | 'tomtomgo'
+  | 'outmap'
   | 'dashtagmaps'
   | 'truckerPath'
   | 'mapquest';

@@ -658,6 +658,114 @@ describe('showLocation', () => {
       );
     });
   });
+  describe('outmap', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('opens with the correct url', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          app: 'outmap',
+        },
+        'outmap://waypoint/@123,234',
+      );
+    });
+
+    it('includes an encoded title as the location label', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          title: 'Trail head',
+          app: 'outmap',
+        },
+        'outmap://waypoint/@123,234?label=Trail%20head',
+      );
+    });
+
+    it('uses coordinates and preserves the label when an address is also provided', async () => {
+      await showLocation({
+        latitude,
+        longitude,
+        address: '123 Main Street',
+        title: 'Trail head',
+        app: 'outmap',
+      });
+
+      expect(Linking.openURL).toHaveBeenCalledWith(
+        'outmap://waypoint/@123,234?label=Trail%20head',
+      );
+    });
+
+    it.each([
+      [0, longitude, undefined],
+      [latitude, 0, undefined],
+      [0, 0, undefined],
+      [0, longitude, '123 Main Street'],
+      [latitude, 0, '123 Main Street'],
+      [0, 0, '123 Main Street'],
+      ['0', '0', undefined],
+    ])(
+      'opens zero coordinates (%s, %s) with address %s',
+      async (lat, lng, address) => {
+        await showLocation({
+          latitude: lat,
+          longitude: lng,
+          address,
+          app: 'outmap',
+        });
+
+        expect(Linking.openURL).toHaveBeenCalledWith(
+          `outmap://waypoint/@${lat},${lng}`,
+        );
+      },
+    );
+
+    it.each([
+      [latitude, undefined],
+      [undefined, longitude],
+      [0, undefined],
+      [undefined, 0],
+    ])(
+      'rejects an address with incomplete coordinates (%s, %s)',
+      async (lat, lng) => {
+        await expect(
+          showLocation({
+            latitude: lat,
+            longitude: lng,
+            address: '123 Main Street',
+            app: 'outmap',
+          }),
+        ).rejects.toThrow(
+          'outmap does not support passing the address, only coordinates are supported.',
+        );
+
+        expect(Linking.openURL).not.toHaveBeenCalled();
+      },
+    );
+
+    it('rejects missing coordinates', async () => {
+      await expect(showLocation({app: 'outmap'})).rejects.toThrow(
+        '`latitude` & `longitude` or `address` is required. Both cannot be undefined.',
+      );
+
+      expect(Linking.openURL).not.toHaveBeenCalled();
+    });
+
+    it('rejects address-only locations', async () => {
+      await expect(
+        showLocation({
+          address: '123 Main Street',
+          app: 'outmap',
+        }),
+      ).rejects.toThrow(
+        'outmap does not support passing the address, only coordinates are supported.',
+      );
+    });
+  });
   describe('mapquest', () => {
     it('searches by title when a title is provided', () => {
       verifyThatSettingsLeadToUrl(
