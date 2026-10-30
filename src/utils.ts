@@ -1,7 +1,7 @@
-import {Linking, ActionSheetIOS, Alert} from 'react-native';
+import {Linking, ActionSheetIOS, Alert, Platform} from 'react-native';
 
 import {appKeys, isIOS} from './constants';
-import type {MapId} from './type';
+import type {MapId, ShowLocationProps} from './type';
 
 export const getAvailableApps = async (
   prefixes: Record<string, string>,
@@ -29,7 +29,7 @@ export const isAppInstalled = (
   prefixes: Record<string, string>,
 ): Promise<boolean> => {
   return new Promise<boolean>((resolve) => {
-    if (!(app in prefixes)) {
+    if (!(app in prefixes) || (app === 'neshan' && Platform.OS !== 'android')) {
       return resolve(false);
     }
 
@@ -195,7 +195,7 @@ export const checkOptions = ({
   appsWhiteList: string[] | null | undefined;
 }): void => {
   const hasCoordinates =
-    app === 'outmap'
+    app === 'outmap' || app === 'neshan'
       ? latitude != null && longitude != null
       : Boolean(latitude && longitude);
 
@@ -232,6 +232,27 @@ export const checkOptions = ({
   }
   if (appTitles && typeof appTitles !== 'object') {
     throw new MapsException('Option `appTitles` should be of type `object`.');
+  }
+};
+
+export const checkNeshanOptions = ({
+  address,
+  sourceLatitude,
+  sourceLongitude,
+  directionsMode,
+}: ShowLocationProps): void => {
+  if (Platform.OS !== 'android') {
+    throw new MapsException('neshan is only supported on Android.');
+  }
+  if (
+    address ||
+    sourceLatitude != null ||
+    sourceLongitude != null ||
+    directionsMode
+  ) {
+    throw new MapsException(
+      'neshan only supports displaying coordinates, not addresses or directions.',
+    );
   }
 };
 
@@ -275,6 +296,21 @@ export const generateMapUrl = ({
   let url = '';
 
   switch (app) {
+    case 'neshan':
+      if (
+        lat == null ||
+        lng == null ||
+        !Number.isFinite(lat) ||
+        !Number.isFinite(lng) ||
+        Math.abs(lat) > 90 ||
+        Math.abs(lng) > 180
+      ) {
+        throw new MapsException(
+          'neshan requires valid latitude and longitude coordinates.',
+        );
+      }
+      url = `nshn:${latlng}`;
+      break;
     case 'apple-maps':
       const appleDirectionMode = getDirectionsModeAppleMaps(directionsMode);
       url = prefixes['apple-maps'];

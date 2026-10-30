@@ -6,6 +6,9 @@ These instructions are provided to help you configure your Expo app to work with
 
 Add the plugin to your app's config file (`app.json`, `app.config.js`, or `app.config.ts`) to have it run during prebuild.
 
+For Android Neshan support, the plugin adds a package-visibility query for
+`org.rajman.neshan.traffic.tehran.navigator`. No iOS Neshan scheme is added.
+
 ```json
 {
   "plugins": ["react-native-map-link"]

@@ -5,6 +5,7 @@ import {GetAppsProps, GetAppsResponse, MapId, ShowLocationProps} from './type';
 import {
   askAppChoice,
   checkNotSupportedApps,
+  checkNeshanOptions,
   checkOptions,
   generateMapUrl,
   getAvailableApps,
@@ -118,6 +119,15 @@ export const showLocation = async ({
       appsBlackList,
       prefixes,
       appTitles: generateTitles(appTitles),
+    });
+  }
+
+  if (app === 'neshan') {
+    checkNeshanOptions({
+      address,
+      sourceLatitude,
+      sourceLongitude,
+      directionsMode,
     });
   }
 

@@ -40,6 +40,7 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 - DashTag Maps - `dashtagmaps`
 - Trucker Path - `truckerPath`
 - MapQuest - `mapquest`
+- Neshan - `neshan` (Android only; coordinate display)
 
 </details>
 
@@ -111,6 +112,7 @@ You can do so by coping the `<queries>` statement below, and pasting it in the t
 
 ```xml
 <queries>
+  <package android:name="org.rajman.neshan.traffic.tehran.navigator" />
   <intent>
     <action android:name="android.intent.action.VIEW" />
     <data android:scheme="http"/>
@@ -296,7 +298,7 @@ showLocation({
 
 Notes:
 
-- The `sourceLatitude` / `sourceLongitude` options only work if you specify both. Currently supports all apps except Waze.
+- The `sourceLatitude` / `sourceLongitude` options only work if you specify both. Currently supports all apps except Waze and Neshan.
 - `directionsMode` works on google-maps, apple-maps and sygic (on apple-maps, `bike` mode will not work, while on sygic, only `walk` and `car` will work). Without setting it, the app will decide based on its own settings.
 - If you set `directionsMode` but do not set `sourceLatitude` and `sourceLongitude`, google-maps and apple-maps will still enter directions mode, and use the current location as starting point.
 - If you want to query an address instead of passing the `latitude` and `longitude` fields, you can do this by leaving those fields off and provide a full address to be queried with the `address` field. Just be aware that not all applications support this.
@@ -348,6 +350,39 @@ const Demo = () => {
   );
 };
 ```
+
+## Neshan (Android)
+
+Neshan supports coordinate display through `showLocation`, the `open()` callbacks
+returned by `getApps`, and the app picker. Availability is checked with `nshn://`;
+coordinates open as `nshn:<latitude>,<longitude>`. HTTPS links are not used to detect
+or open Neshan.
+
+```js
+showLocation({
+  latitude: 35.69972,
+  longitude: 51.33722,
+  app: 'neshan',
+});
+```
+
+Only Android coordinate display has been verified, using Neshan 14.14.0.5 and
+15.0.0.1. Address search, source coordinates, and `directionsMode` are not
+supported and throw an error when Neshan is selected. `title` is ignored; no location-label
+syntax is added. Neshan is excluded from availability results on other
+platforms, and explicitly opening it there throws an error. Other Neshan versions
+have not been verified.
+
+Declare the Neshan package in Android's `<queries>` element as shown above, or
+use this package's Expo config plugin. Rebuild the native app after changing
+manifest/config-plugin declarations. A rejected `Linking.openURL` promise is
+propagated to the caller, including when Neshan is unavailable; no browser
+fallback is attempted.
+
+The Neshan icon is resized from the publisher's icon on its
+[official Google Play listing](https://play.google.com/store/apps/details?id=org.rajman.neshan.traffic.tehran.navigator),
+linked by [neshan.org](https://neshan.org/). The icon and brand belong to their
+respective owner and are used to identify the supported application.
 
 ## More information
 
