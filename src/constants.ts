@@ -40,6 +40,7 @@ export const generatePrefixes = ({
     dashtagmaps: 'dashtagmaps://',
     truckerPath: 'truckerpath://',
     mapquest: 'quest://',
+    neshan: 'nshn://',
   };
 };
 
@@ -82,6 +83,7 @@ export const generateTitles = (
     dashtagmaps: 'DashTag Maps',
     truckerPath: 'Trucker Path',
     mapquest: 'MapQuest',
+    neshan: 'Neshan',
     ...(titles || {}),
   };
 };
@@ -116,6 +118,7 @@ export const icons: Record<string, ImageRequireSource> = {
   dashtagmaps: require('./images/dashtagmaps.png'),
   truckerPath: require('./images/truckerpath.png'),
   mapquest: require('./images/mapquest.png'),
+  neshan: require('./images/neshan.png'),
 };
 
 export const appKeys: string[] = Object.keys(icons);
