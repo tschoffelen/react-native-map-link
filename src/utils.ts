@@ -197,7 +197,7 @@ export const checkOptions = ({
   const hasCoordinates =
     app === 'outmap' || app === 'neshan'
       ? latitude != null && longitude != null
-      : Boolean(latitude && longitude);
+      : Boolean((latitude || latitude === 0) && (longitude || longitude === 0));
 
   if (!hasCoordinates && !address) {
     throw new MapsException(
@@ -235,7 +235,24 @@ export const checkOptions = ({
   }
 };
 
+const isValidNeshanCoordinate = (value: unknown, limit: number): boolean => {
+  // Allow surrounding whitespace, but require a complete decimal string.
+  if (
+    typeof value === 'string' &&
+    /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(value.trim())
+  ) {
+    value = Number(value);
+  }
+  return (
+    typeof value === 'number' &&
+    Number.isFinite(value) &&
+    Math.abs(value) <= limit
+  );
+};
+
 export const checkNeshanOptions = ({
+  latitude,
+  longitude,
   address,
   sourceLatitude,
   sourceLongitude,
@@ -252,6 +269,14 @@ export const checkNeshanOptions = ({
   ) {
     throw new MapsException(
       'neshan only supports displaying coordinates, not addresses or directions.',
+    );
+  }
+  if (
+    !isValidNeshanCoordinate(latitude, 90) ||
+    !isValidNeshanCoordinate(longitude, 180)
+  ) {
+    throw new MapsException(
+      'neshan requires valid latitude and longitude coordinates.',
     );
   }
 };

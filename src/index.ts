@@ -124,6 +124,8 @@ export const showLocation = async ({
 
   if (app === 'neshan') {
     checkNeshanOptions({
+      latitude,
+      longitude,
       address,
       sourceLatitude,
       sourceLongitude,

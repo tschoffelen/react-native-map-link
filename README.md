@@ -351,39 +351,6 @@ const Demo = () => {
 };
 ```
 
-## Neshan (Android)
-
-Neshan supports coordinate display through `showLocation`, the `open()` callbacks
-returned by `getApps`, and the app picker. Availability is checked with `nshn://`;
-coordinates open as `nshn:<latitude>,<longitude>`. HTTPS links are not used to detect
-or open Neshan.
-
-```js
-showLocation({
-  latitude: 35.69972,
-  longitude: 51.33722,
-  app: 'neshan',
-});
-```
-
-Only Android coordinate display has been verified, using Neshan 14.14.0.5 and
-15.0.0.1. Address search, source coordinates, and `directionsMode` are not
-supported and throw an error when Neshan is selected. `title` is ignored; no location-label
-syntax is added. Neshan is excluded from availability results on other
-platforms, and explicitly opening it there throws an error. Other Neshan versions
-have not been verified.
-
-Declare the Neshan package in Android's `<queries>` element as shown above, or
-use this package's Expo config plugin. Rebuild the native app after changing
-manifest/config-plugin declarations. A rejected `Linking.openURL` promise is
-propagated to the caller, including when Neshan is unavailable; no browser
-fallback is attempted.
-
-The Neshan icon is resized from the publisher's icon on its
-[official Google Play listing](https://play.google.com/store/apps/details?id=org.rajman.neshan.traffic.tehran.navigator),
-linked by [neshan.org](https://neshan.org/). The icon and brand belong to their
-respective owner and are used to identify the supported application.
-
 ## More information
 
 - [Using this library with Expo](docs/expo.md)
