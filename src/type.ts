@@ -31,7 +31,8 @@ export type MapId =
   | 'dashtagmaps'
   | 'truckerPath'
   | 'mapquest'
-  | 'neshan';
+  | 'neshan'
+  | 'truckroute';
 
 export type DirectionMode = 'car' | 'walk' | 'public-transport' | 'bike';
 

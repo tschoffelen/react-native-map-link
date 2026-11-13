@@ -41,6 +41,7 @@ on their device. The app supports Apple Maps, Google Maps, Citymapper, Uber, and
 - Trucker Path - `truckerPath`
 - MapQuest - `mapquest`
 - Neshan - `neshan` (Android only; coordinate display)
+- Truckroute - `truckroute`
 
 </details>
 
@@ -96,6 +97,7 @@ Just add this in your `Info.plist` depending on which apps you'd like to support
     <string>dashtagmaps</string>
     <string>truckerpath</string>
     <string>quest</string>
+    <string>truckroute</string>
 </array>
 ```
 
@@ -224,6 +226,10 @@ You can do so by coping the `<queries>` statement below, and pasting it in the t
   <intent>
     <action android:name="android.intent.action.VIEW" />
     <data android:scheme="quest" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="truckroute" />
   </intent>
 </queries>
 ```
