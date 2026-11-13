@@ -29,6 +29,7 @@ const schemes = [
   'here-route',
   'dashtagmaps',
   'quest',
+  'truckroute',
 ];
 
 const intents = ['geo', 'waze'].map((app) => {

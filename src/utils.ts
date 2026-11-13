@@ -690,6 +690,17 @@ export const generateMapUrl = ({
       // Prefer a human-readable search term and fall back to coordinates.
       url = `${prefixes.mapquest}search?q=${address ? address : title ? encodedTitle : latlng}`;
       break;
+    case 'truckroute':
+      // Truck navigation; link format: https://www.truckroute.nl/en/developers/
+      // navigate?ll=LAT,LNG or navigate?q=ADDRESS, with optional name= (title) and from= (start).
+      url = `${prefixes.truckroute}navigate?${address ? `q=${address}` : `ll=${latlng}`}`;
+      if (title) {
+        url += `&name=${encodedTitle}`;
+      }
+      if (useSourceDestiny && sourceLatLng) {
+        url += `&from=${sourceLatLng}`;
+      }
+      break;
   }
 
   return url;

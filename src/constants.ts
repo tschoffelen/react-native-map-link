@@ -39,6 +39,7 @@ export const generatePrefixes = ({
     outmap: 'outmap://',
     dashtagmaps: 'dashtagmaps://',
     truckerPath: 'truckerpath://',
+    truckroute: 'truckroute://',
     mapquest: 'quest://',
     neshan: 'nshn://',
   };
@@ -82,6 +83,7 @@ export const generateTitles = (
     outmap: 'Outmap',
     dashtagmaps: 'DashTag Maps',
     truckerPath: 'Trucker Path',
+    truckroute: 'Truckroute',
     mapquest: 'MapQuest',
     neshan: 'Neshan',
     ...(titles || {}),
@@ -117,6 +119,7 @@ export const icons: Record<string, ImageRequireSource> = {
   outmap: require('./images/outmap.png'),
   dashtagmaps: require('./images/dashtagmaps.png'),
   truckerPath: require('./images/truckerpath.png'),
+  truckroute: require('./images/truckroute.png'),
   mapquest: require('./images/mapquest.png'),
   neshan: require('./images/neshan.png'),
 };
