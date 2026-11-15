@@ -798,4 +798,49 @@ describe('showLocation', () => {
       );
     });
   });
+
+  describe('truckroute', () => {
+    it('navigates to coordinates', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          app: 'truckroute',
+        },
+        'truckroute://navigate?ll=123,234',
+      );
+    });
+    it('passes the title as name', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          title: 'Some Place',
+          app: 'truckroute',
+        },
+        'truckroute://navigate?ll=123,234&name=Some%20Place',
+      );
+    });
+    it('navigates to an address', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          address: '1 Main St',
+          app: 'truckroute',
+        },
+        'truckroute://navigate?q=1%20Main%20St',
+      );
+    });
+    it('passes the source as from', () => {
+      verifyThatSettingsLeadToUrl(
+        {
+          latitude,
+          longitude,
+          sourceLatitude,
+          sourceLongitude,
+          app: 'truckroute',
+        },
+        'truckroute://navigate?ll=123,234&from=567,890',
+      );
+    });
+  });
 });
